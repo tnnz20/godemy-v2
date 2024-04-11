@@ -3,7 +3,9 @@
 import React from "react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
+import { motion } from "framer-motion"
 
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 
@@ -20,7 +22,32 @@ export default function RegisterCard() {
         <CardTitle>Register</CardTitle>
         <CardDescription className="text-center">Daftar sekarang untuk menikmati fitur Godemy.</CardDescription>
       </CardHeader>
-      <CardContent className="p-0 px-6 pb-3">{step === "1" ? <RoleForm /> : <FieldForm />}</CardContent>
+      <CardContent className="relative overflow-hidden p-0 px-6 pb-3">
+        <motion.div
+          animate={{
+            translateX: `-${(parseInt(step) - 1) * 100}%`,
+          }}
+          transition={{
+            ease: "easeInOut",
+          }}
+        >
+          <RoleForm step={step} />
+        </motion.div>
+        <motion.div
+          className={cn("absolute left-0 right-0 top-0", { relative: step === "2" })}
+          animate={{
+            translateX: `${100 - (parseInt(step) - 1) * 100}%`,
+          }}
+          style={{
+            translateX: `${100 - (parseInt(step) - 1) * 100}%`,
+          }}
+          transition={{
+            ease: "easeInOut",
+          }}
+        >
+          <FieldForm step={step} />
+        </motion.div>
+      </CardContent>
       <CardFooter className="flex justify-center">
         {step === "1" && (
           <CardDescription>

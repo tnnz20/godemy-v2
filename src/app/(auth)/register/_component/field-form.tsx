@@ -22,7 +22,11 @@ import {
 
 import { Icons } from "@/components/icons"
 
-export default function FieldForm() {
+interface FieldFormProps {
+  step: string
+}
+
+export default function FieldForm({ step }: Readonly<FieldFormProps>) {
   const searchParams = useSearchParams()
 
   const role = searchParams.get("role") ?? "student"

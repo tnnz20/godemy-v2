@@ -2,12 +2,16 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { CardDescription } from "@/components/ui/card"
 
 import { Icons } from "@/components/icons"
 
-export default function RoleForm() {
+interface RoleFormProps {
+  step: string
+}
+export default function RoleForm({ step }: Readonly<RoleFormProps>) {
   const role = ["Siswa", "Guru"]
 
   const pathname = usePathname()
@@ -27,7 +31,7 @@ export default function RoleForm() {
   }
 
   return (
-    <div className="flex w-full flex-col gap-4 pt-2">
+    <div className={cn("flex w-full flex-col gap-4 pt-2", { hidden: step !== "1" })}>
       <CardDescription className="  flex items-center justify-center text-muted-foreground">
         Pilih role untuk akun anda
       </CardDescription>
