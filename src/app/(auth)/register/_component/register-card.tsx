@@ -22,7 +22,7 @@ export default function RegisterCard() {
         <CardTitle>Register</CardTitle>
         <CardDescription className="text-center">Daftar sekarang untuk menikmati fitur Godemy.</CardDescription>
       </CardHeader>
-      <CardContent className="relative overflow-hidden p-0 px-6 pb-3">
+      <CardContent className="relative overflow-hidden p-0 px-6">
         <motion.div
           animate={{
             translateX: `-${(parseInt(step) - 1) * 100}%`,
@@ -45,7 +45,7 @@ export default function RegisterCard() {
             ease: "easeInOut",
           }}
         >
-          <FieldForm step={step} />
+          <FieldForm />
         </motion.div>
       </CardContent>
       <CardFooter className="flex justify-center">

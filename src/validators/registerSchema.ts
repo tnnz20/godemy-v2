@@ -15,17 +15,5 @@ export const RegisterSchema = z.object({
   name: z
     .string()
     .min(4, { message: "Mohon masukan nama lebih dari 4 karakter." }),
-  gender: z.enum(["Laki-Laki", "Perempuan"], {
-    errorMap: (issue, ctx) => {
-      switch (issue.code) {
-        case "invalid_enum_value":
-          return { message: "Mohon pilih salah satu jenis kelamin." }
-        case "invalid_type":
-          return { message: "Jenis kelamin harus string." }
-        default:
-          return { message: ctx.defaultError }
-      }
-    },
-  }),
   role: z.enum(["teacher", "student"]),
 })

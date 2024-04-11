@@ -10,23 +10,10 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 
 import { Icons } from "@/components/icons"
 
-interface FieldFormProps {
-  step: string
-}
-
-export default function FieldForm({ step }: Readonly<FieldFormProps>) {
+export default function FieldForm() {
   const searchParams = useSearchParams()
 
   const role = searchParams.get("role") ?? "student"
@@ -36,7 +23,6 @@ export default function FieldForm({ step }: Readonly<FieldFormProps>) {
       email: undefined,
       password: undefined,
       name: undefined,
-      gender: undefined,
       role: undefined,
     },
     message: "",
@@ -45,13 +31,13 @@ export default function FieldForm({ step }: Readonly<FieldFormProps>) {
   const [state, dispatch] = useFormState(signUp, initialState)
 
   return (
-    <form className="p-2" action={dispatch}>
+    <form className="px-2" action={dispatch}>
       <div className="grid w-full items-center gap-4">
         <div className="flex flex-col space-y-1.5">
           <Label htmlFor="email" className={cn({ "text-destructive": state?.errors?.email })}>
             Email
           </Label>
-          <Input id="email" name="email" placeholder="godemy@example.com" />
+          <Input id="email" name="email" placeholder="godemy@example.com" required />
           {state?.errors?.email ? (
             <div id="customer-error" aria-live="polite" className="mt-2 text-sm text-destructive">
               {state.errors?.email.map((error: string) => <p key={error}>{error}</p>)}
@@ -59,21 +45,10 @@ export default function FieldForm({ step }: Readonly<FieldFormProps>) {
           ) : null}
         </div>
         <div className="flex flex-col space-y-1.5">
-          <Label htmlFor="password" className={cn({ "text-destructive": state?.errors?.password })}>
-            Password
-          </Label>
-          <Input id="password" name="password" placeholder="Password email anda" type="password" />
-          {state?.errors?.password ? (
-            <div id="customer-error" aria-live="polite" className="mt-2 text-sm text-destructive">
-              {state.errors?.password.map((error: string) => <p key={error}>{error}</p>)}
-            </div>
-          ) : null}
-        </div>
-        <div className="flex flex-col space-y-1.5">
           <Label htmlFor="name" className={cn({ "text-destructive": state?.errors?.name })}>
             Nama Lengkap
           </Label>
-          <Input id="name" name="name" placeholder="Nama Lengkap" />
+          <Input id="name" name="name" placeholder="Nama Lengkap" required />
           {state?.errors?.name ? (
             <div id="customer-error" aria-live="polite" className="mt-2 text-sm text-destructive">
               {state.errors.name.map((error: string) => (
@@ -83,24 +58,13 @@ export default function FieldForm({ step }: Readonly<FieldFormProps>) {
           ) : null}
         </div>
         <div className="flex flex-col space-y-1.5">
-          <Label htmlFor="gender" className={cn({ " text-destructive": state?.errors?.gender })}>
-            Jenis Kelamin
+          <Label htmlFor="password" className={cn({ "text-destructive": state?.errors?.password })}>
+            Password
           </Label>
-          <Select name="gender">
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Pilih jenis kelamin" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Jenis Kelamin</SelectLabel>
-                <SelectItem value="Laki-Laki">Laki-Laki</SelectItem>
-                <SelectItem value="Perempuan">Perempuan</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          {state?.errors?.gender ? (
+          <Input id="password" name="password" placeholder="Password email anda" type="password" required />
+          {state?.errors?.password ? (
             <div id="customer-error" aria-live="polite" className="mt-2 text-sm text-destructive">
-              {state.errors.gender?.map((error: string) => <p key={error}>{error}</p>)}
+              {state.errors?.password.map((error: string) => <p key={error}>{error}</p>)}
             </div>
           ) : null}
         </div>

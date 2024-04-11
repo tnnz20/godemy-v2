@@ -24,7 +24,8 @@ export async function signUp(prevState: RegisterState, formData: FormData) {
     }
   }
 
-  const { name, email, password, gender, role } = validateFields.data
+  const { name, email, password, role } = validateFields.data
+  console.log(validateFields.data)
 
   try {
     const response = await fetch(`${BASE_URL}/user/sign-up`, {
@@ -32,7 +33,7 @@ export async function signUp(prevState: RegisterState, formData: FormData) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, email, password, gender, role }),
+      body: JSON.stringify({ name, email, password, role }),
     })
 
     const data = await response.json()
