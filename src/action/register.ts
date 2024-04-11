@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 import { BASE_URL } from "@/constants/constants"
-import { RegisterSchema } from "@/validators/register"
+import { RegisterSchema } from "@/validators/registerSchema"
 
 import { RegisterState } from "@/types/register"
 
