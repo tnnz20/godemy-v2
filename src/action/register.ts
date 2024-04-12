@@ -4,12 +4,12 @@ import { revalidatePath } from "next/cache"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 import { BASE_URL } from "@/constants/constants"
-import { RegisterSchema } from "@/validators/registerSchema"
+import { AuthSchema } from "@/validators/authSchema"
 
 import { RegisterState } from "@/types/register"
 
-export async function signUp(prevState: RegisterState, formData: FormData) {
-  const validateFields = RegisterSchema.safeParse({
+export async function SignUp(prevState: RegisterState, formData: FormData) {
+  const validateFields = AuthSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
     name: formData.get("name"),
@@ -17,6 +17,7 @@ export async function signUp(prevState: RegisterState, formData: FormData) {
     role: formData.get("role"),
   })
 
+  // TODO: add constant for error message
   if (!validateFields.success) {
     return {
       errors: validateFields.error.flatten().fieldErrors,
@@ -25,7 +26,6 @@ export async function signUp(prevState: RegisterState, formData: FormData) {
   }
 
   const { name, email, password, role } = validateFields.data
-  console.log(validateFields.data)
 
   try {
     const response = await fetch(`${BASE_URL}/user/sign-up`, {
@@ -37,7 +37,8 @@ export async function signUp(prevState: RegisterState, formData: FormData) {
     })
 
     const data = await response.json()
-    console.log(response)
+
+    // TODO: handle response when success to register/class
     if (response.ok) {
       const token = data.data.access_token
       cookies().set({
