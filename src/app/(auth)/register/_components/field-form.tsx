@@ -2,7 +2,7 @@
 
 import React from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { signUp } from "@/action/register"
+import { SignUp } from "@/action/register"
 import { useFormState } from "react-dom"
 
 import { RegisterState } from "@/types/register"
@@ -28,7 +28,7 @@ export default function FieldForm() {
     message: "",
   }
 
-  const [state, dispatch] = useFormState(signUp, initialState)
+  const [state, dispatch] = useFormState(SignUp, initialState)
 
   return (
     <form className="px-2" action={dispatch}>
