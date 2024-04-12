@@ -17,3 +17,7 @@ export const AuthSchema = z.object({
     .min(4, { message: "Mohon masukan nama lebih dari 4 karakter." }),
   role: z.enum(["teacher", "student"]),
 })
+
+export const ClassSchema = z.object({
+  code: z.string().min(6, { message: "Kode kelas minimal 6 karakter." }),
+})
