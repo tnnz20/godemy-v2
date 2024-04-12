@@ -19,8 +19,8 @@ export default function RegisterCard() {
   return (
     <Card className="mx-auto w-[350px] md:w-[400px]">
       <CardHeader className="flex items-center">
-        <CardTitle>Register</CardTitle>
-        <CardDescription className="text-center">Daftar sekarang untuk menikmati fitur Godemy.</CardDescription>
+        <CardTitle>Daftar akun Godemy</CardTitle>
+        <CardDescription className="text-center">Daftar sekarang untuk menikmati fitur Godemy</CardDescription>
       </CardHeader>
       <CardContent className="relative overflow-hidden p-0 px-6">
         <motion.div
