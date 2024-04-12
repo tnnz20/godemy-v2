@@ -1,5 +1,5 @@
 export type RegisterState = {
-  errors: {
+  errors?: {
     email?: string[]
     password?: string[]
     name?: string[]
