@@ -1,5 +1,5 @@
-import type { Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
+import type { Config } from "tailwindcss"
+import { fontFamily } from "tailwindcss/defaultTheme"
 
 const config = {
   darkMode: ["class"],
@@ -22,7 +22,7 @@ const config = {
       fontFamily: {
         inter: ["var(--font-inter)", ...fontFamily.sans],
         heading: ["var(--font-heading)", ...fontFamily.sans],
-        logo: ["var(--font-logo)", ...fontFamily.sans],
+        jetbrain: ["var(--font-jetbrains-mono)", ...fontFamily.sans],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -81,6 +81,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+} satisfies Config
 
-export default config;
+export default config
