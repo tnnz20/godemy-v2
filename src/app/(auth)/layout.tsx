@@ -8,7 +8,7 @@ export default function LayoutAuth({ children }: Readonly<LayoutProps>) {
   return (
     <div className="flex flex-col">
       {/* <NavigationHome /> */}
-      <main>{children}</main>
+      <div className="container flex h-screen w-full items-center justify-center">{children}</div>
       {/* <Footer /> */}
     </div>
   )

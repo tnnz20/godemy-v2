@@ -4,10 +4,8 @@ import RegisterCard from "./_components/register-card"
 
 export default function RegisterPage() {
   return (
-    <div className="container flex h-screen w-full items-center justify-center">
-      <Suspense>
-        <RegisterCard />
-      </Suspense>
-    </div>
+    <Suspense>
+      <RegisterCard />
+    </Suspense>
   )
 }
