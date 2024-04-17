@@ -29,24 +29,17 @@ export default function ChapterSidebarNav({ chaptersConfig }: Readonly<ChapterSi
         <Button
           aria-label="SideNav Open Toggle"
           onClick={() => setShowSideNav(true)}
-          className="border-r-lg fixed -right-3 top-20 z-20 hidden md:inline-block"
+          className="border-r-lg fixed -right-3 top-20 z-50 hidden md:inline-block"
         >
           <Icons.List className={cn("rotate-180")} />
         </Button>
       ) : null}
 
       {items.length ? (
-        <motion.div
-          initial={{ x: "100vw" }}
-          animate={{ x: showSideNav ? 0 : "100vw" }}
-          transition={{ ease: "easeInOut", duration: 0.3 }}
-          className={cn(
-            "fixed right-0 top-14 z-30 h-[calc(100vh-3.5rem)] overflow-y-auto border-l px-4 py-6 md:block",
-            {
-              "translate-x-0": showSideNav,
-              "translate-x-[100vw]": !showSideNav,
-            }
-          )}
+        <div
+          className={cn("fixed -right-1/2 hidden h-screen overflow-y-auto border-l px-4 py-6 md:block", {
+            "sticky duration-300 animate-in slide-in-from-right-1/2": showSideNav,
+          })}
         >
           <div className="mr-2 flex items-center justify-between">
             <Button
@@ -72,7 +65,7 @@ export default function ChapterSidebarNav({ chaptersConfig }: Readonly<ChapterSi
               ))}
             </Accordion>
           </nav>
-        </motion.div>
+        </div>
       ) : null}
     </>
   )
