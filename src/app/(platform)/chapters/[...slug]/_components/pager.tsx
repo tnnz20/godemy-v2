@@ -16,8 +16,6 @@ interface PagerProps {
 export default function ChapterPager({ chapter }: Readonly<PagerProps>) {
   const pager = getPagerForDoc(chapter)
 
-  console.log(pager.prev?.href)
-
   if (!pager) return null
 
   return (
