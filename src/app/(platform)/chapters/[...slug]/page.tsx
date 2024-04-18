@@ -7,6 +7,8 @@ import { MDXContent } from "./_components/mdx-component"
 
 import "@/styles/mdx.css"
 
+import ChapterPager from "./_components/pager"
+
 interface ChapterPageProps {
   params: {
     slug: string[]
@@ -43,15 +45,18 @@ export default async function ChapterPage({ params }: Readonly<ChapterPageProps>
   }
 
   return (
-    <article className="container max-w-5xl ">
-      {chapter.title != "Kuis" ? (
-        <h1 className="inline-block space-y-4 font-heading text-4xl lg:text-5xl">{chapter.title}</h1>
-      ) : (
-        <div className="my-5"></div>
-      )}
-      <div className="h-full">
-        <MDXContent code={chapter.body} />
+    <article className="container mx-auto max-w-5xl">
+      <div className="mx-auto w-full min-w-0  pb-4">
+        {chapter.title != "Kuis" ? (
+          <h1 className="inline-block space-y-4 font-heading text-4xl lg:text-5xl">{chapter.title}</h1>
+        ) : (
+          <div className="my-5"></div>
+        )}
+        <div className="h-full">
+          <MDXContent code={chapter.body} />
+        </div>
         <hr className="my-4 md:my-6" />
+        <ChapterPager chapter={chapter} />
       </div>
     </article>
   )
