@@ -1,4 +1,4 @@
-import { AlertCircle, ArrowLeft, GraduationCap, List, LogOut, MoveLeft, User, X } from "lucide-react"
+import { AlertCircle, ArrowLeft, GraduationCap, Laptop, List, LogOut, Moon, MoveLeft, Sun, User, X } from "lucide-react"
 
 export const Icons = {
   ArrowLeft: ArrowLeft,
@@ -6,7 +6,10 @@ export const Icons = {
   GraduationCap: GraduationCap,
   Logout: LogOut,
   List: List,
+  Laptop: Laptop,
   MoveLeft: MoveLeft,
+  Moon: Moon,
+  Sun: Sun,
   User: User,
   Warning: AlertCircle,
 }
