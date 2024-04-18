@@ -1,0 +1,78 @@
+---
+title : Percabangan If - Else
+chapter : 3
+description : Materi tentang Percabangan If - Else pada Go
+---
+
+Dalam pemrograman, sebuah kode program dapat berjalan berdasarkan 
+kondisi tertentu. Maknanya, Anda dapat memberikan instruksi berdasarkan 
+**"Jika-maka"** (if-else).
+
+Sebagai contoh:
+
+1. Jika anda tidak menyelesaikan tugas pemrograman Go, maka 
+  anda tidak lulus di kelas ini. Sebaliknya jika anda mengerjakan tugas 
+  pemrograman Go maka anda lulus.
+2. Jika variabel total_belanja kurang dari 10 ribu, maka tidak dapat 
+  pemotongan harga. Sebaliknya jika variabel total_belanja lebih dari 
+  10 ribu maka akan dapat pemotongan harga
+  
+Lalu bagaimana cara penerapan pada pemrograman Go?
+
+Cara penerapan `if-else` di Go sama seperti pada bahasa pemrograman 
+lain. Yang membedakan adalah di Go sendiri kita tidak perlu 
+menuliskan tanda kurung `()` pada kondisi yang ingin di capai, namun kita 
+wajib menuliskan kurung kurawal untuk membungkus pernyataan suatu 
+kondisi kita.
+
+Contoh sintak penulisan seleksi kondisi if pada pemrograman Go
+
+```go showLineNumbers {1,3}
+if kondisi {
+    // pernyataan
+} else{
+  // pernyataan
+}
+```
+
+Hal yang harus di perhatikan adalah kondisi, untuk menjalankan sebuah 
+pernyataan di dalam sebuah seleksi kondisi diperlukan sebuah kondisi yang 
+bernilai true (Boolean), semisal pada contoh pertama di atas syarat untuk
+
+kita lulus dengan memiliki kondisi kita mengerjakan tugas pemrograman 
+Go, jika tidak terpenuhi maka tidak lulus. 
+
+Berikut contoh penerapan berdasarkan contoh
+
+<Compiler src="https://goplay.tools/snippet/XzxvWMhm8LA" />
+
+Control flow sendiri akan selalu di mulai pada bagian atas berdasarkan 
+contoh di atas dia akan mengecek kondisi pertama terlebih dahulu jika 
+kondisi if bernilai true maka akan menampilkan kode yang di dalamnya jika 
+tidak dia akan masuk ke bagian else dan menampilkan kode di dalamnya.
+
+Pada contoh sebelumnya kita hanya menerapkan 1 kondisi saja, jika kondisi 
+if tidak terpenuhi maka dia akan masuk ke kondisi else. Kita bisa 
+menambahkan beberapa kondisi lainnya dengan menggunakan keyword 
+else if dengan kondisi. Berbeda dengan else kita wajib menambahkan 
+kondisi pada keyword else if berikut sintak penulisannya
+
+<Image
+  src="/content/bab-3-4.webp"
+  width="618"
+  height="304"
+  alt="Ilustrasi Gopher Maskot Go"
+/>
+
+Dengan menambahkan keyword `else-if` kita bisa membuat beragam 
+kondisi lainnya.
+
+<Exercise 
+  answers={["Menjalankan blok kode jika kondisi di blok if terpenuhi", " Menjalankan blok kode jika kondisi di blok if tidak terpenuhi", "Menentukan tipe data", "Menjalankan blok kode secara berulang"]}
+  correctAnswer={" Menjalankan blok kode jika kondisi di blok if tidak terpenuhi"}
+  explanation={"Benar sekali, else akan berjalan ketika kondisi if tidak terpenuhi"}
+  hint={"Ingat kembali konsep percabangan if-else."}
+  question={"Apa yang dilakukan oleh blok else dalam konsep percabangan if-else?"}
+  isCode={false}
+/>
+

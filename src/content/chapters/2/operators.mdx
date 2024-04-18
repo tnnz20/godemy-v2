@@ -1,0 +1,93 @@
+---
+title: Operators
+chapter: 2
+description: Materi tentang Operators Pada Go
+---
+
+Operator merupakan simbol atau keyword yang digunakan untuk
+melakukan operasi pada tipe data, di dalam konteks computer
+programming, operator digunakan untuk memanipulasi suatu nilai variabel
+seperti penjumlahan, pengurangan, perbandingan dll. Operator ini
+merupakan bagian penting dari computer programming karena mereka
+menentukan bagaimana tipe data yang berbeda berinteraksi dan
+bagaimana perhitungan dilakukan. Ada beberapa macam operator yang
+bisa digunakan di Go secara umum terdapat 3 kategori operator yaitu
+aritmatika, perbandingan, dan logika.
+
+## Operator Aritmatika
+
+Operator aritmatika adalah operator yang digunakan untuk operasi
+yang sifatnya perhitungan. Operator ini digunakan pada tipe data
+number seperti `int`, `float`. Go mendukung beberapa operator
+aritmatika standar, list-nya bisa dilihat di tabel berikut.
+
+| Operator | Penjelasan                     |
+| :------: | ------------------------------ |
+|    +     | Penjumlahan                    |
+|    -     | Pengurangan                    |
+|    \*    | Perkalian                      |
+|    /     | Pembagian                      |
+|    %     | Modulus / sisa hasil pembagian |
+
+Contoh Penerapanya sebagai berikut:
+
+<Compiler src="https://goplay.tools/snippet/dYZfUl72AVb" />
+
+## Operator Perbandingan
+
+Operator perbandingan seperti namanya operator ini digunakan
+untuk menentukan perbandingan suatu kondisi. Hasilnya berupa
+nilai boolean, true atau false.
+Tabel di bawah ini berisikan operator perbandingan yang bisa
+digunakan di Go
+
+| Operator | Penjelasan                                                 |
+| :------: | ---------------------------------------------------------- |
+|    ==    | Apakah nilai kiri sama dengan nilai kanan                  |
+|    !=    | Apakah nilai kiri tidak sama dengan nilai kanan            |
+|    \<    | Apakah nilai kiri lebih kecil daripada nilai kanan         |
+|   \<\=   | Apakah nilai kiri lebih kecil atau sama dengan nilai kanan |
+|    \>    | Apakah nilai kiri lebih besar dari nilai kanan             |
+|   \>\=   | Apakah nilai kiri lebih besar atau sama dengan nilai kanan |
+
+Contoh Penerapanya sebagai berikut:
+
+<Compiler src="https://goplay.tools/snippet/lCmFAHnI0o7"/>
+
+<Exercise 
+  answers={["!=", "==", ">", "<="]}
+  correctAnswer={">"}
+  explanation={"Benar operator > digunakan untuk membandingkan nilai a lebih besar daripada nilai b."}
+  hint={"Mohon baca kembali materi yang berhubungan dengan operators."}
+  question={"Operator yang digunakan untuk membandingkan nilai a lebih besar daripada nilai b adalah?"}
+  isCode={false}
+/>
+
+## Operator Logika
+
+Operator ini digunakan untuk mencari benar tidaknya kombinasi
+data bertipe `bool` (bisa berupa variabel bertipe `bool`, atau hasil dari
+operator perbandingan). Operator ini biasanya digunakan untuk
+membandingkan dua hasil operator perbandingan dalam kondisi
+tertentu.
+
+Beberapa operator logika standar yang bisa digunakan:
+
+| Operator | Penjelasan                                                     |
+| :------: | -------------------------------------------------------------- |
+|    &&    | Menghasilkan nilai true jika keduanya bernilai true            |
+|   \|\|   | Menghasilkan nilai true jika salah satu nilainya bernilai true |
+|    !     | Negasi / nilai kebalikan                                       |
+
+Contoh Penrapanya sebagai berikut:
+
+<Compiler src="https://goplay.tools/snippet/AG3DWRC4UEz" />
+
+<Exercise 
+  answers={["Memberikan nilai “false” ketika variabel bernilai “true”", "Membandingkan dua buah variabel", "Memberitahu sebuah program untuk berhati hati", "Stop program secara paksa"]}
+  correctAnswer={"Memberikan nilai “false” ketika variabel bernilai “true”"}
+  explanation={"Pada konteks perbandingan tanda ! digunakan untuk reverse nilai boolean."}
+  hint={"Operator tersebut merupakan salah satu operator logika yang membandingkan nilai boolean."}
+  question={"Operator “!” digunakan untuk?"}
+  isCode={false}
+/>
