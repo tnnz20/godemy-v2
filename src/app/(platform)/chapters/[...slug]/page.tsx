@@ -5,7 +5,9 @@ import { chapters } from "#site/content"
 
 import { MDXContent } from "./_components/mdx-component"
 
-type ChapterPageProps = {
+import "@/styles/mdx.css"
+
+interface ChapterPageProps {
   params: {
     slug: string[]
   }
@@ -40,12 +42,17 @@ export default async function ChapterPage({ params }: Readonly<ChapterPageProps>
     notFound()
   }
 
-  // TODO: FIX STYLING
   return (
-    <article className="container mx-auto max-w-3xl bg-slate-400  py-6">
-      <h1 className="mb-2">{chapter.title}</h1>
-      <hr className="my-4" />
-      <MDXContent code={chapter.body} />
+    <article className="container max-w-5xl ">
+      {chapter.title != "Kuis" ? (
+        <h1 className="inline-block space-y-4 font-heading text-4xl lg:text-5xl">{chapter.title}</h1>
+      ) : (
+        <div className="my-5"></div>
+      )}
+      <div className="h-full">
+        <MDXContent code={chapter.body} />
+        <hr className="my-4 md:my-6" />
+      </div>
     </article>
   )
 }
