@@ -7,6 +7,8 @@ import "@/styles/globals.css"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 
+import { ThemeProvider } from "@/components/theme.provider"
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -53,7 +55,9 @@ export default function RootLayout({
           jetBrainMono.variable
         )}
       >
-        <main>{children}</main>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <main>{children}</main>
+        </ThemeProvider>
       </body>
     </html>
   )
