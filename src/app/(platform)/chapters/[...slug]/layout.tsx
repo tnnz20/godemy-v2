@@ -13,8 +13,8 @@ export default function ChaptersLayout({ children }: Readonly<ChaptersLayoutProp
   return (
     <div className="flex flex-col">
       <ChapterNav chaptersConfig={chaptersConfig} />
-      <div className="flex gap-2 overflow-hidden">
-        <div className="flex flex-1">{children}</div>
+      <div className="flex h-screen">
+        <div className="flex flex-1 overflow-y-auto">{children}</div>
         <ChapterSidebarNav chaptersConfig={chaptersConfig} />
       </div>
     </div>
