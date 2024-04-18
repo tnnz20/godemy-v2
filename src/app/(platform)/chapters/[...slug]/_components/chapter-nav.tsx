@@ -5,6 +5,7 @@ import { ChaptersConfig } from "@/types/chapters"
 import { Button } from "@/components/ui/button"
 
 import { Icons } from "@/components/icons"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 import ChapterMobileNav from "./chapter-mobile-nav"
 
@@ -27,7 +28,7 @@ export default function ChapterNav({ chaptersConfig }: Readonly<ChapterNavProps>
           </Button>
         </nav>
         <div className="flex items-center justify-between">
-          {/* Toggle */}
+          <ThemeToggle />
           <ChapterMobileNav NavItems={chaptersConfig.NavItems} />
         </div>
       </div>
