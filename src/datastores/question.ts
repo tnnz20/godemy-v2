@@ -151,6 +151,7 @@ export const Questions: QuestionConfig[] = [
       {
         id: 5,
         question: `var score int = 85
+        
         if score >= 80{
           fmt.Println("Bagus Sekali")
         } else if score > 50{
