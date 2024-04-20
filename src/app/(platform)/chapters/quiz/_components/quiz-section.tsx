@@ -1,23 +1,24 @@
 "use client"
 
-import { useState } from "react"
-
 import { cn, indexToAlphabet } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
+import { useLocalStorage } from "./_hooks/useLocalStorage"
 import QuizPager from "./quiz-pager"
 import { QuizContextValue, useQuiz } from "./quiz.provider"
 
-/* 
-TODO:
-1.add useLocalStorage to save answered question
-2.change condition in option based on cookies 
-*/
-
 export default function QuizSection() {
-  const { currentQuestion, currentClicked, setCurrentClicked, questions } = useQuiz() as QuizContextValue
+  const { currentQuestion, setCurrentClicked, questions } = useQuiz() as QuizContextValue
 
   const question = questions[currentQuestion]
+  const [value, setValue] = useLocalStorage("answered", {})
+
+  const handleClickOption = (idx: number, answer: string, questionId: number) => {
+    setValue({ ...value, [questionId]: answer })
+    setCurrentClicked(idx)
+  }
+
+  const answered = value[question?.id]
 
   return (
     <section className="container h-screen flex-none md:my-10 md:ml-10 lg:mx-auto lg:my-12 lg:ml-24">
@@ -39,17 +40,17 @@ export default function QuizSection() {
                   type="button"
                   aria-label="option-button"
                   className={cn("mx-auto w-full justify-start md:w-3/5")}
-                  onClick={() => setCurrentClicked(idx)}
+                  onClick={() => handleClickOption(idx, answer, question.id)}
                 >
                   <div className="flex items-center gap-2">
                     <div
                       className={cn("mx-1 flex h-8 w-8 items-center justify-center rounded-full bg-muted transition", {
-                        "bg-muted-foreground": currentClicked == idx,
+                        "bg-muted-foreground": answered === answer,
                       })}
                     >
                       <p
                         className={cn("font-semibold text-muted-foreground transition", {
-                          "text-activeOptionAnswer": currentClicked == idx,
+                          "text-activeOptionAnswer": answered === answer,
                         })}
                       >
                         {indexToAlphabet(idx)}
@@ -59,7 +60,7 @@ export default function QuizSection() {
                       className={cn(
                         "ml-2 w-full flex-1 whitespace-normal text-left text-sm text-muted-foreground transition",
                         {
-                          "text-foreground": currentClicked == idx,
+                          "text-foreground": answered === answer,
                         }
                       )}
                     >
