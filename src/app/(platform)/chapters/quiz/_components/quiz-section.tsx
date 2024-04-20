@@ -8,9 +8,14 @@ import { Button } from "@/components/ui/button"
 import QuizPager from "./quiz-pager"
 import { QuizContextValue, useQuiz } from "./quiz.provider"
 
+/* 
+TODO:
+1.add useLocalStorage to save answered question
+2.change condition in option based on cookies 
+*/
+
 export default function QuizSection() {
-  const { currentQuestion, questions } = useQuiz() as QuizContextValue
-  const [isClicked, setIsClicked] = useState<number | null>(null)
+  const { currentQuestion, currentClicked, setCurrentClicked, questions } = useQuiz() as QuizContextValue
 
   const question = questions[currentQuestion]
 
@@ -34,17 +39,17 @@ export default function QuizSection() {
                   type="button"
                   aria-label="option-button"
                   className={cn("mx-auto w-full justify-start md:w-3/5")}
-                  onClick={() => setIsClicked(idx)}
+                  onClick={() => setCurrentClicked(idx)}
                 >
                   <div className="flex items-center gap-2">
                     <div
                       className={cn("mx-1 flex h-8 w-8 items-center justify-center rounded-full bg-muted transition", {
-                        "bg-muted-foreground": isClicked == idx,
+                        "bg-muted-foreground": currentClicked == idx,
                       })}
                     >
                       <p
                         className={cn("font-semibold text-muted-foreground transition", {
-                          "text-activeOptionAnswer": isClicked == idx,
+                          "text-activeOptionAnswer": currentClicked == idx,
                         })}
                       >
                         {indexToAlphabet(idx)}
@@ -54,7 +59,7 @@ export default function QuizSection() {
                       className={cn(
                         "ml-2 w-full flex-1 whitespace-normal text-left text-sm text-muted-foreground transition",
                         {
-                          "text-foreground": isClicked == idx,
+                          "text-foreground": currentClicked == idx,
                         }
                       )}
                     >

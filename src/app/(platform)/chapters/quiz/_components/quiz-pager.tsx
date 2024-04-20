@@ -9,28 +9,25 @@ import { Icons } from "@/components/icons"
 import { QuizContextValue, useQuiz } from "./quiz.provider"
 
 export default function QuizPager() {
-  const { currentQuestion, setCurrentQuestion, questions } = useQuiz() as QuizContextValue
+  const { currentQuestion, setCurrentQuestion, setCurrentClicked, questions } = useQuiz() as QuizContextValue
   const { prev, next } = QuestionPager(currentQuestion, questions)
+
+  const handlePager = (idx: number) => {
+    setCurrentQuestion(idx)
+    setCurrentClicked(null)
+  }
 
   return (
     <div className={cn("flex max-w-screen-xl items-center justify-between", { "justify-end": prev === null })}>
       {prev !== null ? (
-        <Button
-          variant={"ghost"}
-          className={cn("flex items-center gap-2 px-4")}
-          onClick={() => setCurrentQuestion(prev)}
-        >
+        <Button variant={"ghost"} className={cn("flex items-center gap-2 px-4")} onClick={() => handlePager(prev)}>
           <Icons.ChevronLeft className="h-6 w-6" />
           <p>Kembali</p>
         </Button>
       ) : null}
 
       {next ? (
-        <Button
-          variant={"ghost"}
-          className={cn("flex items-center gap-2 px-4")}
-          onClick={() => setCurrentQuestion(next)}
-        >
+        <Button variant={"ghost"} className={cn("flex items-center gap-2 px-4")} onClick={() => handlePager(next)}>
           <p>Selanjutnya</p>
           <Icons.ChevronRight className="h-6 w-6" />
         </Button>
