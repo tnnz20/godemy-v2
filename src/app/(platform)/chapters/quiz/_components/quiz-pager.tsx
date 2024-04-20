@@ -1,5 +1,3 @@
-import React from "react"
-
 import { QuestionItem } from "@/types/quiz"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -8,6 +6,7 @@ import { Icons } from "@/components/icons"
 
 import { QuizContextValue, useQuiz } from "./quiz.provider"
 
+// TODO: add submit quiz handler
 export default function QuizPager() {
   const { currentQuestion, setCurrentQuestion, setCurrentClicked, questions } = useQuiz() as QuizContextValue
   const { prev, next } = QuestionPager(currentQuestion, questions)
