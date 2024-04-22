@@ -1,5 +1,9 @@
 import { Metadata } from "next"
 
+import { Role } from "@/types/dashboard"
+
+import DashboardSideNav from "./_components/dashboard-sidenav"
+
 interface DocsLayoutProps {
   children: React.ReactNode
 }
@@ -13,10 +17,11 @@ export const metadata: Metadata = {
 }
 
 export default function DocsLayout({ children }: Readonly<DocsLayoutProps>) {
+  const role: Role = "student"
   return (
-    <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
-      <div className="w-full flex-none md:w-64">{/* <SideNav /> */}</div>
-      <div className="flex-grow p-6 md:overflow-y-auto md:p-12">{children}</div>
+    <div className="flex min-h-screen w-full flex-col bg-muted/40">
+      <DashboardSideNav role={role} />
+      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">{children}</div>
     </div>
   )
 }
