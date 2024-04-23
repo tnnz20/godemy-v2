@@ -7,3 +7,8 @@ export type NavLinkDashboard = {
   href: string
   icon: SVGElement | ForwardRefExoticComponent<LucideProps>
 }
+
+export type ProfileData = {
+  title: string
+  value: string
+}
