@@ -9,8 +9,8 @@ export const AuthSchema = z.object({
         message: "Mohon masukkan format email yang benar.",
       })
     ),
-  password: z.string().min(6, {
-    message: "Password minimal 6 karakter.",
+  password: z.string().min(8, {
+    message: "Password minimal 8 karakter.",
   }),
   name: z
     .string()
