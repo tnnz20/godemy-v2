@@ -3,10 +3,17 @@
 import { revalidatePath } from "next/cache"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
-import { BASE_URL } from "@/constants/constants"
+import {
+  BASE_URL,
+  ErrInternalServer,
+  ErrInvalid,
+  ErrUserNotFound,
+  ErrValidation,
+  ErrWrongPassword,
+} from "@/constants/constants"
 import { AuthSchema } from "@/validators/authSchema"
 
-import { LoginState } from "@/types/login"
+import { LoginState } from "@/types/auth"
 
 export async function SignIn(prevState: LoginState, formData: FormData) {
   const LoginSchema = AuthSchema.omit({ name: true, role: true })
@@ -16,18 +23,17 @@ export async function SignIn(prevState: LoginState, formData: FormData) {
     password: formData.get("password"),
   })
 
-  // TODO: add constant for error message
   if (!validateFields.success) {
     return {
       errors: validateFields.error.flatten().fieldErrors,
-      message: "Validations",
+      message: ErrValidation,
     }
   }
 
   const { email, password } = validateFields.data
 
   try {
-    const response = await fetch(`${BASE_URL}/auth/sign-in`, {
+    const response = await fetch(`${BASE_URL}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -38,31 +44,30 @@ export async function SignIn(prevState: LoginState, formData: FormData) {
     const data = await response.json()
 
     if (response.ok) {
-      const token = data.data.access_token
+      const token = data.data.token
       cookies().set({
         name: "token",
         secure: true,
         value: token,
         httpOnly: true,
         path: "/",
-        maxAge: 24 * 60 * 60 * 2, // 2 days
+        // maxAge: 24 * 60 * 60 * 2, // 2 days
       })
-    } else if (response.status == 500) {
-      return {
-        errors: {},
-        message: "Invalid",
+    } else if (response.status === 400) {
+      if (data?.error?.error_description == "wrong password") {
+        return { message: ErrWrongPassword }
+      } else {
+        return { message: ErrInvalid }
       }
+    } else if (response.status === 404) {
+      return { message: ErrUserNotFound }
     } else {
-      return {
-        errors: {},
-        message: "Failed",
-      }
+      return { message: ErrInternalServer }
     }
   } catch (error) {
     console.error(error)
     return { message: `${error}` }
   }
-
   revalidatePath("/dashboard")
   redirect("/dashboard")
 }
