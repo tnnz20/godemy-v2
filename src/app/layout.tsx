@@ -6,6 +6,7 @@ import "@/styles/globals.css"
 
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
+import { Toaster } from "@/components/ui/toaster"
 
 import { ThemeProvider } from "@/components/theme.provider"
 
@@ -57,6 +58,7 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <main>{children}</main>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
