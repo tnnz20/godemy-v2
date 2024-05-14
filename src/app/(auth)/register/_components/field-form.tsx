@@ -1,15 +1,17 @@
 "use client"
 
-import React from "react"
+import { useEffect } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { SignUp } from "@/action/register"
-import { useFormState } from "react-dom"
+import { Register } from "@/action/register"
+import { ErrConflict, ErrInternalServer, ErrValidation } from "@/constants/constants"
+import { useFormState, useFormStatus } from "react-dom"
 
-import { RegisterState } from "@/types/register"
+import { RegisterState } from "@/types/auth"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useToast } from "@/components/ui/use-toast"
 
 import { Icons } from "@/components/icons"
 
@@ -28,7 +30,35 @@ export default function FieldForm() {
     message: "",
   }
 
-  const [state, dispatch] = useFormState(SignUp, initialState)
+  const [state, dispatch] = useFormState(Register, initialState)
+
+  const { toast } = useToast()
+  const { pending } = useFormStatus()
+
+  useEffect(() => {
+    if (state?.message) {
+      let errMsg: string
+      switch (state?.message) {
+        case ErrValidation:
+          errMsg = "Kesalahan dalam input data"
+          break
+        case ErrConflict:
+          errMsg = "Email sudah terdaftar"
+          break
+        case ErrInternalServer:
+          errMsg = "Terjadi kesalahan pada server"
+          break
+        default:
+          errMsg = state?.message
+          break
+      }
+      toast({
+        variant: "destructive",
+        title: "Terjadi kesalahan saat registrasi",
+        description: errMsg,
+      })
+    }
+  }, [state.message, toast])
 
   return (
     <form className="px-2" action={dispatch}>
@@ -71,13 +101,13 @@ export default function FieldForm() {
         <Input id="role" name="role" className="hidden" value={role} readOnly />
       </div>
       <div className="mb-4 mt-8">
-        <ButtonForm />
+        <ButtonForm pending={pending} />
       </div>
     </form>
   )
 }
 
-function ButtonForm() {
+function ButtonForm({ pending }: Readonly<{ pending: boolean }>) {
   const searchParams = useSearchParams()
   const pathname = usePathname()
 
@@ -92,11 +122,15 @@ function ButtonForm() {
 
   return (
     <div className="flex justify-between">
-      <Button type="button" className="flex gap-2 px-3" variant={"ghost"} onClick={() => handleBack()}>
-        <Icons.ArrowLeft className="h-4 w-4" />
-        <p>Kembali</p>
+      {pending ? null : (
+        <Button type="button" className="flex gap-2 px-3" variant={"ghost"} onClick={() => handleBack()}>
+          <Icons.ArrowLeft className="h-4 w-4" />
+          <p>Kembali</p>
+        </Button>
+      )}
+      <Button disabled={pending} type="submit">
+        {pending ? "Mohon tunggu..." : "Daftar"}
       </Button>
-      <Button type="submit">Daftar</Button>
     </div>
   )
 }
