@@ -1,5 +1,8 @@
+"use client"
+
 import React from "react"
 import Link from "next/link"
+import { UpdateProgress } from "@/action/update-progress"
 import { Chapter } from "#site/content"
 
 import { ChaptersNavItem } from "@/types/chapters"
@@ -15,8 +18,9 @@ interface PagerProps {
 
 export default function ChapterPager({ chapter }: Readonly<PagerProps>) {
   const pager = getPagerForDoc(chapter)
-
   if (!pager) return null
+
+  const progress = chapter?.progress
 
   return (
     <div
@@ -28,7 +32,7 @@ export default function ChapterPager({ chapter }: Readonly<PagerProps>) {
       {pager?.prev && (
         <div>
           <Button variant={"ghost"} asChild>
-            <Link href={pager.prev.href as string} className="flex flex-row items-center text-xs md:text-sm">
+            <Link href={pager.prev.href} className="flex flex-row items-center text-xs md:text-sm">
               <Icons.ChevronLeft className="ml-2 h-4 w-4" />
               {pager.prev.title}
             </Link>
@@ -38,8 +42,8 @@ export default function ChapterPager({ chapter }: Readonly<PagerProps>) {
 
       {pager?.next && (
         <div>
-          <Button variant={"ghost"} className="ml-auto" asChild>
-            <Link href={pager.next.href as string} className="flex flex-row items-center text-xs md:text-sm">
+          <Button variant={"ghost"} className="ml-auto" onClick={async () => await UpdateProgress(progress + 1)}>
+            <Link href={pager.next.href} className="flex flex-row items-center text-xs md:text-sm">
               {pager.next.title}
               <Icons.ChevronRight className="ml-2 h-4 w-4" />
             </Link>
@@ -61,6 +65,7 @@ function getPagerForDoc(chapter: Chapter) {
     next,
   }
 }
+
 function flatten(links: ChaptersNavItem[]) {
   return links.map((link) => link.items?.map((item) => item)).flat(2)
 }
