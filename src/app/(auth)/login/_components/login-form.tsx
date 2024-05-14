@@ -3,7 +3,7 @@
 import { useEffect } from "react"
 import { SignIn } from "@/action/login"
 import { ErrInternalServer, ErrInvalid, ErrUserNotFound, ErrValidation, ErrWrongPassword } from "@/constants/constants"
-import { useFormState } from "react-dom"
+import { useFormState, useFormStatus } from "react-dom"
 
 import { LoginState } from "@/types/auth"
 import { cn } from "@/lib/utils"
@@ -24,6 +24,7 @@ export default function LoginForm() {
   const [state, dispatch] = useFormState(SignIn, initialState)
 
   const { toast } = useToast()
+  const { pending } = useFormStatus()
 
   useEffect(() => {
     if (state.message) {
@@ -42,7 +43,6 @@ export default function LoginForm() {
         case ErrInvalid:
           errMsg = "Email atau password tidak valid"
           break
-
         case ErrInternalServer:
           errMsg = "Terjadi kesalahan pada server"
           break
@@ -57,6 +57,7 @@ export default function LoginForm() {
       })
     }
   }, [state.message, toast])
+
   return (
     <form className="px-2" action={dispatch}>
       <div className="grid w-full items-center gap-4">
@@ -71,7 +72,6 @@ export default function LoginForm() {
             </div>
           ) : null}
         </div>
-
         <div className="flex flex-col space-y-1.5">
           <Label htmlFor="password" className={cn({ "text-destructive": state?.errors?.password })}>
             Password
@@ -85,16 +85,16 @@ export default function LoginForm() {
         </div>
       </div>
       <div className="mb-4 mt-8">
-        <ButtonForm />
+        <ButtonForm pending={pending} />
       </div>
     </form>
   )
 }
 
-function ButtonForm() {
+function ButtonForm({ pending }: Readonly<{ pending: boolean }>) {
   return (
-    <Button className="w-full" type="submit">
-      Masuk
+    <Button className="w-full" type="submit" disabled={pending}>
+      {pending ? "Mohon tunggu..." : "Login"}
     </Button>
   )
 }
