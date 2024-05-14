@@ -16,6 +16,7 @@ const chapters = defineCollection({
       title: s.string().max(100),
       chapter: s.number(),
       description: s.string().max(999).optional(),
+      progress: s.number(),
       body: s.mdx(),
     })
     .transform(computedFields),
