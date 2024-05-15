@@ -1,8 +1,7 @@
 export type ChapterSubNavItem = {
   title: string
-  href?: string
-  threshold?: number
-  disabled?: boolean
+  href: string
+  threshold: number
 }
 
 export type ChaptersNavItem = {
