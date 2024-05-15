@@ -10,7 +10,7 @@ export type ClassSate = {
   errors?: {
     code?: string[] | undefined
   }
-  message?: string
+  message: string
 }
 
 export type RegisterState = {
@@ -22,4 +22,3 @@ export type RegisterState = {
   }
   message?: string | null
 }
-
