@@ -55,13 +55,17 @@ export async function SignIn(prevState: LoginState, formData: FormData) {
       })
     } else if (response.status === 400) {
       if (data?.error?.error_description == "wrong password") {
+        revalidatePath("/login")
         return { message: ErrWrongPassword }
       } else {
+        revalidatePath("/login")
         return { message: ErrInvalid }
       }
     } else if (response.status === 404) {
+      revalidatePath("/login")
       return { message: ErrUserNotFound }
     } else {
+      revalidatePath("/login")
       return { message: ErrInternalServer }
     }
   } catch (error) {
