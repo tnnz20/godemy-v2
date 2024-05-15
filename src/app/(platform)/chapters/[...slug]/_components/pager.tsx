@@ -21,7 +21,9 @@ export default function ChapterPager({ chapter }: Readonly<PagerProps>) {
   if (!pager) return null
 
   const progress = chapter?.progress
-
+  const handleProgress = async (progress: number, path: string | undefined) => {
+    await UpdateProgress(progress + 1, path as string)
+  }
   return (
     <div
       className={cn("mb-4 flex flex-row items-center justify-between", {
@@ -42,11 +44,15 @@ export default function ChapterPager({ chapter }: Readonly<PagerProps>) {
 
       {pager?.next && (
         <div>
-          <Button variant={"ghost"} className="ml-auto" onClick={async () => await UpdateProgress(progress + 1)}>
-            <Link href={pager.next.href} className="flex flex-row items-center text-xs md:text-sm">
+          <Button
+            variant={"ghost"}
+            className="ml-auto"
+            onClick={async () => await handleProgress(progress, pager.next?.href)}
+          >
+            <div className="flex flex-row items-center text-xs md:text-sm">
               {pager.next.title}
               <Icons.ChevronRight className="ml-2 h-4 w-4" />
-            </Link>
+            </div>
           </Button>
         </div>
       )}
