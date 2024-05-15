@@ -1,13 +1,15 @@
 "use client"
 
-import { JoinClass } from "@/action/class"
-import { useFormState } from "react-dom"
+import { useEffect } from "react"
+import { JoinClass } from "@/action/join-class"
+import { useFormState, useFormStatus } from "react-dom"
 
-import { ClassSate } from "@/types/class"
+import { ClassSate } from "@/types/auth"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useToast } from "@/components/ui/use-toast"
 
 export default function ClassForm() {
   const initialState: ClassSate = {
@@ -18,6 +20,19 @@ export default function ClassForm() {
   }
 
   const [state, dispatch] = useFormState(JoinClass, initialState)
+  const { toast } = useToast()
+  const { pending } = useFormStatus()
+
+  useEffect(() => {
+    if (state?.message) {
+      toast({
+        variant: "destructive",
+        title: "Terjadi kesalahan saat registrasi",
+        description: state?.message,
+      })
+    }
+  }, [state.message, toast])
+
   return (
     <form className="px-2" action={dispatch}>
       <div className="grid w-full items-center gap-4">
@@ -34,16 +49,16 @@ export default function ClassForm() {
         </div>
       </div>
       <div className="mb-4 mt-8">
-        <ButtonForm />
+        <ButtonForm pending={pending} />
       </div>
     </form>
   )
 }
 
-function ButtonForm() {
+function ButtonForm({ pending }: Readonly<{ pending: boolean }>) {
   return (
-    <Button className="w-full" type="submit">
-      Submit
+    <Button className="w-full" type="submit" disabled={pending}>
+      {pending ? "Mohon tunggu..." : "Masuk"}
     </Button>
   )
 }
