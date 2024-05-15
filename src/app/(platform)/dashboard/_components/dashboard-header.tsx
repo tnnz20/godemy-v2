@@ -1,11 +1,9 @@
-"use client"
-
 import { Role } from "@/types/dashboard"
 
 import BreadcrumbHeader from "./breadcrumb-header"
 import DashboardMobileNav from "./dashboard-mobile-nav"
 
-type DashboardHeaderProps = {
+interface DashboardHeaderProps {
   role: Role
 }
 
