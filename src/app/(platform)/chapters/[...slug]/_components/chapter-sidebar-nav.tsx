@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button"
 
 import { Icons } from "@/components/icons"
 
-type ChapterSidebarNavProps = {
+interface ChapterSidebarNavProps {
   chapters: ChaptersConfig
   progress: number
 }
@@ -39,7 +39,7 @@ export default function ChapterSidebarNav({ chapters, progress }: Readonly<Chapt
       {items.length ? (
         <div
           className={cn("fixed -right-1/2 hidden overflow-y-auto border-l px-4 py-6 md:block", {
-            "sticky left-0 duration-300 animate-in slide-in-from-right-1/2": showSideNav,
+            "sticky left-0 max-h-screen duration-300 animate-in slide-in-from-right-1/2": showSideNav,
           })}
         >
           <div className="mr-2 flex items-center justify-between">
