@@ -12,11 +12,13 @@ import { Icons } from "@/components/icons"
 
 type ChapterMobileNavProps = {
   NavItems: ChaptersNavItem[]
+  progress: number
 }
 
-export default function ChapterMobileNav({ NavItems }: Readonly<ChapterMobileNavProps>) {
+export default function ChapterMobileNav({ NavItems, progress }: Readonly<ChapterMobileNavProps>) {
   const [showMobileNav, setShowMobileNav] = useState<boolean>(false)
   const pathname = usePathname()
+
   return (
     <>
       {!showMobileNav ? (
@@ -49,7 +51,7 @@ export default function ChapterMobileNav({ NavItems }: Readonly<ChapterMobileNav
             {NavItems.map((item) => (
               <div className="pb-3" key={item.title}>
                 <h4 className="mb-1 rounded-md px-2 py-1 text-sm font-bold">{item.title}</h4>
-                {item.items ? <MobileNavItem Items={item.items} pathname={pathname} /> : null}
+                {item.items ? <MobileNavItem Items={item.items} pathname={pathname} progress={progress} /> : null}
               </div>
             ))}
           </div>
@@ -62,13 +64,14 @@ export default function ChapterMobileNav({ NavItems }: Readonly<ChapterMobileNav
 type MobileNavItemProps = {
   Items: ChapterSubNavItem[]
   pathname: string
+  progress: number
 }
 
-function MobileNavItem({ Items, pathname }: Readonly<MobileNavItemProps>) {
+function MobileNavItem({ Items, pathname, progress }: Readonly<MobileNavItemProps>) {
   return Items.length ? (
     <ul className="grid grid-flow-row auto-rows-max text-sm">
-      {Items.map((item, index) =>
-        !item.disabled && item.href ? (
+      {Items.map((item) =>
+        progress >= item.threshold ? (
           <li key={item.title}>
             <Link
               href={item.href}
@@ -80,7 +83,7 @@ function MobileNavItem({ Items, pathname }: Readonly<MobileNavItemProps>) {
             </Link>
           </li>
         ) : (
-          <span className="flex w-full cursor-not-allowed items-center rounded-md p-2 opacity-60" key={index}>
+          <span key={item.title} className="flex w-full cursor-not-allowed items-center rounded-md p-2 opacity-60">
             {item.title}
           </span>
         )
