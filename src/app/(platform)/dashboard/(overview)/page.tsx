@@ -1,12 +1,15 @@
-import React from "react"
+import { cookies } from "next/headers"
 
-import { Role } from "@/types/dashboard"
+import { DecodeJWT } from "@/lib/utils"
 
 import DashboardStudentWrapper from "./_components/dashboard-student-wrapper"
 import DashboardTeacherWrapper from "./_components/dashboard-teacher-wrapper"
 
 export default function DashboardPage() {
-  const role: Role = "student"
+  const cookieStore = cookies()
+  const jwtToken = cookieStore.get("token")
 
-  return <>{role === "student" ? <DashboardStudentWrapper role={role} /> : <DashboardTeacherWrapper role={role} />}</>
+  const { role } = DecodeJWT(jwtToken?.value)
+
+  return <>{role === "student" ? <DashboardStudentWrapper /> : <DashboardTeacherWrapper />}</>
 }
