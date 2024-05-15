@@ -1,4 +1,6 @@
+import { cookies } from "next/headers"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 
 import { Role } from "@/types/dashboard"
 import { NavStudentDashboard, NavTeacherDashboard } from "@/config/dashboard"
@@ -6,13 +8,22 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 
 import { Icons } from "@/components/icons"
 
-type DashboardSideNavProps = {
+interface DashboardSideNavProps {
   role: Role
 }
 
 export default function DashboardSideNav({ role }: Readonly<DashboardSideNavProps>) {
   const navItems = role === "student" ? NavStudentDashboard : NavTeacherDashboard
 
+  const Logout = async () => {
+    "use server"
+    const cookiesStore = cookies()
+    const token = cookiesStore.get("token")
+    if (token) {
+      cookiesStore.delete("token")
+      redirect("/")
+    }
+  }
   return (
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
@@ -44,13 +55,14 @@ export default function DashboardSideNav({ role }: Readonly<DashboardSideNavProp
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Link
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <Icons.Logout className="h-5 w-5" />
-                <span className="sr-only">Logout</span>
-              </Link>
+              <form action={Logout}>
+                <div className="flex  items-center justify-center rounded-lg text-muted-foreground  transition-colors hover:text-foreground ">
+                  <button type="submit">
+                    <Icons.Logout className="h-5 w-5" />
+                    <span className="sr-only">Logout</span>
+                  </button>
+                </div>
+              </form>
             </TooltipTrigger>
             <TooltipContent side="right">Logout</TooltipContent>
           </Tooltip>
