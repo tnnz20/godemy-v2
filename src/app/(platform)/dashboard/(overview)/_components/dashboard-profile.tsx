@@ -1,35 +1,69 @@
+import { cookies } from "next/headers"
 import Link from "next/link"
 
-import { ProfileData, Role } from "@/types/dashboard"
+import { ProfileData } from "@/types/dashboard"
+import { GetUserProfile } from "@/lib/GetUsersProfile"
+import { DecodeJWT } from "@/lib/utils"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 
 import { Icons } from "@/components/icons"
 
-interface DashboardProfileProps {
-  role: Role
-}
+export default async function DashboardProfile() {
+  const cookieStore = cookies()
+  const token = cookieStore.get("token")?.value
+  const { role } = DecodeJWT(token)
 
-export default function DashboardProfile({ role }: Readonly<DashboardProfileProps>) {
+  const formatDate = (dateString: string) => {
+    if (!dateString || dateString === "0001-01-01T00:00:00Z") {
+      return "-"
+    }
+    return new Date(dateString).toLocaleDateString()
+  }
+
+  const res = await GetUserProfile(token as string)
+
   const Profile: ProfileData[] = [
     {
       title: "Nama",
-      value: "Liam Johnson",
+      value: res?.data?.name,
     },
     {
       title: "Email",
-      value: "liamhongosn@gmail.com",
+      value: res?.data?.email,
     },
     {
       title: "Jenis Kelamin",
-      value: "Laki-laki",
+      value: res?.data?.gender,
     },
     {
       title: "Role",
       value: role === "student" ? "Siswa" : "Guru",
     },
+    {
+      title: "Tanggal Lahir",
+      value: formatDate(res?.data?.date),
+    },
   ]
+
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ]
+
+  const updated_date = new Date(res?.data?.created_at)
+
   return (
     <div>
       <Card className="overflow-hidden" x-chunk="dashboard-05-chunk-4">
@@ -66,7 +100,10 @@ export default function DashboardProfile({ role }: Readonly<DashboardProfileProp
         </CardContent>
         <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
           <div className="text-xs text-muted-foreground">
-            Updated <time dateTime="2023-11-23">November 23, 2023</time>
+            Updated{" "}
+            <time dateTime="2023-11-23">
+              {monthNames[updated_date.getMonth()]} {updated_date.getDate()}, {updated_date.getFullYear()}
+            </time>
           </div>
         </CardFooter>
       </Card>
