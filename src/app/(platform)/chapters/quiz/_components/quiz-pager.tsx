@@ -1,19 +1,31 @@
+"use client"
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+
 import { QuestionItem } from "@/types/quiz"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
 import { Icons } from "@/components/icons"
 
-import { QuizContextValue, useQuiz } from "./quiz.provider"
+import { useQuizStore } from "../_provider/quiz.provider"
+import AlertSubmitDialog from "./alert-submit-dialog"
 
-// TODO: add submit quiz handler
 export default function QuizPager() {
-  const { currentQuestion, setCurrentQuestion, setCurrentClicked, questions } = useQuiz() as QuizContextValue
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const { replace } = useRouter()
+
+  const questions = useQuizStore((state) => state.questions)
+
+  const questionParams = searchParams.get("question")
+  const currentQuestion = parseInt(questionParams as string) - 1 || 0
   const { prev, next } = QuestionPager(currentQuestion, questions)
 
   const handlePager = (idx: number) => {
-    setCurrentQuestion(idx)
-    setCurrentClicked(null)
+    const params = new URLSearchParams(searchParams)
+    params.set("question", (idx + 1).toString())
+    replace(`${pathname}?${params.toString()}`)
   }
 
   return (
@@ -31,7 +43,7 @@ export default function QuizPager() {
           <Icons.ChevronRight className="h-6 w-6" />
         </Button>
       ) : (
-        <Button variant={"destructive"}>Akhiri</Button>
+        <AlertSubmitDialog />
       )}
     </div>
   )

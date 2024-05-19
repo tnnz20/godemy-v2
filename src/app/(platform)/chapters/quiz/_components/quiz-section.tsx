@@ -1,28 +1,35 @@
 "use client"
 
+import { useSearchParams } from "next/navigation"
+
 import { cn, indexToAlphabet } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
-import { useLocalStorage } from "./_hooks/useLocalStorage"
+import { useQuizStore } from "../_provider/quiz.provider"
 import QuizPager from "./quiz-pager"
-import { QuizContextValue, useQuiz } from "./quiz.provider"
 
 export default function QuizSection() {
-  const { currentQuestion, setCurrentClicked, questions } = useQuiz() as QuizContextValue
+  const { answered, setAnswered, questions } = useQuizStore((state) => ({
+    answered: state.answered,
+    setAnswered: state.setAnswered,
+    questions: state.questions,
+  }))
+
+  const searchParams = useSearchParams()
+  const questionParams = searchParams.get("question")
+  const currentQuestion = parseInt(questionParams as string) - 1 || 0
 
   const question = questions[currentQuestion]
-  const [value, setValue] = useLocalStorage("answered", {})
 
-  const handleClickOption = (idx: number, answer: string, questionId: number) => {
-    setValue({ ...value, [questionId]: answer })
-    setCurrentClicked(idx)
+  const handleClickOption = (answer: string, questionId: number) => {
+    setAnswered({ ...answered, [questionId]: answer })
   }
 
-  const answered = value[question?.id]
+  const answeredOption = answered[question.id]
 
   return (
-    <section className="container h-screen flex-none md:my-10 md:ml-10 lg:mx-auto lg:my-12 lg:ml-24">
-      <div className={cn("flex flex-col justify-between", { "gap-44": !question?.isCode, "gap-36": question?.isCode })}>
+    <section className="container  w-2/3 md:ml-10 md:mt-10 md:flex-initial lg:mx-auto lg:ml-24">
+      <div className={cn("flex flex-col justify-between", { "gap-36": !question?.isCode, "gap-32": question?.isCode })}>
         <div className="mt-5 flex flex-col gap-5">
           {!question?.isCode ? (
             <h2 className="text-sm md:text-base/6 lg:text-lg">{question?.question}</h2>
@@ -40,17 +47,17 @@ export default function QuizSection() {
                   type="button"
                   aria-label="option-button"
                   className={cn("mx-auto w-full justify-start md:w-3/5")}
-                  onClick={() => handleClickOption(idx, answer, question.id)}
+                  onClick={() => handleClickOption(answer, question.id)}
                 >
                   <div className="flex items-center gap-2">
                     <div
                       className={cn("mx-1 flex h-8 w-8 items-center justify-center rounded-full bg-muted transition", {
-                        "bg-muted-foreground": answered === answer,
+                        "bg-muted-foreground": answeredOption === answer,
                       })}
                     >
                       <p
                         className={cn("font-semibold text-muted-foreground transition", {
-                          "text-activeOptionAnswer": answered === answer,
+                          "text-activeOptionAnswer": answeredOption === answer,
                         })}
                       >
                         {indexToAlphabet(idx)}
@@ -60,7 +67,7 @@ export default function QuizSection() {
                       className={cn(
                         "ml-2 w-full flex-1 whitespace-normal text-left text-sm text-muted-foreground transition",
                         {
-                          "text-foreground": answered === answer,
+                          "text-foreground": answeredOption === answer,
                         }
                       )}
                     >
