@@ -7,7 +7,6 @@ import { BASE_URL } from "@/constants/constants"
 
 export async function UpdateProgress(progress: number, nextPath: string) {
   const token = cookies().get("token")?.value
-  console.log(nextPath)
   try {
     const response = await fetch(`${BASE_URL}/courses/course/enroll/progress`, {
       method: "PATCH",

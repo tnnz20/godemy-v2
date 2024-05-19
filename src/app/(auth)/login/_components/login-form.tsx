@@ -29,7 +29,6 @@ export default function LoginForm() {
   useEffect(() => {
     if (state.message) {
       let errMsg: string
-      console.log(state.message)
       switch (state.message) {
         case ErrValidation:
           errMsg = "Kesalahan dalam input data"
