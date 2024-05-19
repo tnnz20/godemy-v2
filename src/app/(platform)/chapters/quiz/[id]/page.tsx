@@ -1,10 +1,14 @@
+import { cookies } from "next/headers"
 import { notFound } from "next/navigation"
 import { Questions, QuizEval } from "@/datastores/question"
+
+import { QuestionItem } from "@/types/quiz"
+import { GetAssessmentUser } from "@/lib/GetUserAssessment"
 
 import QuizAside from "../_components/quiz-aside"
 import QuizHeader from "../_components/quiz-header"
 import QuizSection from "../_components/quiz-section"
-import { QuizProvider } from "../_components/quiz.provider"
+import { QuizStoreProvider } from "../_provider/quiz.provider"
 
 interface QuizPageProps {
   params: {
@@ -12,7 +16,7 @@ interface QuizPageProps {
   }
 }
 
-function getQuestionFromId(id: string) {
+function GetQuestionFromId(id: string) {
   const questionId = parseInt(id)
   if (questionId === 7) {
     return QuizEval
@@ -24,23 +28,36 @@ function getQuestionFromId(id: string) {
   return result
 }
 
-export default function QuizPage({ params }: Readonly<QuizPageProps>) {
-  const question = getQuestionFromId(params.id)
+function DecodeBASE64toArray(BASE64RandomArrayId: string): number[] {
+  const BASE64RandomArrayIdDecode = atob(BASE64RandomArrayId)
+  // Remove the curly braces from the string
+  const sliceStr = BASE64RandomArrayIdDecode.slice(1, -1)
 
-  const shuffledQuestions = question.questions.slice().sort(() => Math.random() - 0.5)
-  const shuffledObj = {
-    ...question,
-    questions: shuffledQuestions,
-  }
+  const array = sliceStr.split(",").map((item) => parseInt(item))
+  return array
+}
+
+export default async function QuizPage({ params }: Readonly<QuizPageProps>) {
+  const cookiesStore = cookies()
+  const TOKEN = cookiesStore.get("token")?.value
+
+  const question = GetQuestionFromId(params.id)
+  const questionItem = question?.questions
+
+  const assessmentUser = await GetAssessmentUser(TOKEN, params.id)
+  const BASE64RandomArrayId = assessmentUser?.data?.random_array_id
+  const randomArrayId = DecodeBASE64toArray(BASE64RandomArrayId)
+
+  const orderedQuestions = randomArrayId.map((id) => questionItem.find((obj) => obj.id === id))
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden">
+    <div className="flex h-screen flex-col">
       <QuizHeader category={question?.category} />
-      <div className="flex h-screen w-full flex-col-reverse justify-end md:flex-row md:justify-start">
-        <QuizProvider questions={shuffledObj?.questions}>
+      <div className="flex h-screen flex-col-reverse justify-end md:flex-row md:justify-start">
+        <QuizStoreProvider questions={orderedQuestions as QuestionItem[]}>
           <QuizSection />
           <QuizAside />
-        </QuizProvider>
+        </QuizStoreProvider>
       </div>
     </div>
   )
