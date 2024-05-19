@@ -5,7 +5,7 @@ import { useStore, type StoreApi } from "zustand"
 
 import { QuestionItem } from "@/types/quiz"
 
-import { createQuizStore, type QuizStore } from "../store/useQuizStore"
+import { createQuizStore, type QuizStore } from "../_store/useQuizStore"
 
 export const QuizStoreContext = createContext<StoreApi<QuizStore> | undefined>(undefined)
 
