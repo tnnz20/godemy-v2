@@ -1,7 +1,11 @@
-import React from "react"
+import { Suspense } from "react"
 
-type Props = {}
+import { AlertStarted } from "./_components/AlertDialog"
 
-export default function StartingPointPage({}: Props) {
-  return <div>StartingPointPage</div>
+export default function StartingPointPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AlertStarted />
+    </Suspense>
+  )
 }
