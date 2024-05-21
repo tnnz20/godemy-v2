@@ -8,11 +8,18 @@ export async function GetCourseEnrollment(token: string | undefined) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      cache: "no-cache",
       next: { tags: ["course-enrollment"] },
     })
 
     const data = await response.json()
-    return data
+    if (response.ok) {
+      return data
+    } else {
+      throw new Error(
+        `status: ${response.status}, message: ${data?.error?.error_description}`
+      )
+    }
   } catch (error) {
     console.log(error)
   }

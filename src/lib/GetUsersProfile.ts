@@ -8,11 +8,17 @@ export async function GetUserProfile(token: string) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      cache: "no-store",
+      next: { tags: ["user-profile"] },
     })
 
     const data = await response.json()
-    return data
+    if (response.ok) {
+      return data
+    } else {
+      throw new Error(
+        `status: ${response.status}, message: ${data?.error?.error_description}`
+      )
+    }
   } catch (error) {
     console.error(error)
   }
