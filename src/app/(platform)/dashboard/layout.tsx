@@ -1,11 +1,12 @@
 import { Metadata } from "next"
+import { cookies } from "next/headers"
 
-import { Role } from "@/types/dashboard"
+import { DecodeJWT } from "@/lib/utils"
 
 import DashboardHeader from "./_components/dashboard-header"
 import DashboardSideNav from "./_components/dashboard-sidenav"
 
-interface DocsLayoutProps {
+interface DashboardLayoutProps {
   children: React.ReactNode
 }
 
@@ -17,8 +18,12 @@ export const metadata: Metadata = {
   description: "Dashboard Page for Godemy Learning",
 }
 
-export default function DocsLayout({ children }: Readonly<DocsLayoutProps>) {
-  const role: Role = "teacher"
+export default function DashboardLayout({ children }: Readonly<DashboardLayoutProps>) {
+  const cookieStore = cookies()
+  const jwtToken = cookieStore.get("token")
+
+  const { role } = DecodeJWT(jwtToken?.value)
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <DashboardSideNav role={role} />
