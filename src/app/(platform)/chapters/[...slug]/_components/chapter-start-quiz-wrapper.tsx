@@ -1,10 +1,15 @@
+import { Suspense } from "react"
 import { cookies } from "next/headers"
 
 import { ChapterStartQuizButton } from "./chapter-start-quiz-button"
 
-export function ChapterStartQuizWrapper() {
+export async function ChapterStartQuizWrapper() {
   const cookiesStore = cookies()
-  const TOKEN = cookiesStore.get("token")?.value
+  const token = cookiesStore.get("token")?.value
 
-  return <ChapterStartQuizButton token={TOKEN} />
+  return (
+    <Suspense fallback={<p>Load button</p>}>
+      <ChapterStartQuizButton token={token} />
+    </Suspense>
+  )
 }
