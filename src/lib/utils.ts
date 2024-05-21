@@ -1,5 +1,8 @@
+import { UUID } from "crypto"
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
+
+import { UserAssessmentResult } from "@/types/api"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -15,4 +18,11 @@ export function DecodeJWT(token: string = "") {
   const decoded = Buffer.from(decodableToken, "base64").toString()
 
   return JSON.parse(decoded)
+}
+
+export function CheckAssessmentValue(response: UserAssessmentResult) {
+  const { code, data } = response || {}
+  const { assessment_value } = data || {}
+
+  return code === 200 && assessment_value > 80
 }

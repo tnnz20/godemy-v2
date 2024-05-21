@@ -7,7 +7,7 @@ import { Chapter } from "#site/content"
 import { ChaptersNavItem } from "@/types/chapters"
 import { chaptersConfig } from "@/config/chapters"
 import { GetAssessmentResultUser } from "@/lib/GetUserAssessmentResult"
-import { cn } from "@/lib/utils"
+import { CheckAssessmentValue, cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
 import { Icons } from "@/components/icons"
@@ -24,16 +24,10 @@ export default async function ChapterPager({ chapter }: Readonly<PagerProps>) {
 
   const cookiesStore = cookies()
   const token = cookiesStore.get("token")?.value
+
   const userAssessmentResult = await GetAssessmentResultUser(chapter?.chapter, token as string)
 
-  const checkAssessmentValue = () => {
-    const { code, data } = userAssessmentResult || {}
-    const { assessment_value } = data || {}
-
-    return code === 200 && assessment_value > 80
-  }
-
-  const isPassedQuiz = checkAssessmentValue()
+  const isPassedQuiz = CheckAssessmentValue(userAssessmentResult)
   const isQuizChapter = chapter?.title === "Kuis"
   return (
     <div
