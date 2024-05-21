@@ -1,7 +1,7 @@
 "use client"
 
-import Link from "next/link"
 import { useParams } from "next/navigation"
+import { StartQuiz } from "@/action/start-quiz"
 
 import {
   AlertDialog,
@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
 
-function generateRandomArray(min: number, max: number, length: number) {
+function generateRandomArray(min: number, max: number) {
   const randomArray: number[] = []
 
   for (let i = min; i <= max; i++) {
@@ -26,15 +26,17 @@ function generateRandomArray(min: number, max: number, length: number) {
   return sortedArray
 }
 
-export function ChapterStartQuizButton() {
+interface ChapterStartQuizButtonProps {
+  token: string | undefined
+}
+export function ChapterStartQuizButton({ token }: Readonly<ChapterStartQuizButtonProps>) {
   const params = useParams()
-
-  const randomId = generateRandomArray(1, 5, 5)
-  console.log("🚀 ~ ChapterStartQuizButton ~ randomId:", randomId)
-
-  const handleStartQuiz = (randomArray: number[]) => {
-    localStorage.setItem("quiz-started", "waiting")
-    localStorage.setItem("desiredId", JSON.stringify(randomArray))
+  const paramId = params?.slug[0]
+  const maxLength = paramId === "7" ? 20 : 5
+  const randomArrayId = generateRandomArray(1, maxLength)
+  console.log(token)
+  const handleStartQuiz = async () => {
+    await StartQuiz(token as string, randomArrayId, paramId)
   }
   return (
     <div className="my-8 flex justify-center">
@@ -52,9 +54,7 @@ export function ChapterStartQuizButton() {
           <AlertDialogFooter>
             <AlertDialogCancel>Batal</AlertDialogCancel>
             <AlertDialogAction>
-              <button onClick={() => handleStartQuiz(randomId)}>
-                <Link href={`/chapters/quiz/${params?.slug[0]}`}>Lanjutkan</Link>
-              </button>
+              <button onClick={async () => await handleStartQuiz()}>Lanjutkan</button>
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
