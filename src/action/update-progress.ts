@@ -5,7 +5,10 @@ import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 import { BASE_URL } from "@/constants/constants"
 
-export async function UpdateProgress(progress: number, nextPath: string) {
+export async function UpdateProgress(formData: FormData) {
+  const progress = parseInt(formData.get("progress") as string) + 1
+  const nextPath = formData.get("path")
+
   const token = cookies().get("token")?.value
   try {
     const response = await fetch(`${BASE_URL}/courses/course/enroll/progress`, {
@@ -17,8 +20,11 @@ export async function UpdateProgress(progress: number, nextPath: string) {
       body: JSON.stringify({ progress }),
     })
 
+    const data = await response.json()
     if (response.ok) {
       revalidateTag("course-enrollment")
+    } else {
+      console.log(data)
     }
   } catch (error) {
     console.error(error)
@@ -26,6 +32,6 @@ export async function UpdateProgress(progress: number, nextPath: string) {
       message: "Internal server error",
     }
   }
-  revalidatePath(nextPath)
-  redirect(nextPath)
+  revalidatePath(nextPath as string)
+  redirect(nextPath as string)
 }
