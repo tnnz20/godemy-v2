@@ -4,7 +4,7 @@ import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 import { Callout } from "./callout"
-import { ChapterStartQuizButton } from "./chapter-quiz-button"
+import { ChapterStartQuizWrapper } from "./chapter-start-quiz-wrapper"
 import { Compiler } from "./compiler"
 import { ExerciseWrapper } from "./exercise-wrapper"
 
@@ -31,7 +31,7 @@ const components = {
   Callout,
   Exercise: ExerciseWrapper,
   Compiler: Compiler,
-  StartQuizButton: ChapterStartQuizButton,
+  StartQuizButton: ChapterStartQuizWrapper,
 }
 
 interface MdxProps {
