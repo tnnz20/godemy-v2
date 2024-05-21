@@ -24,14 +24,14 @@ export async function UpdateProgress(formData: FormData) {
     if (response.ok) {
       revalidateTag("course-enrollment")
     } else {
-      console.log(data)
+      throw new Error(
+        `status: ${response.status}, message: ${data?.error?.error_description}`
+      )
     }
   } catch (error) {
     console.error(error)
-    return {
-      message: "Internal server error",
-    }
   }
+
   revalidatePath(nextPath as string)
   redirect(nextPath as string)
 }
