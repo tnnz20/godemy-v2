@@ -95,13 +95,9 @@ export function ChapterSidebarNavItem({ items, pathname, progress }: ChapterSide
             {item.title}
           </Link>
         ) : (
-          <Link
-            key={item.title}
-            href={item.href}
-            className="flex w-full cursor-not-allowed items-center rounded-md p-2 opacity-60"
-          >
+          <p key={item.title} className="flex w-full cursor-not-allowed items-center rounded-md p-2 opacity-60">
             {item.title}
-          </Link>
+          </p>
         )
       )}
     </AccordionContent>
