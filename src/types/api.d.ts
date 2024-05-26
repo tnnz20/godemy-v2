@@ -1,7 +1,7 @@
 export type UserAssessmentResult = {
   code: number
   message: string
-  data: {
+  data?: {
     id: UUID
     users: UUID
     courses_id: UUID
