@@ -1,6 +1,6 @@
 "use client"
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -17,7 +17,9 @@ export default function QuizAside() {
   const questionLength = questions.length
 
   const pathname = usePathname()
+  const params = useParams()
   const searchParams = useSearchParams()
+
   const { replace } = useRouter()
 
   const questionParams = searchParams.get("question")
@@ -28,8 +30,8 @@ export default function QuizAside() {
       return "secondary"
     }
 
-    const AnsweredId = Object.keys(answered).map((key) => parseInt(key))
-    if (AnsweredId.includes(questions[idx].id)) {
+    const answeredId = Object.keys(answered).map((key) => parseInt(key))
+    if (answeredId.includes(questions[idx].id)) {
       return "default"
     }
 
@@ -45,7 +47,7 @@ export default function QuizAside() {
   return (
     <aside className="container flex w-1/3 flex-col gap-4 border-b py-2 md:h-screen md:flex-1 md:border-l">
       <h3 className="mt-5 w-full text-sm md:text-center md:text-base/6 lg:text-lg ">Navigasi Soal</h3>
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-8">
         {!!questionLength && (
           <div className="flex flex-wrap gap-3 md:items-center md:justify-center">
             {questions.map((_, idx) => (
@@ -57,7 +59,13 @@ export default function QuizAside() {
             ))}
           </div>
         )}
-        <AlertSubmitDialog />
+        <div className="flex w-full items-center justify-center">
+          <AlertSubmitDialog paramId={params?.id as string}>
+            <Button variant={"destructive"} className="w-1/2">
+              Submit Kuis
+            </Button>
+          </AlertSubmitDialog>
+        </div>
       </div>
     </aside>
   )

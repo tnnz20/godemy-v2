@@ -1,6 +1,6 @@
 "use client"
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import { QuestionItem } from "@/types/quiz"
 import { cn } from "@/lib/utils"
@@ -15,6 +15,7 @@ export default function QuizPager() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const { replace } = useRouter()
+  const params = useParams()
 
   const questions = useQuizStore((state) => state.questions)
 
@@ -43,7 +44,9 @@ export default function QuizPager() {
           <Icons.ChevronRight className="h-6 w-6" />
         </Button>
       ) : (
-        <AlertSubmitDialog />
+        <AlertSubmitDialog paramId={params?.id as string}>
+          <Button variant={"destructive"}>Selesai</Button>
+        </AlertSubmitDialog>
       )}
     </div>
   )
