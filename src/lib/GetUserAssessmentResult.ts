@@ -20,6 +20,8 @@ export async function GetAssessmentResultUser(
     const data = await response.json()
     if (response.ok) {
       return data
+    } else if (response.status === 404) {
+      return data?.code
     } else {
       throw new Error(
         `status: ${response.status}, message: ${data?.error?.error_description}`
