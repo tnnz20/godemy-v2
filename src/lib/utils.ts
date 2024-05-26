@@ -26,3 +26,12 @@ export function CheckAssessmentValue(response: UserAssessmentResult) {
 
   return code === 200 && (assessment_value as number) >= 80
 }
+
+export function FormattedDate(date: string): string {
+  const [dateTimeString] = date.split(".")
+  const [dateString, timeString] = dateTimeString.split("T")
+  const [year, month, day] = dateString.split("-")
+  const [hours, minutes] = timeString.split(":")
+
+  return `${day}-${month}-${year} ${hours}:${minutes}`
+}
