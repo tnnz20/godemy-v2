@@ -26,9 +26,4 @@ export const NavStudentDashboard: NavLinkDashboard[] = [
     href: "/dashboard",
     icon: Icons.Home,
   },
-  {
-    name: "Kelas",
-    href: "/dashboard/kelas",
-    icon: Icons.BookText,
-  },
 ]
