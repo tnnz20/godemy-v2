@@ -24,5 +24,5 @@ export function CheckAssessmentValue(response: UserAssessmentResult) {
   const { code, data } = response || {}
   const { assessment_value } = data || {}
 
-  return code === 200 && assessment_value > 80
+  return code === 200 && (assessment_value as number) >= 80
 }
