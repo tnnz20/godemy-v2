@@ -11,15 +11,16 @@ export default async function DashboardStudentCard() {
   const cookieStore = cookies()
   const token = cookieStore.get("token")?.value
 
-  let UserCourseEnroll: boolean = false
+  let isUserEnroll: boolean = false
   const CourseEnrollment = await GetCourseEnrollment(token)
 
   if (CourseEnrollment?.code === 200) {
-    UserCourseEnroll = true
+    isUserEnroll = true
   }
   const progress = CourseEnrollment?.data?.progress
   const chapters = chaptersConfig.NavItems.flatMap((item) => item.items)
   const totalProgress = chapters.length - 1
+  const isFinished = progress === totalProgress
 
   const chaptersQuiz = chapters.filter((item) => item.title.toLowerCase() === "kuis")
   const thresholdQuizArray = chaptersQuiz.map((item) => item.threshold)
@@ -35,19 +36,23 @@ export default async function DashboardStudentCard() {
 
   return (
     <>
-      {UserCourseEnroll ? (
+      {isUserEnroll ? (
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
           <Card className="sm:col-span-2" x-chunk="dashboard-05-chunk-0">
             <CardHeader className="pb-3">
               <CardTitle>Progress Belajar</CardTitle>
               <CardDescription className="max-w-lg text-balance leading-relaxed">
-                Saat ini anda belum menyelesaikan pembelajaran, silahkan lanjutkan pembelajaran anda.
+                {isFinished
+                  ? "Selamat anda telah menyelesaikan pembelajaran."
+                  : "Saat ini anda belum menyelesaikan pembelajaran, silahkan lanjutkan pembelajaran anda."}
               </CardDescription>
             </CardHeader>
             <CardFooter>
-              <Button asChild>
-                <Link href={usersProgress[0].href}>Lanjutkan Pembelajaran</Link>
-              </Button>
+              {isFinished ? null : (
+                <Button asChild>
+                  <Link href={usersProgress[0].href}>Lanjutkan Pembelajaran</Link>
+                </Button>
+              )}
             </CardFooter>
           </Card>
           <Card x-chunk="dashboard-05-chunk-1">
