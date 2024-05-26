@@ -1,3 +1,8 @@
+import { useRouter } from "next/navigation"
+import { SubmitQuiz } from "@/action/submit-quiz"
+import { UpdateStatus } from "@/action/update-status-quiz"
+
+import { CalculateScore } from "@/lib/CalculateScoreQuiz"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,14 +14,34 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
 
-export default function AlertSubmitDialog() {
+import { useQuizStore } from "../_provider/quiz.provider"
+
+interface AlertSubmitDialogProps {
+  children: React.ReactNode
+  paramId: string
+}
+export default function AlertSubmitDialog({ children, paramId }: Readonly<AlertSubmitDialogProps>) {
+  const { answered, questions, resetAnswered } = useQuizStore((state) => ({
+    answered: state.answered,
+    questions: state.questions,
+    resetAnswered: state.resetAnswered,
+  }))
+
+  const Score = CalculateScore(questions, answered)
+  const router = useRouter()
+
+  const handleSubmit = async (score: number, paramId: string) => {
+    resetAnswered()
+    await SubmitQuiz(score, paramId)
+    await UpdateStatus(paramId, 10)
+
+    router.push(`/chapters/${paramId}/kuis`)
+  }
+
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant={"destructive"}>Akhiri</Button>
-      </AlertDialogTrigger>
+      <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Apakah anda yakin untuk mengakhiri kuis ini?</AlertDialogTitle>
@@ -28,7 +53,7 @@ export default function AlertSubmitDialog() {
         <AlertDialogFooter>
           <AlertDialogCancel>Batal</AlertDialogCancel>
           <AlertDialogAction className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-            Submit
+            <button onClick={() => handleSubmit(Score, paramId)}>Submit</button>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
