@@ -30,7 +30,7 @@ export default async function DashboardStudentTable() {
           <TableBody>
             {userResult.map((item: UserAssessmentResultData) => {
               const assessmentValue = item.assessment_value
-              const status = (assessmentValue as number) >= 80 ? "Lulus" : "Tidak Lulus"
+              const status = assessmentValue >= 80 ? "Lulus" : "Tidak Lulus"
               const date = String(item.created_at)
               const formattedDate = FormattedDate(date)
               return (
