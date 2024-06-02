@@ -24,3 +24,12 @@ export type UserAssessmentResultData = {
   created_at: Date
   updated_at: Date
 }
+
+export type CoursesResultData = {
+  id: UUID
+  users_id: UUID
+  course_name: string
+  course_code: string
+  created_at: Date
+  updated_at: Date
+}
