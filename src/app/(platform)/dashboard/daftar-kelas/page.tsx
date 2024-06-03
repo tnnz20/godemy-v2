@@ -12,6 +12,8 @@ export default async function DaftarKelasPage() {
   const cookiesStore = cookies()
   const token = cookiesStore.get("token")?.value
   const courses = await GetCourses(token as string)
+
+  const totalCourse = courses?.data.length
   return (
     <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
       <div className="flex items-center">
@@ -26,7 +28,7 @@ export default async function DaftarKelasPage() {
           </Button>
         </div>
       </div>
-      <Card x-chunk="dashboard-06-chunk-0">
+      <Card x-chunk="dashboard-01-chunk-0">
         <CardHeader>
           <CardTitle>Daftar Kelas</CardTitle>
           <CardDescription>Daftar kelas yang dimiliki.</CardDescription>
@@ -34,7 +36,11 @@ export default async function DaftarKelasPage() {
         <CardContent>
           <TableClass courses={courses?.data} />
         </CardContent>
-        {/* <CardFooter>{pagination}</CardFooter> */}
+        <CardFooter>
+          <div className="text-xs text-muted-foreground">
+            Menampilkan <strong>1-5</strong> dari <strong>{totalCourse}</strong> kelas
+          </div>
+        </CardFooter>
       </Card>
     </div>
   )
