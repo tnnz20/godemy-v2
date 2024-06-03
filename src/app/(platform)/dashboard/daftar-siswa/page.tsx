@@ -2,12 +2,13 @@ import { cookies } from "next/headers"
 
 import { GetCourses } from "@/lib/GetCourses"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 
 import { Icons } from "@/components/icons"
 
+import SearchStudent from "./_components/search-input"
 import SelectClass from "./_components/select-class"
-import TableSiswa from "./_components/table"
+import TableStudent from "./_components/table"
 
 export default async function DaftarSiswaPage() {
   const cookiesStore = cookies()
@@ -15,26 +16,21 @@ export default async function DaftarSiswaPage() {
   const courses = await GetCourses(token as string)
 
   return (
-    <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-      <div className="flex items-center">
+    <div className="grid flex-1 items-start gap-2 p-4 sm:px-6 sm:py-0 md:gap-8">
+      <div className="mt-4 flex items-center">
+        <SelectClass courses={courses?.data} />
         <div className="ml-auto flex items-center gap-2">
-          <Button size="sm" variant="outline" className="h-8 gap-1">
-            <Icons.File className="h-3.5 w-3.5" />
-            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">Export PDF</span>
-          </Button>
-          <Button size="sm" className="h-8 gap-1">
-            <Icons.PlusCircle className="h-3.5 w-3.5" />
-            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">Tambah Kelas</span>
-          </Button>
+          <SearchStudent />
         </div>
       </div>
-      <Card x-chunk="dashboard-06-chunk-0">
+      <Card x-chunk="dashboard-03-chunk-1">
         <CardHeader>
           <CardTitle>Daftar Siswa</CardTitle>
         </CardHeader>
         <CardContent>
-          <SelectClass courses={courses?.data} />
-          <TableSiswa />
+          <div className="flex flex-col gap-4">
+            <TableStudent />
+          </div>
         </CardContent>
         {/* <CardFooter>{pagination}</CardFooter> */}
       </Card>
