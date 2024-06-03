@@ -33,3 +33,14 @@ export type CoursesResultData = {
   created_at: Date
   updated_at: Date
 }
+
+export type EnrolledUsersDetails = APISuccessResponse & {
+  data?: EnrolledUsersDetailsData[]
+}
+
+export type EnrolledUsersDetailsData = {
+  courses_name: string
+  id: UUID
+  name: string
+  progress: number
+}
