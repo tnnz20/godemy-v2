@@ -15,7 +15,7 @@ import { useToast } from "@/components/ui/use-toast"
 
 import { Icons } from "@/components/icons"
 
-export default function FieldForm() {
+export default function RegisterForm() {
   const searchParams = useSearchParams()
 
   const role = searchParams.get("role") ?? "student"
@@ -129,6 +129,7 @@ function ButtonForm({ pending }: Readonly<{ pending: boolean }>) {
         </Button>
       )}
       <Button disabled={pending} type="submit">
+        {pending && <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         {pending ? "Mohon tunggu..." : "Daftar"}
       </Button>
     </div>

@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 
-import FieldForm from "./field-form"
+import RegisterForm from "./register-form"
 import RoleForm from "./role-options"
 
 export default function RegisterCard() {
@@ -45,7 +45,7 @@ export default function RegisterCard() {
             ease: "easeInOut",
           }}
         >
-          <FieldForm />
+          <RegisterForm />
         </motion.div>
       </CardContent>
       <CardFooter className="flex justify-center">
