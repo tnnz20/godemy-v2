@@ -12,6 +12,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useToast } from "@/components/ui/use-toast"
 
+import { Icons } from "@/components/icons"
+
 export default function LoginForm() {
   const initialState: LoginState = {
     errors: {
@@ -93,6 +95,7 @@ export default function LoginForm() {
 function ButtonForm({ pending }: Readonly<{ pending: boolean }>) {
   return (
     <Button className="w-full" type="submit" disabled={pending}>
+      {pending && <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />}
       {pending ? "Mohon tunggu..." : "Login"}
     </Button>
   )
