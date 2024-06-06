@@ -1,21 +1,18 @@
-import React from "react"
-
-import { chaptersConfig } from "@/config/chapters"
-
 import ChapterNav from "./_components/chapter-nav"
-import ChapterSidebarNav from "./_components/chapter-sidebar-nav"
+import ChapterSidebarNavWrapper from "./_components/chapter-sidebar-nav-wrapper"
 
-type ChaptersLayoutProps = {
+interface ChaptersLayoutProps {
   children: React.ReactNode
 }
 
+// TODO: fix div h-screen
 export default function ChaptersLayout({ children }: Readonly<ChaptersLayoutProps>) {
   return (
     <div className="flex flex-col">
-      <ChapterNav chaptersConfig={chaptersConfig} />
-      <div className="flex h-screen">
+      <ChapterNav />
+      <div className="flex h-screen overflow-hidden">
         <div className="flex flex-1 overflow-y-auto">{children}</div>
-        <ChapterSidebarNav chaptersConfig={chaptersConfig} />
+        <ChapterSidebarNavWrapper />
       </div>
     </div>
   )

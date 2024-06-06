@@ -1,17 +1,16 @@
 import { cookies } from "next/headers"
 
 import { ChaptersConfig } from "@/types/chapters"
+import { chaptersConfig } from "@/config/chapters"
 import { GetCourseEnrollment } from "@/lib/GetCourseEnrollment"
 
 import ChapterSidebarNav from "./chapter-sidebar-nav"
 
-interface ChapterSidebarNavWrapperProps {
-  chapters: ChaptersConfig
-}
-
-export default async function ChapterSidebarNavWrapper({ chapters }: Readonly<ChapterSidebarNavWrapperProps>) {
+export default async function ChapterSidebarNavWrapper() {
   const cookiesStore = cookies()
   const token = cookiesStore.get("token")?.value
+
+  const chapters: ChaptersConfig = chaptersConfig
 
   const courseEnrollment = await GetCourseEnrollment(token)
   return <ChapterSidebarNav chapters={chapters} progress={courseEnrollment?.data?.progress} />

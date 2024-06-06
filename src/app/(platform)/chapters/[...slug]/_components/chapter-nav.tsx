@@ -2,6 +2,7 @@ import React from "react"
 import Link from "next/link"
 
 import { ChaptersConfig } from "@/types/chapters"
+import { chaptersConfig } from "@/config/chapters"
 import { Button } from "@/components/ui/button"
 
 import { Icons } from "@/components/icons"
@@ -9,11 +10,8 @@ import { ThemeToggle } from "@/components/theme-toggle"
 
 import ChapterMobileNavWrapper from "./chapter-mobile-nav-wrapper"
 
-interface ChapterNavProps {
-  chapters: ChaptersConfig
-}
-
-export default function ChapterNav({ chapters }: Readonly<ChapterNavProps>) {
+export default function ChapterNav() {
+  const chapters: ChaptersConfig = chaptersConfig
   return (
     <header className="sticky top-0 z-10 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-14 items-center justify-between px-2 md:px-4">
