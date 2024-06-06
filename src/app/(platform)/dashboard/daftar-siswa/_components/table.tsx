@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation"
 import { EnrolledUsersDetailsData } from "@/types/api"
 import { chaptersConfig } from "@/config/chapters"
 import { GetEnrolledUsersDetails } from "@/lib/GetEnrolledUsersDetails"
+import { FormattedDate } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
@@ -15,7 +16,8 @@ export default function TableStudent() {
 
   const searchParams = useSearchParams()
   const courseId = searchParams.get("courseId")?.toString()
-  const name = searchParams.get("name")?.toString() || ""
+  const name = searchParams.get("name")?.toString() ?? ""
+  const currentPage = parseInt(searchParams.get("page") ?? "1")
 
   const chapters = chaptersConfig.NavItems.flatMap((item) => item.items)
   const totalProgress = chapters.length - 1
@@ -24,7 +26,7 @@ export default function TableStudent() {
     const fetchDataFromAPI = async () => {
       setIsLoading(true)
       try {
-        const EnrolledUsersDetail = await GetEnrolledUsersDetails(courseId as string, name)
+        const EnrolledUsersDetail = await GetEnrolledUsersDetails(courseId as string, name, currentPage)
         setData(EnrolledUsersDetail?.data)
       } catch (error) {
         console.log(error)
@@ -33,7 +35,7 @@ export default function TableStudent() {
       }
     }
     fetchDataFromAPI()
-  }, [courseId, name])
+  }, [courseId, name, currentPage])
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -72,7 +74,7 @@ export default function TableStudent() {
                         {user.progress === totalProgress ? "Selesai" : "Belum Selesai"}
                       </Badge>
                     </TableCell>
-                    {/* <TableCell>{user.updated_at}</TableCell> */}
+                    <TableCell>{FormattedDate(String(user.updated_at))}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
