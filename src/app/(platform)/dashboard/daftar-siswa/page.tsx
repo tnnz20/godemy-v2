@@ -1,16 +1,14 @@
 import { cookies } from "next/headers"
 
 import { GetCourses } from "@/lib/GetCourses"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 
-import { Icons } from "@/components/icons"
-
+import DashboardPagination from "./_components/pagination"
 import SearchStudent from "./_components/search-input"
 import SelectClass from "./_components/select-class"
 import TableStudent from "./_components/table"
 
-export default async function DaftarSiswaPage() {
+export default async function ListStudentPage() {
   const cookiesStore = cookies()
   const token = cookiesStore.get("token")?.value
   const courses = await GetCourses(token as string)
@@ -32,7 +30,9 @@ export default async function DaftarSiswaPage() {
             <TableStudent />
           </div>
         </CardContent>
-        {/* <CardFooter>{pagination}</CardFooter> */}
+        <CardFooter className="flex items-end justify-end">
+          <DashboardPagination />
+        </CardFooter>
       </Card>
     </div>
   )
