@@ -43,4 +43,5 @@ export type EnrolledUsersDetailsData = {
   id: UUID
   name: string
   progress: number
+  updated_at: Date
 }
