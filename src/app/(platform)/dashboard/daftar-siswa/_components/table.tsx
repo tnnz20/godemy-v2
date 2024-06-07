@@ -67,10 +67,7 @@ export default function TableStudent() {
                       </Badge>
                     </TableCell>
                     <TableCell>
-                      <Badge
-                        className="text-xs"
-                        variant={user.progress === totalProgress ? "secondary" : "destructive"}
-                      >
+                      <Badge className="text-xs" variant={user.progress === totalProgress ? "success" : "destructive"}>
                         {user.progress === totalProgress ? "Selesai" : "Belum Selesai"}
                       </Badge>
                     </TableCell>
