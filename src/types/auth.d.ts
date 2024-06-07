@@ -22,3 +22,10 @@ export type RegisterState = {
   }
   message?: string | null
 }
+
+export type CreateCourseState = {
+  errors?: {
+    course_name?: string[] | undefined | null
+  }
+  message: string | null
+}
