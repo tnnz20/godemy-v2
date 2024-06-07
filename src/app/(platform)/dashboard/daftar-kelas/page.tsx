@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 
 import { Icons } from "@/components/icons"
 
+import DialogAddCourse from "./_components/dialog-add-course"
 import TableClass from "./_components/table"
 
 export default async function DaftarKelasPage() {
@@ -22,10 +23,7 @@ export default async function DaftarKelasPage() {
             <Icons.File className="h-3.5 w-3.5" />
             <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">Export PDF</span>
           </Button>
-          <Button size="sm" className="h-8 gap-1">
-            <Icons.PlusCircle className="h-3.5 w-3.5" />
-            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">Tambah Kelas</span>
-          </Button>
+          <DialogAddCourse />
         </div>
       </div>
       <Card x-chunk="dashboard-01-chunk-0">
