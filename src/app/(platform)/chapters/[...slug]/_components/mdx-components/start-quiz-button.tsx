@@ -5,7 +5,7 @@ import { useParams } from "next/navigation"
 import { StartQuiz } from "@/action/start-quiz"
 
 import { UserAssessmentResult } from "@/types/api"
-import { GetAssessmentResultUser } from "@/lib/GetUserAssessmentResult"
+import { GetUserAssessmentResult } from "@/lib/data/assessment/assessment-result"
 import { CheckAssessmentValue, FormattedDate } from "@/lib/utils"
 import {
   AlertDialog,
@@ -32,7 +32,7 @@ export function ChapterStartQuizButton({ token }: Readonly<ChapterStartQuizButto
   const maxLength = paramId === "7" ? 20 : 5
   const randomArrayId = generateRandomArray(1, maxLength)
 
-  const userAssessmentResult = use(GetAssessmentResultUser(parseInt(paramId), token as string))
+  const userAssessmentResult = use(GetUserAssessmentResult(parseInt(paramId), token as string))
 
   const isPassedQuiz = CheckAssessmentValue(userAssessmentResult)
 
@@ -73,6 +73,7 @@ interface HistoryUserAssessmentProps {
   userAssessmentResult: UserAssessmentResult
   paramId: string
 }
+
 function HistoryUserAssessment({ userAssessmentResult, paramId }: Readonly<HistoryUserAssessmentProps>) {
   const assessmentValue = userAssessmentResult?.data?.assessment_value
   const status = (assessmentValue as number) >= 80 ? "Lulus" : "Tidak Lulus"

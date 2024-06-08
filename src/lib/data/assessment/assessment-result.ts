@@ -1,6 +1,6 @@
 import { BASE_URL } from "@/constants/constants"
 
-export async function GetAssessmentResultUser(
+export async function GetUserAssessmentResult(
   assessment_code: number,
   token: string
 ) {
