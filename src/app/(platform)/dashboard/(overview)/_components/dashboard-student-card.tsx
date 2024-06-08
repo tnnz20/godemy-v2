@@ -2,7 +2,7 @@ import { cookies } from "next/headers"
 import Link from "next/link"
 
 import { chaptersConfig } from "@/config/chapters"
-import { GetCourseEnrollment } from "@/lib/GetCourseEnrollment"
+import { GetCourseEnrollmentDetail } from "@/lib/data/courses/enrollment"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
@@ -12,7 +12,7 @@ export default async function DashboardStudentCard() {
   const token = cookieStore.get("token")?.value
 
   let isUserEnroll: boolean = false
-  const CourseEnrollment = await GetCourseEnrollment(token)
+  const CourseEnrollment = await GetCourseEnrollmentDetail(token)
 
   if (CourseEnrollment?.code === 200) {
     isUserEnroll = true
