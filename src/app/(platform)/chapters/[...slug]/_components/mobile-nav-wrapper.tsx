@@ -3,7 +3,7 @@ import { cookies } from "next/headers"
 import { ChaptersConfig } from "@/types/chapters"
 import { GetCourseEnrollment } from "@/lib/GetCourseEnrollment"
 
-import ChapterMobileNav from "./chapter-mobile-nav"
+import ChapterMobileNav from "./mobile-nav"
 
 interface ChapterMobileNavWrapperProps {
   chapters: ChaptersConfig

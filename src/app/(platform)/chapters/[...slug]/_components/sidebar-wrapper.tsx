@@ -4,9 +4,9 @@ import { ChaptersConfig } from "@/types/chapters"
 import { chaptersConfig } from "@/config/chapters"
 import { GetCourseEnrollment } from "@/lib/GetCourseEnrollment"
 
-import ChapterSidebarNav from "./chapter-sidebar-nav"
+import ChapterSidebarNav from "./sidebar-nav"
 
-export default async function ChapterSidebarNavWrapper() {
+export default async function ChapterSidebarWrapper() {
   const cookiesStore = cookies()
   const token = cookiesStore.get("token")?.value
 
