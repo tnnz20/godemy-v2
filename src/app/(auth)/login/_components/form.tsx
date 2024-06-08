@@ -86,7 +86,7 @@ export default function LoginForm() {
             </div>
           ) : null}
         </div>
-        <Button className="w-full" type="submit" disabled={pending}>
+        <Button className="mt-2 w-full" type="submit" disabled={pending}>
           {pending && <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {pending ? "Mohon tunggu..." : "Login"}
         </Button>
