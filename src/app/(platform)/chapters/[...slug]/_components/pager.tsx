@@ -1,4 +1,3 @@
-import React from "react"
 import { cookies } from "next/headers"
 import Link from "next/link"
 import { UpdateProgress } from "@/action/update-progress"
@@ -29,6 +28,7 @@ export default async function ChapterPager({ chapter }: Readonly<PagerProps>) {
 
   const isPassedQuiz = CheckAssessmentValue(userAssessmentResult)
   const isQuizChapter = chapter?.title === "Kuis"
+
   return (
     <div
       className={cn("mb-4 flex flex-row items-center justify-between", {
@@ -44,6 +44,7 @@ export default async function ChapterPager({ chapter }: Readonly<PagerProps>) {
               {pager.prev.title}
             </Link>
           </Button>
+          <span className="sr-only">Previous Button</span>
         </div>
       )}
 
@@ -52,21 +53,13 @@ export default async function ChapterPager({ chapter }: Readonly<PagerProps>) {
           <form action={UpdateProgress}>
             <input type="hidden" name="progress" value={progress} />
             <input type="hidden" name="path" value={pager.next.href} />
-            {isQuizChapter ? (
-              <Button variant={"ghost"} className="ml-auto" type="submit" disabled={!isPassedQuiz}>
-                <div className="flex flex-row items-center text-xs md:text-sm ">
-                  {pager.next.title}
-                  <Icons.ChevronRight className="ml-2 h-4 w-4" />
-                </div>
-              </Button>
-            ) : (
-              <Button variant={"ghost"} className="ml-auto" type="submit">
-                <div className="flex flex-row items-center text-xs md:text-sm ">
-                  {pager.next.title}
-                  <Icons.ChevronRight className="ml-2 h-4 w-4" />
-                </div>
-              </Button>
-            )}
+            <Button variant={"ghost"} className="ml-auto" type="submit" disabled={isQuizChapter && !isPassedQuiz}>
+              <div className="flex flex-row items-center text-xs md:text-sm ">
+                {pager.next.title}
+                <Icons.ChevronRight className="ml-2 h-4 w-4" />
+              </div>
+            </Button>
+            <span className="sr-only">Next Button</span>
           </form>
         </div>
       )}
