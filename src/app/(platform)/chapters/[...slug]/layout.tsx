@@ -5,12 +5,12 @@ interface ChaptersLayoutProps {
   children: React.ReactNode
 }
 
-// TODO: fix bug sidebar
+// TODO: fix sidebar not sticky
 export default function ChaptersLayout({ children }: Readonly<ChaptersLayoutProps>) {
   return (
     <div className="flex flex-col">
       <ChapterNav />
-      <div className="flex h-screen">
+      <div className="flex h-full overflow-hidden">
         <div className="flex flex-1 overflow-y-auto">{children}</div>
         <ChapterSidebarWrapper />
       </div>
