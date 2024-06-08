@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation"
-import { SubmitQuiz } from "@/action/submit-quiz"
+import { SubmitQuiz } from "@/action/quiz"
 import { UpdateStatus } from "@/action/update-status-quiz"
 
 import { CalculateScore } from "@/lib/utils"

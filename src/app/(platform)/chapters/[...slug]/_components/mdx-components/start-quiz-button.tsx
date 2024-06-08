@@ -2,7 +2,7 @@
 
 import { use } from "react"
 import { useParams } from "next/navigation"
-import { StartQuiz } from "@/action/start-quiz"
+import { StartQuiz } from "@/action/quiz"
 
 import { UserAssessmentResultData } from "@/types/api"
 import { GetUserAssessmentResult } from "@/lib/data/assessment/assessment-result"
