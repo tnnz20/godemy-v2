@@ -1,6 +1,6 @@
 import { cookies } from "next/headers"
 import Link from "next/link"
-import { UpdateProgress } from "@/action/update-progress"
+import { UpdateProgress } from "@/action/enrollment"
 import { Chapter } from "#site/content"
 
 import { ChaptersNavItem } from "@/types/chapters"

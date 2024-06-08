@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
-import { JoinClass } from "@/action/join-class"
+import { EnrollCourse } from "@/action/enrollment"
 import { useFormState, useFormStatus } from "react-dom"
 
 import { ClassSate } from "@/types/auth"
@@ -19,7 +19,7 @@ export default function ClassForm() {
     message: "",
   }
 
-  const [state, dispatch] = useFormState(JoinClass, initialState)
+  const [state, dispatch] = useFormState(EnrollCourse, initialState)
   const { toast } = useToast()
   const { pending } = useFormStatus()
 
