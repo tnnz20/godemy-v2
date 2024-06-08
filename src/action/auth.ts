@@ -15,7 +15,7 @@ import { AuthSchema } from "@/validators/authSchema"
 
 import { LoginState } from "@/types/auth"
 
-export async function SignIn(prevState: LoginState, formData: FormData) {
+export async function Login(prevState: LoginState, formData: FormData) {
   const LoginSchema = AuthSchema.omit({ name: true, role: true })
 
   const validateFields = LoginSchema.safeParse({
