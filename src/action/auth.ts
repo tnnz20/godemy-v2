@@ -5,6 +5,7 @@ import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 import {
   BASE_URL,
+  ErrConflict,
   ErrInternalServer,
   ErrInvalid,
   ErrUserNotFound,
@@ -13,7 +14,7 @@ import {
 } from "@/constants/constants"
 import { AuthSchema } from "@/validators/authSchema"
 
-import { LoginState } from "@/types/auth"
+import { LoginState, RegisterState } from "@/types/auth"
 
 export async function Login(prevState: LoginState, formData: FormData) {
   const LoginSchema = AuthSchema.omit({ name: true, role: true })
@@ -74,4 +75,49 @@ export async function Login(prevState: LoginState, formData: FormData) {
   }
   revalidatePath("/dashboard")
   redirect("/dashboard")
+}
+
+export async function Register(prevState: RegisterState, formData: FormData) {
+  const validateFields = AuthSchema.safeParse({
+    email: formData.get("email"),
+    password: formData.get("password"),
+    name: formData.get("name"),
+    gender: formData.get("gender"),
+    role: formData.get("role"),
+  })
+
+  if (!validateFields.success) {
+    return {
+      errors: validateFields.error.flatten().fieldErrors,
+      message: ErrValidation,
+    }
+  }
+
+  const { name, email, password, role } = validateFields.data
+
+  try {
+    const response = await fetch(`${BASE_URL}/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, password, role }),
+    })
+
+    if (!response.ok) {
+      let msg: string
+      if (response.status == 409) {
+        msg = ErrConflict
+      } else {
+        msg = ErrInternalServer
+      }
+      revalidatePath("/register")
+      return { message: msg }
+    }
+  } catch (error) {
+    return { message: `${error}` }
+  }
+
+  revalidatePath("/login")
+  redirect("/login")
 }
