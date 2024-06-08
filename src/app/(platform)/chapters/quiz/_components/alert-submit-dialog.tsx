@@ -2,7 +2,7 @@ import { useRouter } from "next/navigation"
 import { SubmitQuiz } from "@/action/submit-quiz"
 import { UpdateStatus } from "@/action/update-status-quiz"
 
-import { CalculateScore } from "@/lib/CalculateScoreQuiz"
+import { CalculateScore } from "@/lib/utils"
 import {
   AlertDialog,
   AlertDialogAction,
