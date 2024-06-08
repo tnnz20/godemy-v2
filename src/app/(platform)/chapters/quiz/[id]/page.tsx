@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 import { Questions, QuizEval } from "@/datastores/question"
 
 import { QuestionItem } from "@/types/quiz"
-import { GetAssessmentUser } from "@/lib/GetUserAssessment"
+import { GetAssessmentUser } from "@/lib/data/assessment/assessment"
 
 import QuizAside from "../_components/quiz-aside"
 import QuizHeader from "../_components/quiz-header"
@@ -39,12 +39,12 @@ function DecodeBASE64toArray(BASE64RandomArrayId: string): number[] {
 
 export default async function QuizPage({ params }: Readonly<QuizPageProps>) {
   const cookiesStore = cookies()
-  const TOKEN = cookiesStore.get("token")?.value
+  const token = cookiesStore.get("token")?.value
 
   const question = GetQuestionFromId(params.id)
   const questionItem = question?.questions
 
-  const assessmentUser = await GetAssessmentUser(TOKEN, params.id)
+  const assessmentUser = await GetAssessmentUser(token, params.id)
   const BASE64RandomArrayId = assessmentUser?.data?.random_array_id
   const randomArrayId = DecodeBASE64toArray(BASE64RandomArrayId)
 
