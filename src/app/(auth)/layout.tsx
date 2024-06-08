@@ -8,7 +8,7 @@ interface LayoutProps {
   children: React.ReactNode
 }
 
-export default function LayoutAuth({ children }: Readonly<LayoutProps>) {
+export default function AuthLayout({ children }: Readonly<LayoutProps>) {
   return (
     <div className="flex min-h-screen flex-col">
       <HeaderLayout />
@@ -19,11 +19,12 @@ export default function LayoutAuth({ children }: Readonly<LayoutProps>) {
 
 function HeaderLayout() {
   return (
-    <header className="mx-4 mb-auto mt-2">
+    <header className="mb-auto mt-2 md:mx-4">
       <Button variant={"ghost"} asChild>
         <Link href="/" className="flex gap-1">
           <Icons.ChevronLeft />
-          <h2>Home</h2>
+          <span className="sr-only">Navigation Home</span>
+          <h2 className="hidden md:block">Beranda</h2>
         </Link>
       </Button>
     </header>
