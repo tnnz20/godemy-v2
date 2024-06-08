@@ -83,9 +83,9 @@ function MobileNavItem({ Items, pathname, progress }: Readonly<MobileNavItemProp
             </Link>
           </li>
         ) : (
-          <span key={item.title} className="flex w-full cursor-not-allowed items-center rounded-md p-2 opacity-60">
-            {item.title}
-          </span>
+          <li key={item.title}>
+            <span className="flex w-full cursor-not-allowed items-center rounded-md p-2 opacity-60">{item.title}</span>
+          </li>
         )
       )}
     </ul>
