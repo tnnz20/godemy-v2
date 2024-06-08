@@ -11,6 +11,7 @@ import { Icons } from "@/components/icons"
 interface RoleFormProps {
   step: string
 }
+
 export default function RoleForm({ step }: Readonly<RoleFormProps>) {
   const role = ["Siswa", "Guru"]
 
@@ -32,7 +33,7 @@ export default function RoleForm({ step }: Readonly<RoleFormProps>) {
 
   return (
     <div className={cn("flex w-full flex-col gap-4 pt-2", { hidden: step !== "1" })}>
-      <CardDescription className="  flex items-center justify-center text-muted-foreground">
+      <CardDescription className="flex items-center justify-center text-muted-foreground">
         Pilih role untuk akun anda
       </CardDescription>
       <div className="flex justify-center gap-2">
@@ -44,8 +45,18 @@ export default function RoleForm({ step }: Readonly<RoleFormProps>) {
             key={item}
           >
             <div className="flex flex-col items-center gap-4 ">
-              {item === "Siswa" && <Icons.User className="h-8 w-8" />}
-              {item === "Guru" && <Icons.GraduationCap className="h-8 w-8" />}
+              {item === "Siswa" && (
+                <>
+                  <Icons.User className="h-8 w-8" />
+                  <span className="sr-only">Icon Student</span>
+                </>
+              )}
+              {item === "Guru" && (
+                <>
+                  <Icons.GraduationCap className="h-8 w-8" />
+                  <span className="sr-only">Icon Teacher</span>
+                </>
+              )}
               <p>{item}</p>
             </div>
           </Button>
