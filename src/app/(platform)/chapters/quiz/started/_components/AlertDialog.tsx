@@ -1,7 +1,7 @@
 "use client"
 
 import { useSearchParams } from "next/navigation"
-import { UpdateStatus } from "@/action/update-status-quiz"
+import { UpdateStatus } from "@/action/quiz"
 
 import { Button } from "@/components/ui/button"
 
