@@ -4,7 +4,7 @@ import { use } from "react"
 import { useParams } from "next/navigation"
 import { StartQuiz } from "@/action/start-quiz"
 
-import { UserAssessmentResult } from "@/types/api"
+import { UserAssessmentResultData } from "@/types/api"
 import { GetUserAssessmentResult } from "@/lib/data/assessment/assessment-result"
 import { CheckAssessmentValue, FormattedDate } from "@/lib/utils"
 import {
@@ -18,6 +18,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
@@ -64,43 +65,44 @@ export function ChapterStartQuizButton({ token }: Readonly<ChapterStartQuizButto
       {userAssessmentResult === 404 ? (
         <TableCaption>Tidak ada riwayat kuis</TableCaption>
       ) : (
-        <HistoryUserAssessment userAssessmentResult={userAssessmentResult} paramId={paramId} />
+        <HistoryUserAssessment userAssessmentResult={userAssessmentResult?.data} />
       )}
     </div>
   )
 }
 interface HistoryUserAssessmentProps {
-  userAssessmentResult: UserAssessmentResult
-  paramId: string
+  userAssessmentResult: UserAssessmentResultData
 }
 
-function HistoryUserAssessment({ userAssessmentResult, paramId }: Readonly<HistoryUserAssessmentProps>) {
-  const assessmentValue = userAssessmentResult?.data?.assessment_value
-  const status = (assessmentValue as number) >= 80 ? "Lulus" : "Tidak Lulus"
-  const date = String(userAssessmentResult?.data?.created_at)
+function HistoryUserAssessment({ userAssessmentResult }: Readonly<HistoryUserAssessmentProps>) {
+  const assessmentValue = userAssessmentResult?.assessment_value
+  const status = assessmentValue >= 80 ? "Lulus" : "Tidak Lulus"
+  const date = String(userAssessmentResult?.created_at)
   const formattedDate = FormattedDate(date)
 
   return (
-    <div>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Tanggal</TableHead>
-            <TableHead>Tipe Kuis</TableHead>
-            <TableHead>Nilai</TableHead>
-            <TableHead>Status</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow key={"user history"}>
-            <TableCell className="font-medium">{formattedDate}</TableCell>
-            <TableCell>chap-{paramId}</TableCell>
-            <TableCell className="text-right">{assessmentValue}</TableCell>
-            <TableCell className={status === "Lulus" ? "text-green-700" : "text-destructive"}>{status}</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </div>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Tanggal Pelaksanaan</TableHead>
+          <TableHead>Kode Kuis</TableHead>
+          <TableHead>Nilai</TableHead>
+          <TableHead>Status</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableRow key={"user history"}>
+          <TableCell className="font-medium">{formattedDate}</TableCell>
+          <TableCell>{userAssessmentResult?.assessment_code}</TableCell>
+          <TableCell>{assessmentValue}</TableCell>
+          <TableCell>
+            <Badge className="text-xs" variant={status === "Lulus" ? "success" : "destructive"}>
+              {status}
+            </Badge>
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
   )
 }
 
