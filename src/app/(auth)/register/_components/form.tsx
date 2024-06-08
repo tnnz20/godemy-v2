@@ -2,7 +2,7 @@
 
 import { useEffect } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { Register } from "@/action/register"
+import { Register } from "@/action/auth"
 import { ErrConflict, ErrInternalServer, ErrValidation } from "@/constants/constants"
 import { useFormState, useFormStatus } from "react-dom"
 
@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
 
 import { Icons } from "@/components/icons"
@@ -56,51 +57,52 @@ export default function RegisterForm() {
         variant: "destructive",
         title: "Terjadi kesalahan saat registrasi",
         description: errMsg,
+        action: <ToastAction altText="Coba Lagi">Coba Lagi</ToastAction>,
       })
     }
   }, [state.message, toast])
 
   return (
-    <form className="px-2" action={dispatch}>
-      <div className="grid w-full items-center gap-4">
-        <div className="flex flex-col space-y-1.5">
+    <form action={dispatch}>
+      <div className="grid  gap-4">
+        <div className="grid gap-2">
           <Label htmlFor="email" className={cn({ "text-destructive": state?.errors?.email })}>
             Email
           </Label>
           <Input id="email" name="email" placeholder="godemy@example.com" required />
           {state?.errors?.email ? (
-            <div id="customer-error" aria-live="polite" className="mt-2 text-sm text-destructive">
+            <div id="users-error" aria-live="polite" className="mt-2 text-sm text-destructive">
               {state.errors?.email.map((error: string) => <p key={error}>{error}</p>)}
             </div>
           ) : null}
         </div>
-        <div className="flex flex-col space-y-1.5">
+        <div className="grid gap-2">
           <Label htmlFor="name" className={cn({ "text-destructive": state?.errors?.name })}>
-            Nama Lengkap
+            Nama
           </Label>
-          <Input id="name" name="name" placeholder="Nama Lengkap" required />
+          <Input id="name" name="name" placeholder="nama lengkap" required />
           {state?.errors?.name ? (
-            <div id="customer-error" aria-live="polite" className="mt-2 text-sm text-destructive">
+            <div id="users-error" aria-live="polite" className="mt-2 text-sm text-destructive">
               {state.errors.name.map((error: string) => (
                 <p key={error}>{error}</p>
               ))}
             </div>
           ) : null}
         </div>
-        <div className="flex flex-col space-y-1.5">
+        <div className="grid gap-2">
           <Label htmlFor="password" className={cn({ "text-destructive": state?.errors?.password })}>
             Password
           </Label>
-          <Input id="password" name="password" placeholder="Password email anda" type="password" required />
+          <Input id="password" name="password" placeholder="password email anda" type="password" required />
           {state?.errors?.password ? (
-            <div id="customer-error" aria-live="polite" className="mt-2 text-sm text-destructive">
+            <div id="users-error" aria-live="polite" className="mt-2 text-sm text-destructive">
               {state.errors?.password.map((error: string) => <p key={error}>{error}</p>)}
             </div>
           ) : null}
         </div>
         <Input id="role" name="role" className="hidden" value={role} readOnly />
       </div>
-      <div className="mb-4 mt-8">
+      <div className="mt-8">
         <ButtonForm pending={pending} />
       </div>
     </form>
@@ -128,7 +130,7 @@ function ButtonForm({ pending }: Readonly<{ pending: boolean }>) {
           <p>Kembali</p>
         </Button>
       )}
-      <Button disabled={pending} type="submit">
+      <Button disabled={pending} className={cn({ "w-full": pending })} type="submit">
         {pending && <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         {pending ? "Mohon tunggu..." : "Daftar"}
       </Button>
