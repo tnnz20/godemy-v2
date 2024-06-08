@@ -3,10 +3,10 @@ import Image from "next/image"
 
 import { cn } from "@/lib/utils"
 
-import { Callout } from "./callout"
-import { ChapterStartQuizWrapper } from "./chapter-start-quiz-wrapper"
-import { Compiler } from "./compiler"
-import { ExerciseWrapper } from "./exercise-wrapper"
+import { Callout } from "./mdx-components/callout"
+import { Compiler } from "./mdx-components/compiler"
+import { ExerciseWrapper } from "./mdx-components/exercise-wrapper"
+import { ChapterStartQuizWrapper } from "./mdx-components/start-quiz-wrapper"
 
 const useMDXComponent = (code: string) => {
   const fn = new Function(code)

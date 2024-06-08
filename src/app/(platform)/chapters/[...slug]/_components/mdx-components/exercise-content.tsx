@@ -80,12 +80,12 @@ function ExerciseOption() {
         >
           <div className="flex items-center gap-2">
             <div
-              className={cn("bg-optionCircle mx-2 flex h-8 w-8 items-center justify-center rounded-full transition", {
+              className={cn("mx-2 flex h-8 w-8 items-center justify-center rounded-full bg-optionCircle transition", {
                 "bg-activeOptionCircle": isClicked == index,
               })}
             >
               <p
-                className={cn("text-optionAnswer font-semibold transition", {
+                className={cn("font-semibold text-optionAnswer transition", {
                   "text-activeOptionAnswer": isClicked == index,
                 })}
               >
@@ -122,14 +122,14 @@ function ExerciseResult() {
       {status === "correct" ? (
         <CardContent className="flex min-h-[258px] flex-col items-center justify-center gap-2 p-4">
           <div
-            className={cn("bg-activeOptionCircle  flex h-8 w-8 items-center justify-center rounded-full transition")}
+            className={cn("flex  h-8 w-8 items-center justify-center rounded-full bg-activeOptionCircle transition")}
           >
             <p className={cn("text-activeOptionAnswer transition")}>{option}</p>
           </div>
           <p className="text-md my-2 font-semibold">{answer}</p>
-          <div className="bg-correctBadgeResult my-4 flex w-auto items-center justify-center gap-2 rounded-3xl px-3 py-2">
-            <Icons.Check className="text-correctBadgeResultText flex h-4 w-4 items-center" />
-            <p className="text-correctBadgeResultText text-sm font-semibold">Benar</p>
+          <div className="my-4 flex w-auto items-center justify-center gap-2 rounded-3xl bg-correctBadgeResult px-3 py-2">
+            <Icons.Check className="flex h-4 w-4 items-center text-correctBadgeResultText" />
+            <p className="text-sm font-semibold text-correctBadgeResultText">Benar</p>
           </div>
           <p className="mx-auto w-full max-w-[380px] items-center justify-center text-center text-sm text-muted-foreground">
             {explanation}
@@ -140,9 +140,9 @@ function ExerciseResult() {
           <div className={cn("flex  h-8 w-8 items-center justify-center rounded-full bg-muted transition")}>
             <p className={cn("text-muted-foreground transition")}>{option}</p>
           </div>
-          <div className="bg-wrongBadgeResult my-4 flex w-auto items-center justify-center gap-2 rounded-3xl px-3 py-2">
-            <Icons.Close className="text-wrongBadgeResultText flex h-4 w-4 items-center stroke-[3]" />
-            <p className="text-wrongBadgeResultText text-sm font-semibold">Salah</p>
+          <div className="my-4 flex w-auto items-center justify-center gap-2 rounded-3xl bg-wrongBadgeResult px-3 py-2">
+            <Icons.Close className="flex h-4 w-4 items-center stroke-[3] text-wrongBadgeResultText" />
+            <p className="text-sm font-semibold text-wrongBadgeResultText">Salah</p>
           </div>
           <p className="mx-auto w-full max-w-[380px] items-center justify-center text-center text-sm text-muted-foreground">
             petunjuk: {hint}

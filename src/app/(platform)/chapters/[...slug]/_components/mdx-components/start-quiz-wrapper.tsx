@@ -1,7 +1,7 @@
 import { Suspense } from "react"
 import { cookies } from "next/headers"
 
-import { ChapterStartQuizButton } from "./chapter-start-quiz-button"
+import { ChapterStartQuizButton } from "./start-quiz-button"
 
 export async function ChapterStartQuizWrapper() {
   const cookiesStore = cookies()
