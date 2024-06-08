@@ -1,6 +1,5 @@
 "use client"
 
-import React from "react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { motion } from "framer-motion"
@@ -9,7 +8,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 
-import RegisterForm from "./register-form"
+import RegisterForm from "./form"
 import RoleForm from "./role-options"
 
 export default function RegisterCard() {
@@ -17,10 +16,10 @@ export default function RegisterCard() {
   const step = searchParams.get("step") ?? "1"
 
   return (
-    <Card className="mx-auto w-[350px] md:w-[400px]">
-      <CardHeader className="flex items-center">
-        <CardTitle>Daftar akun Godemy</CardTitle>
-        <CardDescription className="text-center">Daftar sekarang untuk menikmati fitur Godemy</CardDescription>
+    <Card className="mx-auto max-w-sm">
+      <CardHeader>
+        <CardTitle className="text-2xl">Daftar akun</CardTitle>
+        <CardDescription>Masukan data anda untuk membuat akun Godemy</CardDescription>
       </CardHeader>
       <CardContent className="relative overflow-hidden p-0 px-6">
         <motion.div
@@ -48,7 +47,7 @@ export default function RegisterCard() {
           <RegisterForm />
         </motion.div>
       </CardContent>
-      <CardFooter className="flex justify-center">
+      <CardFooter className="mt-2 flex justify-center">
         {step === "1" && (
           <CardDescription>
             Sudah punya akun?{" "}
@@ -56,6 +55,7 @@ export default function RegisterCard() {
               <Button variant="link" className="p-0 text-accent-foreground" asChild>
                 <Link href={"/login"}>Masuk sekarang</Link>
               </Button>
+              <span className="sr-only">Button Login Page</span>
             </span>
           </CardDescription>
         )}
