@@ -3,16 +3,16 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 
-import LoginForm from "./login-form"
+import LoginForm from "./form"
 
 export default function LoginCard() {
   return (
-    <Card className="mx-auto w-[350px] md:w-[400px]">
-      <CardHeader className="flex items-center">
-        <CardTitle>Masuk</CardTitle>
-        <CardDescription className="text-center">Masukan email dan password yang sudah terdaftar</CardDescription>
+    <Card className="mx-auto max-w-sm">
+      <CardHeader>
+        <CardTitle className="text-2xl">Login</CardTitle>
+        <CardDescription>Masukan email dan password yang sudah terdaftar untuk masuk ke akun anda</CardDescription>
       </CardHeader>
-      <CardContent className="relative overflow-hidden p-0 px-6">
+      <CardContent>
         <LoginForm />
       </CardContent>
       <CardFooter className="flex justify-center">
@@ -22,6 +22,7 @@ export default function LoginCard() {
             <Button variant="link" className="p-0 text-accent-foreground" asChild>
               <Link href={"/register"}>Daftar sekarang</Link>
             </Button>
+            <span className="sr-only">Button Register Page</span>
           </span>
         </CardDescription>
       </CardFooter>

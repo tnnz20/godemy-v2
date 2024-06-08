@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 
-import LoginCard from "./_components/login-card"
+import LoginCard from "./_components/card"
 
 export const metadata: Metadata = {
   title: "Login",
