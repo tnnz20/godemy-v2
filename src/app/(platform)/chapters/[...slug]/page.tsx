@@ -45,7 +45,7 @@ export default async function ChaptersPage({ params }: Readonly<ChapterPageProps
 
   return (
     <article className="container mx-auto max-w-4xl">
-      <div className="mx-auto w-full min-w-0  pb-4">
+      <div className="mx-auto w-full min-w-0 pb-4">
         {chapter.title != "Kuis" ? (
           <h1 className="inline-block space-y-4 font-heading text-4xl lg:text-5xl">{chapter.title}</h1>
         ) : (
