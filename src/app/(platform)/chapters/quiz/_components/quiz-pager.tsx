@@ -34,6 +34,7 @@ export default function QuizPager() {
       {prev !== null ? (
         <Button variant={"ghost"} className={cn("flex items-center gap-2 px-4")} onClick={() => handlePager(prev)}>
           <Icons.ChevronLeft className="h-6 w-6" />
+          <span className="sr-only">Previous question</span>
           <p>Kembali</p>
         </Button>
       ) : null}
@@ -42,10 +43,12 @@ export default function QuizPager() {
         <Button variant={"ghost"} className={cn("flex items-center gap-2 px-4")} onClick={() => handlePager(next)}>
           <p>Selanjutnya</p>
           <Icons.ChevronRight className="h-6 w-6" />
+          <span className="sr-only">Next question</span>
         </Button>
       ) : (
         <AlertSubmitDialog paramId={params?.id as string}>
           <Button variant={"destructive"}>Selesai</Button>
+          <span className="sr-only">Submit question</span>
         </AlertSubmitDialog>
       )}
     </div>
