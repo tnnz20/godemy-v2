@@ -2,6 +2,7 @@ import { Metadata } from "next"
 import { cookies } from "next/headers"
 
 import { DecodeJWT } from "@/lib/utils"
+import { Toaster } from "@/components/ui/toaster"
 
 import DashboardHeader from "./_components/dashboard-header"
 import DashboardSideNav from "./_components/dashboard-sidenav"
@@ -31,6 +32,7 @@ export default function DashboardLayout({ children }: Readonly<DashboardLayoutPr
         <DashboardHeader role={role} />
         {children}
       </div>
+      <Toaster />
     </div>
   )
 }
