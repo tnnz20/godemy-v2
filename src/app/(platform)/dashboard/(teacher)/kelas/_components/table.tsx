@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 
-import { CoursesResultData } from "@/types/api"
+import { CourseResultData } from "@/types/api"
 import { FormattedDate } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -17,11 +17,11 @@ import { useToast } from "@/components/ui/use-toast"
 
 import { Icons } from "@/components/icons"
 
-interface TableClassProps {
-  courses: CoursesResultData[]
+interface ClassTableProps {
+  courses: CourseResultData[]
 }
 
-export default function TableClass({ courses }: Readonly<TableClassProps>) {
+export default function ClassTable({ courses }: Readonly<ClassTableProps>) {
   const [copied, setCopied] = useState<string | null>(null)
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text)
@@ -53,7 +53,7 @@ export default function TableClass({ courses }: Readonly<TableClassProps>) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {courses?.map((course: CoursesResultData) => (
+        {courses?.map((course: CourseResultData) => (
           <TableRow key={course.id}>
             <TableCell>{FormattedDate(String(course?.created_at))}</TableCell>
             <TableCell>{course?.course_name}</TableCell>
