@@ -8,14 +8,16 @@ type DashboardTeacherTableProps = {
 }
 
 export default function DashboardTeacherTable({ courses }: Readonly<DashboardTeacherTableProps>) {
+  const coursesSplit = courses.splice(0, 5)
+
   return (
-    <Card x-chunk="dashboard-02-chunk-3">
+    <Card x-chunk="dashboard-03-chunk-0">
       <CardHeader>
         <CardTitle>Daftar Kelas</CardTitle>
-        <CardDescription>Daftar kelas yang dimiliki.</CardDescription>
+        <CardDescription>Daftar 5 kelas terbaru yang dimiliki.</CardDescription>
       </CardHeader>
       <CardContent>
-        <TableClass courses={courses} />
+        <TableClass courses={coursesSplit} />
       </CardContent>
     </Card>
   )
