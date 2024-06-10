@@ -6,13 +6,6 @@ export type LoginState = {
   message?: string | null
 }
 
-export type ClassSate = {
-  errors?: {
-    code?: string[] | undefined
-  }
-  message: string
-}
-
 export type RegisterState = {
   errors?: {
     email?: string[]
@@ -21,11 +14,4 @@ export type RegisterState = {
     role?: string[]
   }
   message?: string | null
-}
-
-export type CreateCourseState = {
-  errors?: {
-    course_name?: string[] | undefined | null
-  }
-  message: string | null
 }

@@ -9,7 +9,7 @@ import {
 } from "@/constants/constants"
 import { CourseSchema } from "@/validators/course-schema"
 
-import { CreateCourseState } from "@/types/auth"
+import { CreateCourseState } from "@/types/courses"
 
 export async function CreateCourse(
   prevState: CreateCourseState,
