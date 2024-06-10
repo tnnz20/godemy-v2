@@ -1,5 +1,7 @@
 "use client"
 
+import { useEffect, useState } from "react"
+
 import { CoursesResultData } from "@/types/api"
 import { FormattedDate } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -11,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { useToast } from "@/components/ui/use-toast"
 
 import { Icons } from "@/components/icons"
 
@@ -19,9 +22,23 @@ interface TableClassProps {
 }
 
 export default function TableClass({ courses }: Readonly<TableClassProps>) {
+  const [copied, setCopied] = useState<string | null>(null)
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text)
+    setCopied(text)
   }
+
+  const { toast } = useToast()
+
+  useEffect(() => {
+    if (copied) {
+      toast({
+        title: "Salin berhasil!",
+        description: `Kode kelas ${copied} berhasil disalin.`,
+      })
+    }
+    setCopied(null)
+  }, [toast, copied])
 
   return (
     <Table>
