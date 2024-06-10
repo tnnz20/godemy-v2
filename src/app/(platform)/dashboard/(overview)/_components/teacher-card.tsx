@@ -9,7 +9,7 @@ export default async function DashboardTeacherCard() {
   const cookiesStore = cookies()
   const token = cookiesStore.get("token")?.value
 
-  const totalCourses = await GetTotalCourses(token as string)
+  const totalCourses = await GetTotalCourses(token as string, "")
   const total = totalCourses?.data?.total
 
   return (
