@@ -1,17 +1,13 @@
-export type APISuccessResponse = {
+export type APIResponse = {
   code: number
-  message: string
-}
-
-export type APIErrorResponse = {
-  code: number
-  error: {
+  message?: string
+  error?: {
     error_name: string
     error_description: string
   }
 }
 
-export type UserAssessmentResult = APISuccessResponse & {
+export type UserAssessmentResult = APIResponse & {
   data?: UserAssessmentResultData
 }
 
@@ -25,7 +21,11 @@ export type UserAssessmentResultData = {
   updated_at: Date
 }
 
-export type CoursesResultData = {
+export type CoursesResult = APIResponse & {
+  data?: CourseResultData[]
+}
+
+export type CourseResultData = {
   id: UUID
   users_id: UUID
   course_name: string
@@ -34,7 +34,7 @@ export type CoursesResultData = {
   updated_at: Date
 }
 
-export type EnrolledUsersDetails = APISuccessResponse & {
+export type EnrolledUsersDetails = APIResponse & {
   data?: EnrolledUsersDetailsData[]
 }
 
@@ -44,4 +44,10 @@ export type EnrolledUsersDetailsData = {
   name: string
   progress: number
   updated_at: Date
+}
+
+export type TotalDataResponse = APIResponse & {
+  data?: {
+    total: number
+  }
 }
