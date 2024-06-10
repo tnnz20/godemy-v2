@@ -1,7 +1,7 @@
 import { CoursesResultData } from "@/types/api"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
-import TableClass from "../../(teacher)/daftar-kelas/_components/table"
+import TableClass from "../../(teacher)/kelas/_components/table"
 
 type DashboardTeacherTableProps = {
   courses: CoursesResultData[]
