@@ -13,7 +13,7 @@ interface DashboardLayoutProps {
 export const metadata: Metadata = {
   title: {
     default: "Dashboard",
-    template: `%s | "Dashboard"`,
+    template: `%s | Dashboard`,
   },
   description: "Dashboard Page for Godemy Learning",
 }
