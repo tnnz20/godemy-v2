@@ -1,6 +1,6 @@
-import DashboardProfile from "./dashboard-profile"
-import DashboardStudentCard from "./dashboard-student-card"
-import DashboardStudentTable from "./dashboard-student-table"
+import DashboardProfile from "./profile-card"
+import DashboardStudentCard from "./student-card"
+import DashboardStudentTable from "./student-table"
 
 export default function DashboardStudentWrapper() {
   return (

@@ -11,13 +11,12 @@ export default async function DashboardStudentCard() {
   const cookieStore = cookies()
   const token = cookieStore.get("token")?.value
 
-  let isUserEnroll: boolean = false
   const CourseEnrollment = await GetCourseEnrollmentDetail(token)
 
-  if (CourseEnrollment?.code === 200) {
-    isUserEnroll = true
-  }
+  let isUserEnroll: boolean = CourseEnrollment?.code === 200
+
   const progress = CourseEnrollment?.data?.progress
+
   const chapters = chaptersConfig.NavItems.flatMap((item) => item.items)
   const totalProgress = chapters.length - 1
   const isFinished = progress === totalProgress
@@ -38,7 +37,7 @@ export default async function DashboardStudentCard() {
     <>
       {isUserEnroll ? (
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
-          <Card className="sm:col-span-2" x-chunk="dashboard-05-chunk-0">
+          <Card className="sm:col-span-2" x-chunk="dashboard-01-chunk-0">
             <CardHeader className="pb-3">
               <CardTitle>Progress Belajar</CardTitle>
               <CardDescription className="max-w-lg text-balance leading-relaxed">
@@ -55,13 +54,13 @@ export default async function DashboardStudentCard() {
               )}
             </CardFooter>
           </Card>
-          <Card x-chunk="dashboard-05-chunk-1">
+          <Card x-chunk="dashboard-01-chunk-1">
             <CardHeader className="pb-2">
               <CardDescription>Progres Belajar</CardDescription>
               <CardTitle className="text-4xl">{progress + "/" + totalProgress}</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-xs text-muted-foreground">- {totalProgress - progress} materi lagi</div>
+              <div className="text-xs text-muted-foreground">tersisa {totalProgress - progress} materi lagi</div>
             </CardContent>
             <CardFooter>
               <Progress
@@ -70,7 +69,7 @@ export default async function DashboardStudentCard() {
               />
             </CardFooter>
           </Card>
-          <Card x-chunk="dashboard-05-chunk-2">
+          <Card x-chunk="dashboard-01-chunk-2">
             <CardHeader className="pb-2">
               <CardDescription>Kuis dikerjakan</CardDescription>
               <CardTitle className="text-4xl">{progressQuiz + "/" + thresholdQuizArray.length}</CardTitle>
@@ -90,7 +89,7 @@ export default async function DashboardStudentCard() {
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
-          <Card className="sm:col-span-2" x-chunk="dashboard-05-chunk-0">
+          <Card className="sm:col-span-2" x-chunk="dashboard-01-chunk-3">
             <CardHeader className="pb-3">
               <CardTitle>Belum terdaftar pada kelas</CardTitle>
               <CardDescription className="max-w-lg text-balance leading-relaxed">
@@ -99,7 +98,7 @@ export default async function DashboardStudentCard() {
             </CardHeader>
             <CardFooter>
               <Button asChild>
-                <Link href={"/register/class"}>Masukan kode</Link>
+                <Link href={"/courses/enroll"}>Masukan kode</Link>
               </Button>
             </CardFooter>
           </Card>

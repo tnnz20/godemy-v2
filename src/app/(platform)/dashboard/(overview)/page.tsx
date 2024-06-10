@@ -2,8 +2,8 @@ import { cookies } from "next/headers"
 
 import { DecodeJWT } from "@/lib/utils"
 
-import DashboardStudentWrapper from "./_components/dashboard-student-wrapper"
-import DashboardTeacherWrapper from "./_components/dashboard-teacher-wrapper"
+import DashboardStudentWrapper from "./_components/student-wrapper"
+import DashboardTeacherWrapper from "./_components/teacher-wrapper"
 
 export default function DashboardPage() {
   const cookieStore = cookies()

@@ -2,9 +2,9 @@ import { cookies } from "next/headers"
 
 import { GetCourses } from "@/lib/GetCourses"
 
-import DashboardProfile from "./dashboard-profile"
-import DashboardTeacherCard from "./dashboard-teacher-card"
-import DashboardTeacherTable from "./dashboard-teacher-table"
+import DashboardProfile from "./profile-card"
+import DashboardTeacherCard from "./teacher-card"
+import DashboardTeacherTable from "./teacher-table"
 
 export default async function DashboardTeacherWrapper() {
   const cookieStore = cookies()
