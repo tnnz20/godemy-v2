@@ -1,6 +1,6 @@
 "use server"
 
-import { revalidatePath } from "next/cache"
+import { revalidateTag } from "next/cache"
 import { cookies } from "next/headers"
 import {
   BASE_URL,
@@ -43,10 +43,10 @@ export async function CreateCourse(
     const data = await response.json()
 
     if (!response.ok) {
-      revalidatePath("/dashboard/daftar-kelas")
       return { message: data?.error?.error_description }
     } else if (response.ok) {
-      revalidatePath("/dashboard/daftar-kelas")
+      revalidateTag("courses")
+      revalidateTag("total-courses")
       return { message: "Kelas berhasil dibuat" }
     } else {
       return { message: ErrInternalServer }
