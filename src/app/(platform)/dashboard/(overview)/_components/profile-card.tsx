@@ -2,7 +2,7 @@ import { cookies } from "next/headers"
 import Link from "next/link"
 
 import { ProfileData } from "@/types/dashboard"
-import { GetUserProfile } from "@/lib/GetUsersProfile"
+import { GetUsersProfile } from "@/lib/data/users/profile"
 import { DecodeJWT } from "@/lib/utils"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
@@ -22,20 +22,20 @@ export default async function DashboardProfile() {
     return new Date(dateString).toLocaleDateString()
   }
 
-  const res = await GetUserProfile(token as string)
+  const users = await GetUsersProfile(token as string)
 
   const Profile: ProfileData[] = [
     {
       title: "Nama",
-      value: res?.data?.name,
+      value: users?.data?.name,
     },
     {
       title: "Email",
-      value: res?.data?.email,
+      value: users?.data?.email,
     },
     {
       title: "Jenis Kelamin",
-      value: res?.data?.gender,
+      value: users?.data?.gender,
     },
     {
       title: "Role",
@@ -43,7 +43,7 @@ export default async function DashboardProfile() {
     },
     {
       title: "Tanggal Lahir",
-      value: formatDate(res?.data?.date),
+      value: formatDate(users?.data?.date),
     },
   ]
 
@@ -62,14 +62,14 @@ export default async function DashboardProfile() {
     "December",
   ]
 
-  const updated_date = new Date(res?.data?.created_at)
+  const updated_date = new Date(users?.data?.created_at)
 
   return (
     <div>
-      <Card className="overflow-hidden" x-chunk="dashboard-05-chunk-4">
+      <Card className="overflow-hidden" x-chunk="dashboard-02-chunk-0">
         <CardHeader className="flex flex-row items-start bg-muted/50">
           <div className="grid gap-0.5">
-            <CardTitle className="group flex items-center gap-2 text-lg">Profiles</CardTitle>
+            <CardTitle className="group flex items-center gap-2 text-lg">Profile</CardTitle>
             <CardDescription>Biodata pengguna</CardDescription>
           </div>
           <div className="ml-auto flex items-center gap-1">

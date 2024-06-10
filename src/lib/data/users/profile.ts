@@ -1,6 +1,6 @@
 import { BASE_URL } from "@/constants/constants"
 
-export async function GetUserProfile(token: string) {
+export async function GetUsersProfile(token: string) {
   try {
     const response = await fetch(`${BASE_URL}/auth/user`, {
       method: "GET",
