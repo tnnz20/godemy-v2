@@ -1,49 +1,70 @@
 import { BASE_URL } from "@/constants/constants"
 
-export async function GetTotalCourses(token: string) {
+import { CoursesResult, TotalDataResponse } from "@/types/api"
+
+export async function GetTotalCourses(
+  token: string,
+  course_name: string
+): Promise<TotalDataResponse> {
   try {
-    const response = await fetch(`${BASE_URL}/courses/total`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    const response = await fetch(
+      `${BASE_URL}/courses/total?course_name=${course_name}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        cache: "no-store",
+        next: { tags: ["total-courses"] },
+      }
+    )
     const data = await response.json()
-    if (response.ok) {
-      return data
-    } else if (response.status === 404) {
-      return data?.code
-    } else {
-      throw new Error(
-        `status: ${response.status}, message: ${data?.error?.error_description}`
-      )
-    }
-  } catch (error) {
+
+    return data as TotalDataResponse
+  } catch (error: any) {
     console.log(error)
+    return {
+      code: 500,
+      error: {
+        error_name: "InternalServerError",
+        error_description: error.message,
+      },
+    }
   }
 }
 
-export async function GetCourses(token: string) {
+export async function GetCourses(
+  token: string,
+  page: number,
+  course_name: string = ""
+): Promise<CoursesResult> {
   try {
-    const response = await fetch(`${BASE_URL}/courses`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    const nextItem = page === 1 ? 0 : (page - 1) * 6
+    const response = await fetch(
+      `${BASE_URL}/courses?course_name=${course_name}&offset=${nextItem}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        cache: "no-store",
+        next: { tags: ["courses"] },
+      }
+    )
+
     const data = await response.json()
-    if (response.ok) {
-      return data
-    } else if (response.status === 404) {
-      return data?.code
-    } else {
-      throw new Error(
-        `status: ${response.status}, message: ${data?.error?.error_description}`
-      )
-    }
-  } catch (error) {
+
+    return data as CoursesResult
+  } catch (error: any) {
     console.log(error)
+    return {
+      code: 500,
+      error: {
+        error_name: "InternalServerError",
+        error_description: error.message,
+      },
+    }
   }
 }
