@@ -10,6 +10,7 @@ export default function DashboardPage() {
   const jwtToken = cookieStore.get("token")
 
   const { role } = DecodeJWT(jwtToken?.value)
+  const isStudent = role === "student"
 
-  return <>{role === "student" ? <DashboardStudentWrapper /> : <DashboardTeacherWrapper />}</>
+  return <>{isStudent ? <DashboardStudentWrapper /> : <DashboardTeacherWrapper />}</>
 }
