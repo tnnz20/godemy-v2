@@ -14,13 +14,11 @@ export default async function DashboardTeacherCard() {
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
-      <Card className="sm:col-span-2" x-chunk="dashboard-03-chunk-0">
+      <Card className="sm:col-span-2" x-chunk="dashboard-01-chunk-0">
         <CardHeader className="pb-3">
           <CardTitle>Kelola kelas</CardTitle>
           <CardDescription className="max-w-lg text-balance leading-relaxed">
-            {total
-              ? "Kelola kelas yang dimiliki, dan lihat progres belajar siswa."
-              : "Anda belum memiliki kelas. Silahkan buat kelas terlebih dahulu."}
+            {total ? "Kelola kelas yang dimiliki" : "Anda belum memiliki kelas. Silahkan buat kelas terlebih dahulu"}
           </CardDescription>
         </CardHeader>
         <CardFooter>
@@ -30,7 +28,7 @@ export default async function DashboardTeacherCard() {
         </CardFooter>
       </Card>
       {!total ? null : (
-        <Card x-chunk="dashboard-03-chunk-1">
+        <Card x-chunk="dashboard-01-chunk-1">
           <CardHeader className="pb-2">
             <CardDescription>Kelas</CardDescription>
             <CardTitle className="text-4xl">{total}</CardTitle>
