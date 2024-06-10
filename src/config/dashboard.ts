@@ -9,14 +9,19 @@ export const NavTeacherDashboard: NavItemDashboard[] = [
     icon: Icons.Home,
   },
   {
-    name: "Daftar Kelas",
-    href: "/dashboard/daftar-kelas",
+    name: "Kelas",
+    href: "/dashboard/kelas",
     icon: Icons.Archive,
   },
   {
-    name: "Daftar Siswa",
-    href: "/dashboard/daftar-siswa",
+    name: "Siswa",
+    href: "/dashboard/siswa",
     icon: Icons.BookUser,
+  },
+  {
+    name: "Nilai",
+    href: "/dashboard/nilai",
+    icon: Icons.BookText,
   },
 ]
 
