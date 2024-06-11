@@ -1,10 +1,10 @@
-import { CoursesResultData } from "@/types/api"
+import { CourseResultData } from "@/types/api"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
 import TableClass from "../../(teacher)/kelas/_components/table"
 
 type DashboardTeacherTableProps = {
-  courses: CoursesResultData[]
+  courses: CourseResultData[]
 }
 
 export default function DashboardTeacherTable({ courses }: Readonly<DashboardTeacherTableProps>) {
