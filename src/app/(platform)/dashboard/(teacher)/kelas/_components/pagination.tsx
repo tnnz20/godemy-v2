@@ -20,7 +20,6 @@ export default function ClassPagination({ data }: Readonly<ClassPaginationProps>
   const total = data?.data?.total ?? 0
   const totalPage = Math.ceil(total / 6)
   const currentPage = parseInt(searchParams.get("page") ?? "1")
-  console.log("🚀 ~ ClassPagination ~ currentPage:", currentPage)
 
   const handlePagination = (page: number) => {
     const params = new URLSearchParams(searchParams)
