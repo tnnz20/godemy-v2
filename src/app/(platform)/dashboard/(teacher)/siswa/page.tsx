@@ -1,6 +1,5 @@
 import { cookies } from "next/headers"
 
-import { GetCourses } from "@/lib/GetCourses"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 
 import DashboardPagination from "./_components/pagination"
@@ -11,12 +10,11 @@ import TableStudent from "./_components/table"
 export default async function ListStudentPage() {
   const cookiesStore = cookies()
   const token = cookiesStore.get("token")?.value
-  const courses = await GetCourses(token as string)
 
   return (
     <div className="grid flex-1 items-start gap-2 p-4 sm:px-6 sm:py-0 md:gap-8">
       <div className="mt-4 flex items-center">
-        <SelectClass courses={courses?.data} />
+        <SelectClass token={token as string} />
         <div className="ml-auto flex items-center gap-2">
           <SearchStudent />
         </div>
