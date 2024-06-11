@@ -3,63 +3,49 @@
 import { useEffect, useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
-import { GetTotalEnrolledUsers } from "@/lib/GetTotalEnrolledUsers"
+import { TotalDataResponse } from "@/types/api"
+import { GetTotalEnrolledUsers } from "@/lib/data/courses/enrollment"
 import { Button } from "@/components/ui/button"
 import { Pagination, PaginationContent, PaginationItem } from "@/components/ui/pagination"
 
 import { Icons } from "@/components/icons"
 
-export default function DashboardPagination() {
-  const [data, setData] = useState<number>(0)
-  const [pending, setPending] = useState<boolean>(false)
-  const [error, setError] = useState<boolean>(false)
+export default function StudentPagination() {
+  const [data, setData] = useState<TotalDataResponse>()
 
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const { replace } = useRouter()
 
-  const totalPage = Math.ceil(data / 6)
+  const total = data?.data?.total ?? 0
+  const totalPage = Math.ceil(total / 6)
   const currentPage = parseInt(searchParams.get("page") ?? "1")
 
   const courseId = searchParams.get("courseId")?.toString() ?? ""
   const name = searchParams.get("name")?.toString() ?? ""
 
-  const handlePagination = () => {
+  const handlePagination = (page: number) => {
     const params = new URLSearchParams(searchParams)
-    if (currentPage > 1) {
-      params.set("page", (currentPage - 1).toString())
-    } else {
-      params.set("page", (currentPage + 1).toString())
-    }
+    params.set("page", page.toString())
     replace(`${pathname}?${params}`)
   }
 
   useEffect(() => {
     const fetchDataFromAPI = async () => {
-      setPending(true)
       try {
         const totalEnrolled = await GetTotalEnrolledUsers(courseId, name)
-        if (totalEnrolled === 404) {
-          setError(true)
-        }
-        setData(totalEnrolled?.data?.total)
+        setData(totalEnrolled)
       } catch (error) {
         console.log(error)
-      } finally {
-        setPending(false)
       }
     }
 
     fetchDataFromAPI()
   }, [courseId, name])
 
-  if (pending) {
-    return <div>Loading...</div>
-  }
-
   return (
     <>
-      {!data || error ? null : (
+      {data?.code !== 200 ? null : (
         <div className="flex items-center gap-8">
           <p className="text-sm">
             Halaman {currentPage} dari <span className="font-semibold">{totalPage}</span>
@@ -72,7 +58,7 @@ export default function DashboardPagination() {
                   variant="outline"
                   className="h-8 w-8"
                   disabled={currentPage == 1}
-                  onClick={() => handlePagination()}
+                  onClick={() => handlePagination(currentPage - 1)}
                 >
                   <Icons.ChevronLeft className="h-4 w-4" />
                   <span className="sr-only">Previous Data</span>
@@ -84,7 +70,7 @@ export default function DashboardPagination() {
                   variant="outline"
                   className="h-8 w-8"
                   disabled={currentPage >= totalPage}
-                  onClick={() => handlePagination()}
+                  onClick={() => handlePagination(currentPage + 1)}
                 >
                   <Icons.ChevronRight className="h-4 w-4" />
                   <span className="sr-only">Next Data</span>
