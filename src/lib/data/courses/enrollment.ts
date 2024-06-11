@@ -1,5 +1,7 @@
 import { BASE_URL } from "@/constants/constants"
 
+import { TotalDataResponse } from "@/types/api"
+
 export async function GetCourseEnrollmentDetail(token: string | undefined) {
   try {
     const response = await fetch(`${BASE_URL}/courses/course/enroll`, {
@@ -22,5 +24,36 @@ export async function GetCourseEnrollmentDetail(token: string | undefined) {
     }
   } catch (error) {
     console.log(error)
+  }
+}
+
+export async function GetTotalEnrolledUsers(
+  courseId: string,
+  name: string
+): Promise<TotalDataResponse> {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/courses/course/${courseId}/enrolled/total?name=${name}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        cache: "no-cache",
+      }
+    )
+
+    const data = await response.json()
+
+    return data as TotalDataResponse
+  } catch (error: any) {
+    console.log(error)
+    return {
+      code: 500,
+      error: {
+        error_name: "InternalServerError",
+        error_description: error.message,
+      },
+    }
   }
 }
