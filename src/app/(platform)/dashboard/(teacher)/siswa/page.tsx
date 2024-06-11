@@ -2,12 +2,12 @@ import { cookies } from "next/headers"
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 
-import DashboardPagination from "./_components/pagination"
+import StudentPagination from "./_components/pagination"
 import SearchStudent from "./_components/search-input"
 import SelectClass from "./_components/select-class"
 import TableStudent from "./_components/table"
 
-export default async function ListStudentPage() {
+export default async function StudentPage() {
   const cookiesStore = cookies()
   const token = cookiesStore.get("token")?.value
 
@@ -19,7 +19,7 @@ export default async function ListStudentPage() {
           <SearchStudent />
         </div>
       </div>
-      <Card x-chunk="dashboard-03-chunk-1">
+      <Card x-chunk="dashboard-01-chunk-0">
         <CardHeader>
           <CardTitle>Daftar Siswa</CardTitle>
         </CardHeader>
@@ -29,7 +29,7 @@ export default async function ListStudentPage() {
           </div>
         </CardContent>
         <CardFooter className="flex items-end justify-end">
-          <DashboardPagination />
+          <StudentPagination />
         </CardFooter>
       </Card>
     </div>
