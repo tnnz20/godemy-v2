@@ -73,7 +73,7 @@ export default function SelectClass({ token }: Readonly<SelectClassProps>) {
       </SelectTrigger>
       <SelectContent>
         {isLoading ? (
-          <div className="flex items-center justify-center">
+          <div className="flex h-20 items-center justify-center">
             <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />
             <span>Loading...</span>
           </div>
