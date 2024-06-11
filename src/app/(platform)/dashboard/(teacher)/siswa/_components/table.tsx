@@ -10,6 +10,8 @@ import { FormattedDate } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
+import { Icons } from "@/components/icons"
+
 export default function TableStudent() {
   const [data, setData] = useState<EnrolledUsersDetailsData[] | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -38,7 +40,12 @@ export default function TableStudent() {
   }, [courseId, name, currentPage])
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return (
+      <div className="flex items-center justify-center">
+        <Icons.Loader2 className="mr-2 h-8 w-8 animate-spin" />
+        <span>Loading...</span>
+      </div>
+    )
   }
 
   return (
