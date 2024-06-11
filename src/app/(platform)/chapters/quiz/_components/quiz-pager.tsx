@@ -47,8 +47,10 @@ export default function QuizPager() {
         </Button>
       ) : (
         <AlertSubmitDialog paramId={params?.id as string}>
-          <Button variant={"destructive"}>Selesai</Button>
-          <span className="sr-only">Submit question</span>
+          <>
+            <Button variant={"destructive"}>Selesai</Button>
+            <span className="sr-only">Submit question</span>
+          </>
         </AlertSubmitDialog>
       )}
     </div>
