@@ -1,6 +1,6 @@
 "use server"
 
-import { revalidateTag } from "next/cache"
+import { revalidatePath, revalidateTag } from "next/cache"
 import { cookies } from "next/headers"
 import {
   BASE_URL,
@@ -40,19 +40,16 @@ export async function CreateCourse(
       body: JSON.stringify({ course_name }),
     })
 
-    const data = await response.json()
-
     if (!response.ok) {
-      return { message: data?.error?.error_description }
-    } else if (response.ok) {
-      revalidateTag("courses")
-      revalidateTag("total-courses")
-      return { message: "Kelas berhasil dibuat" }
-    } else {
       return { message: ErrInternalServer }
     }
   } catch (error) {
     console.error(error)
     return { message: `${error}` }
   }
+
+  revalidateTag("courses")
+  revalidateTag("total-courses")
+  revalidatePath("/")
+  return { message: "Berhasil menambahkan kelas" }
 }
