@@ -68,3 +68,36 @@ export async function GetCourses(
     }
   }
 }
+
+export async function GetListCourses(
+  token: string,
+  course_name: string = ""
+): Promise<CoursesResult> {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/courses/list?course_name=${course_name}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        cache: "no-store",
+        next: { tags: ["courses-list"] },
+      }
+    )
+
+    const data = await response.json()
+
+    return data as CoursesResult
+  } catch (error: any) {
+    console.log(error)
+    return {
+      code: 500,
+      error: {
+        error_name: "InternalServerError",
+        error_description: error.message,
+      },
+    }
+  }
+}
