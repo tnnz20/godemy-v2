@@ -6,9 +6,12 @@ import { redirect } from "next/navigation"
 import { BASE_URL, ErrValidation } from "@/constants/constants"
 import { ClassSchema } from "@/validators/authSchema"
 
-import { ClassSate } from "@/types/auth"
+import { EnrollCourseSate } from "@/types/courses"
 
-export async function EnrollCourse(prevState: ClassSate, formData: FormData) {
+export async function EnrollCourse(
+  prevState: EnrollCourseSate,
+  formData: FormData
+) {
   const validateFields = ClassSchema.safeParse({
     code: formData.get("code"),
   })
