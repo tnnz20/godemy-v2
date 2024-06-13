@@ -5,13 +5,17 @@ import { Icons } from "@/components/icons"
 
 import { ChapterStartQuizButton } from "./start-quiz-button"
 
-export async function ChapterStartQuizWrapper() {
+interface ChapterStartQuizWrapperProps {
+  paramsId: string
+}
+
+export async function ChapterStartQuizWrapper({ paramsId }: Readonly<ChapterStartQuizWrapperProps>) {
   const cookiesStore = cookies()
   const token = cookiesStore.get("token")?.value
 
   return (
     <Suspense fallback={<FallbackStartQuiz />}>
-      <ChapterStartQuizButton token={token} />
+      <ChapterStartQuizButton token={token} paramsId={paramsId} />
     </Suspense>
   )
 }
