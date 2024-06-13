@@ -35,7 +35,8 @@ export default function AlertSubmitDialog({ children, paramId }: Readonly<AlertS
     await SubmitQuiz(score, paramId)
     await UpdateStatus(paramId, 10)
 
-    router.push(`/chapters/${paramId}/kuis`)
+    const path = paramId === "7" ? `${paramId}/evaluasi` : `${paramId}/kuis`
+    router.push(`/chapters/${path}`)
   }
 
   return (
