@@ -232,7 +232,7 @@ export const Questions: QuestionConfig[] = [
         id: 2,
         question: "Berikut yang merupakan tipe data dari komposit adalah?",
         options: ["boolean", "string", "array", "integer"],
-        answer: "Array",
+        answer: "array",
         isCode: false,
       },
       {
@@ -252,7 +252,7 @@ export const Questions: QuestionConfig[] = [
         question:
           "Terdapat sebuah variabel data sebagai berikut var data = [4]int{1, 2, 3, 4} bagaimana cara untuk mendapatkan nilai “3 dan 4” menggunakan slice?",
         options: ["data[:]", "data[:2]", "data[2:]", "data"],
-        answer: "looping",
+        answer: "data[2:]",
         isCode: false,
       },
       {
