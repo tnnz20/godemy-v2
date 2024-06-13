@@ -5,7 +5,6 @@ import { useSearchParams } from "next/navigation"
 import { motion } from "framer-motion"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 
 import RegisterForm from "./form"
@@ -49,14 +48,12 @@ export default function RegisterCard() {
       </CardContent>
       <CardFooter className="mt-2 flex justify-center">
         {step === "1" && (
-          <CardDescription>
+          <CardDescription className="mt-4">
             Sudah punya akun?{" "}
-            <span className="hover:text-foreground hover:underline hover:underline-offset-4">
-              <Button variant="link" className="p-0 text-accent-foreground" asChild>
-                <Link href={"/login"}>Masuk sekarang</Link>
-              </Button>
-              <span className="sr-only">Button Login Page</span>
-            </span>
+            <Link href="/login" className="text-primary underline">
+              Masuk Sekarang
+            </Link>
+            <span className="sr-only">Button Login Page</span>
           </CardDescription>
         )}
       </CardFooter>
