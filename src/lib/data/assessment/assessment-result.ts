@@ -1,9 +1,11 @@
 import { BASE_URL } from "@/constants/constants"
 
+import { UserAssessmentResult } from "@/types/api"
+
 export async function GetUserAssessmentResult(
-  assessment_code: number,
-  token: string
-) {
+  token: string,
+  assessment_code: number
+): Promise<UserAssessmentResult> {
   try {
     const response = await fetch(
       `${BASE_URL}/assessments/assessment?assessment_code=chap-${assessment_code}`,
@@ -18,17 +20,16 @@ export async function GetUserAssessmentResult(
     )
 
     const data = await response.json()
-    if (response.ok) {
-      return data
-    } else if (response.status === 404) {
-      return data?.code
-    } else {
-      throw new Error(
-        `status: ${response.status}, message: ${data?.error?.error_description}`
-      )
-    }
-  } catch (error) {
+    return data
+  } catch (error: any) {
     console.log(error)
+    return {
+      code: 500,
+      error: {
+        error_name: "InternalServerError",
+        error_description: error.message,
+      },
+    }
   }
 }
 
