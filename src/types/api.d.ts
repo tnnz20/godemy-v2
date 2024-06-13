@@ -8,7 +8,7 @@ export type APIResponse = {
 }
 
 export type UserAssessmentResult = APIResponse & {
-  data?: UserAssessmentResultData
+  data?: UserAssessmentResultData[]
 }
 
 export type UserAssessmentResultData = {
@@ -17,6 +17,7 @@ export type UserAssessmentResultData = {
   courses_id: UUID
   assessment_code: string
   assessment_value: number
+  status: number
   created_at: Date
   updated_at: Date
 }
