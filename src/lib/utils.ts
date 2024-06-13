@@ -21,10 +21,14 @@ export function DecodeJWT(token: string = "") {
 }
 
 export function CheckAssessmentValue(response: UserAssessmentResult) {
-  const { code, data } = response || {}
-  const { assessment_value } = data || {}
+  if (response) {
+    const { code, data } = response
+    const assessment_value = data?.[0]?.assessment_value
 
-  return code === 200 && (assessment_value as number) >= 80
+    return code === 200 && (assessment_value as number) >= 80
+  } else {
+    return false
+  }
 }
 
 export function CalculateScore(
