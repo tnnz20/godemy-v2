@@ -39,17 +39,19 @@ export default async function DashboardStudentTable() {
                 <TableBody>
                   {userResult.map((item: UserAssessmentResultData) => {
                     const assessmentValue = item.assessment_value
-                    const status = assessmentValue >= 80 ? "Lulus" : "Tidak Lulus"
                     const date = String(item.created_at)
                     const formattedDate = FormattedDate(date)
+                    const status = item?.status
+
+                    const code = item.assessment_code === "chap-7" ? "evaluasi" : item.assessment_code
                     return (
                       <TableRow key={item.assessment_code}>
                         <TableCell className="font-medium">{formattedDate}</TableCell>
-                        <TableCell>{item.assessment_code}</TableCell>
+                        <TableCell>{code}</TableCell>
                         <TableCell>{assessmentValue}</TableCell>
                         <TableCell>
-                          <Badge className="text-xs" variant={status === "Lulus" ? "success" : "destructive"}>
-                            {status}
+                          <Badge className="text-xs" variant={status === 1 ? "success" : "destructive"}>
+                            {status === 1 ? "Lulus" : "Tidak Lulus"}
                           </Badge>
                         </TableCell>
                       </TableRow>
