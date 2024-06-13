@@ -10,8 +10,10 @@ export const metadata: Metadata = {
 
 export default function RegisterPage() {
   return (
-    <Suspense>
-      <RegisterCard />
-    </Suspense>
+    <div className="container flex flex-grow items-center justify-center">
+      <Suspense>
+        <RegisterCard />
+      </Suspense>
+    </div>
   )
 }
