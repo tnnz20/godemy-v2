@@ -132,7 +132,7 @@ function AnchorLink({ className, ...props }: Readonly<React.HTMLAttributes<HTMLA
 function CustomImage({ ...props }) {
   return (
     <Image
-      className="mx-auto my-4"
+      className="mx-auto my-4 h-auto w-auto"
       width={parseInt(props.width)}
       height={parseInt(props.height)}
       alt={props.alt}
