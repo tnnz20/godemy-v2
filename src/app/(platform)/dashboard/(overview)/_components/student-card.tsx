@@ -18,7 +18,7 @@ export default async function DashboardStudentCard() {
   const progress = CourseEnrollment?.data?.progress
 
   const chapters = chaptersConfig.NavItems.flatMap((item) => item.items)
-  const totalProgress = chapters.length - 1
+  const totalProgress = chapters.length
   const isFinished = progress === totalProgress
 
   const chaptersQuiz = chapters.filter((item) => item.title.toLowerCase() === "kuis")
@@ -60,7 +60,9 @@ export default async function DashboardStudentCard() {
               <CardTitle className="text-4xl">{progress + "/" + totalProgress}</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-xs text-muted-foreground">tersisa {totalProgress - progress} materi lagi</div>
+              <div className="text-xs text-muted-foreground">
+                {isFinished ? null : `tersisa ${totalProgress - progress} materi lagi`}
+              </div>
             </CardContent>
             <CardFooter>
               <Progress
@@ -76,7 +78,7 @@ export default async function DashboardStudentCard() {
             </CardHeader>
             <CardContent>
               <div className="text-xs text-muted-foreground">
-                tersisa {thresholdQuizArray.length - progressQuiz} kuis
+                {isFinished ? null : `tersisa ${thresholdQuizArray.length - progressQuiz} kuis`}
               </div>
             </CardContent>
             <CardFooter>
