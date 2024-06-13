@@ -46,7 +46,7 @@ export default function QuizSection() {
                   variant={"ghost"}
                   type="button"
                   aria-label="option-button"
-                  className={cn("mx-auto w-full justify-start md:w-3/5")}
+                  className={cn("mx-auto w-full justify-start")}
                   onClick={() => handleClickOption(answer, question.id)}
                 >
                   <div className="flex items-center gap-2">
