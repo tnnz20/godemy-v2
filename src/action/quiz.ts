@@ -24,6 +24,28 @@ export async function SubmitQuiz(score: number, paramId: string) {
     const data = await response.json()
     if (response.ok) {
       revalidateTag("assessment-result")
+
+      if (paramId === "7") {
+        const response = await fetch(
+          `${BASE_URL}/courses/course/enroll/progress`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ progress: 40 }),
+          }
+        )
+
+        const data = await response.json()
+        if (!response.ok) {
+          throw new Error(
+            `status: ${response.status}, message: ${data?.error?.error_description}`
+          )
+        }
+        revalidateTag("course-enrollment")
+      }
     } else {
       throw new Error(
         `status: ${response.status}, message: ${data?.error?.error_description}`
@@ -33,6 +55,7 @@ export async function SubmitQuiz(score: number, paramId: string) {
     console.error(error)
     return error
   }
+
   revalidatePath(`chapters/${paramId}/kuis`)
 }
 
