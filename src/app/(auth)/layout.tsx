@@ -1,3 +1,4 @@
+import { Metadata } from "next"
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
@@ -8,11 +9,19 @@ interface LayoutProps {
   children: React.ReactNode
 }
 
+export const metadata: Metadata = {
+  title: {
+    default: "Auth",
+    template: `%s | Auth`,
+  },
+  description: "Authentication Layout",
+}
+
 export default function AuthLayout({ children }: Readonly<LayoutProps>) {
   return (
     <div className="flex min-h-screen flex-col">
       <HeaderLayout />
-      <div className="container flex w-full flex-grow items-center justify-center">{children}</div>
+      {children}
     </div>
   )
 }
