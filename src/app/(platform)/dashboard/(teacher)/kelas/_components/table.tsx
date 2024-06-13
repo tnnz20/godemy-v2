@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 
 import { CourseResultData } from "@/types/api"
 import { FormattedDate } from "@/lib/utils"
@@ -23,9 +24,15 @@ interface ClassTableProps {
 
 export default function ClassTable({ courses }: Readonly<ClassTableProps>) {
   const [copied, setCopied] = useState<string | null>(null)
+  const router = useRouter()
+
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text)
     setCopied(text)
+  }
+
+  const handleDetail = (id: string) => {
+    router.push(`/dashboard/siswa?courseId=${id}`)
   }
 
   const { toast } = useToast()
@@ -69,6 +76,7 @@ export default function ClassTable({ courses }: Readonly<ClassTableProps>) {
                 <DropdownMenuContent align="end">
                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
                   <DropdownMenuItem onClick={() => handleCopy(course?.course_code)}>Copy Kode</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleDetail(course?.id)}>Lihat Kelas</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </TableCell>
