@@ -22,7 +22,7 @@ export default function TableStudent() {
   const currentPage = parseInt(searchParams.get("page") ?? "1")
 
   const chapters = chaptersConfig.NavItems.flatMap((item) => item.items)
-  const totalProgress = chapters.length - 1
+  const totalProgress = chapters.length
 
   useEffect(() => {
     const fetchDataFromAPI = async () => {
