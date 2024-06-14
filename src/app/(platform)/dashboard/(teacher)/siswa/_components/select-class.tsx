@@ -5,7 +5,15 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import { CourseResultData, CoursesResult } from "@/types/api"
 import { GetListCourses } from "@/lib/data/courses/course"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 import { Icons } from "@/components/icons"
 
@@ -72,14 +80,17 @@ export default function SelectClass({ token }: Readonly<SelectClassProps>) {
         <SelectValue placeholder="Pilih Kelas" />
       </SelectTrigger>
       <SelectContent>
-        {isLoading ? (
-          <div className="flex h-20 items-center justify-center">
-            <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            <span>Loading...</span>
-          </div>
-        ) : (
-          content
-        )}
+        <SelectGroup>
+          <SelectLabel>Pilih Kelas</SelectLabel>
+          {isLoading ? (
+            <div className="flex h-20 items-center justify-center">
+              <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <span>Loading...</span>
+            </div>
+          ) : (
+            content
+          )}
+        </SelectGroup>
       </SelectContent>
     </Select>
   )
