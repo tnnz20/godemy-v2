@@ -73,7 +73,6 @@ export default function ClassCard({ token }: Readonly<ClassCardProps>) {
     <Card x-chunk="dashboard-01-chunk-0">
       <CardHeader>
         <CardTitle>Daftar Kelas</CardTitle>
-        <CardDescription>Daftar kelas yang dimiliki.</CardDescription>
       </CardHeader>
       <CardContent>
         {isLoading ? (
