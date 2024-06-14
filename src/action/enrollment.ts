@@ -68,7 +68,7 @@ export async function UpdateProgress(formData: FormData) {
     const data = await response.json()
     if (response.ok) {
       revalidateTag("course-enrollment")
-    } else {
+    } else if (response.status !== 400) {
       throw new Error(
         `status: ${response.status}, message: ${data?.error?.error_description}`
       )
