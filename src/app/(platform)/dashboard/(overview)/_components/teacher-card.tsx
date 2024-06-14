@@ -23,7 +23,7 @@ export default async function DashboardTeacherCard() {
         </CardHeader>
         <CardFooter>
           <Button asChild>
-            <Link href="/dashboard/daftar-kelas">{total ? "Lihat kelas" : "Buat kelas"}</Link>
+            <Link href="/dashboard/kelas">{total ? "Lihat kelas" : "Buat kelas"}</Link>
           </Button>
         </CardFooter>
       </Card>
