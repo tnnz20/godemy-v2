@@ -1,3 +1,4 @@
+import { Metadata } from "next"
 import { cookies } from "next/headers"
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -6,6 +7,11 @@ import StudentPagination from "./_components/pagination"
 import SearchStudent from "./_components/search-input"
 import SelectClass from "./_components/select-class"
 import TableStudent from "./_components/table"
+
+export const metadata: Metadata = {
+  title: "Siswa",
+  description: "Student page list student based on class in godemy platform",
+}
 
 export default async function StudentPage() {
   const cookiesStore = cookies()

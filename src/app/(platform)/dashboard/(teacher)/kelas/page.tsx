@@ -1,8 +1,14 @@
+import { Metadata } from "next"
 import { cookies } from "next/headers"
 
 import ClassCard from "./_components/card"
 import DialogAddCourse from "./_components/dialog-add-course"
 import SearchClass from "./_components/search-input"
+
+export const metadata: Metadata = {
+  title: "Kelas",
+  description: "Class page detail class in godemy platform",
+}
 
 export default async function ClassPage() {
   const cookiesStore = cookies()
