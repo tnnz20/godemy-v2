@@ -24,7 +24,7 @@ export default async function ChapterPager({ chapter }: Readonly<PagerProps>) {
   const cookiesStore = cookies()
   const token = cookiesStore.get("token")?.value
 
-  const userAssessmentResult = await GetUserAssessmentResult(chapter?.chapter, token as string)
+  const userAssessmentResult = await GetUserAssessmentResult(token as string, chapter?.chapter)
 
   const isPassedQuiz = CheckAssessmentValue(userAssessmentResult)
   const isQuizChapter = chapter?.title === "Kuis"
