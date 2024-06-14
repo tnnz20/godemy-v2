@@ -17,11 +17,9 @@ export default async function ClassPage() {
   return (
     <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-5">
       <div className="flex items-center">
-        <div className="ml-auto flex flex-col items-center gap-2">
-          <div className="ml-auto flex gap-2">
-            <DialogAddCourse />
-          </div>
+        <div className="ml-auto flex  items-center gap-2">
           <SearchClass />
+          <DialogAddCourse />
         </div>
       </div>
       <ClassCard token={token as string} />
