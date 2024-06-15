@@ -22,6 +22,20 @@ export type UserAssessmentResultData = {
   updated_at: Date
 }
 
+export type AssessmentResultUsers = APIResponse & {
+  data?: AssessmentResultUsersData[]
+}
+
+export type AssessmentResultUsersData = {
+  id: UUID
+  name: string
+  courses_id: UUID
+  assessment_value: number
+  assessment_code: string
+  status: number
+  created_at: Date
+}
+
 export type CoursesResult = APIResponse & {
   data?: CourseResultData[]
 }
