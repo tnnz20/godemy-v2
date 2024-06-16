@@ -28,6 +28,7 @@ export type AssessmentResultUsers = APIResponse & {
 
 export type AssessmentResultUsersData = {
   id: UUID
+  users_id: UUID
   name: string
   courses_id: UUID
   assessment_value: number

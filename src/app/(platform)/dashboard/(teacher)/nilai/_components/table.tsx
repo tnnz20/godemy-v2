@@ -84,7 +84,7 @@ export default function ScoreTable({ token }: Readonly<ScoreTableProps>) {
               const code = item.assessment_code === "chap-7" ? "evaluasi" : item.assessment_code
               return (
                 <TableRow key={item.id}>
-                  <TableCell>{item.id}</TableCell>
+                  <TableCell>{item.users_id}</TableCell>
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{code}</TableCell>
                   <TableCell>{item.assessment_value}</TableCell>
@@ -102,11 +102,9 @@ export default function ScoreTable({ token }: Readonly<ScoreTableProps>) {
       ) : (
         <Table>
           <TableCaption>
-            {courseId
-              ? code
-                ? "Tidak ada riwayat kuis pada kelas ini"
-                : "Pilih kategori terlebih dahulu"
-              : "Silahkan pilih kelas terlebih dahulu"}
+            {!courseId && <p>Silahkan pilih kelas terlebih dahulu</p>}
+            {courseId && !code && <p>Pilih kategori terlebih dahulu</p>}
+            {courseId && code && <p>Tidak ada riwayat kuis pada kelas ini</p>}
           </TableCaption>
         </Table>
       )}
