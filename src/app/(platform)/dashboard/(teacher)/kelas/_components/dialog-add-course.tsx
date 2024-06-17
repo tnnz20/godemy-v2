@@ -32,7 +32,6 @@ export default function DialogAddCourse() {
   const [state, dispatch] = useFormState(CreateCourse, initialState)
 
   const { toast } = useToast()
-  const { pending } = useFormStatus()
 
   useEffect(() => {
     if (state?.message) {
@@ -90,13 +89,21 @@ export default function DialogAddCourse() {
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit" disabled={pending}>
-              {pending && <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {pending ? "Mohon tunggu..." : "Buat Kelas"}
-            </Button>
+            <ButtonSubmit />
           </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>
+  )
+}
+
+function ButtonSubmit() {
+  const { pending } = useFormStatus()
+
+  return (
+    <Button type="submit" disabled={pending}>
+      {pending && <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+      {pending ? "Mohon tunggu..." : "Buat Kelas"}
+    </Button>
   )
 }

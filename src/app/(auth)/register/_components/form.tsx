@@ -34,7 +34,6 @@ export default function RegisterForm() {
   const [state, dispatch] = useFormState(Register, initialState)
 
   const { toast } = useToast()
-  const { pending } = useFormStatus()
 
   useEffect(() => {
     if (state?.message) {
@@ -103,15 +102,17 @@ export default function RegisterForm() {
         <Input id="role" name="role" className="hidden" value={role} readOnly />
       </div>
       <div className="mt-8">
-        <ButtonForm pending={pending} />
+        <ButtonForm />
       </div>
     </form>
   )
 }
 
-function ButtonForm({ pending }: Readonly<{ pending: boolean }>) {
+function ButtonForm() {
   const searchParams = useSearchParams()
   const pathname = usePathname()
+
+  const { pending } = useFormStatus()
 
   const { replace } = useRouter()
 
