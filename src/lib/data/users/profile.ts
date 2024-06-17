@@ -1,6 +1,8 @@
 import { BASE_URL } from "@/constants/constants"
 
-export async function GetUsersProfile(token: string) {
+import { UsersProfile } from "@/types/api"
+
+export async function GetUsersProfile(token: string): Promise<UsersProfile> {
   try {
     const response = await fetch(`${BASE_URL}/users/profile`, {
       method: "GET",
@@ -19,7 +21,11 @@ export async function GetUsersProfile(token: string) {
         `status: ${response.status}, message: ${data?.error?.error_description}`
       )
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error(error)
+    return {
+      code: error.code,
+      message: error.message,
+    }
   }
 }
