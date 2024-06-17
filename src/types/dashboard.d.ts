@@ -9,6 +9,6 @@ export type NavItemDashboard = {
 }
 
 export type ProfileData = {
-  title: string
-  value: string
+  title: string | undefined
+  value: string | undefined
 }
