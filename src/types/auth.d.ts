@@ -15,3 +15,13 @@ export type RegisterState = {
   }
   message?: string | null
 }
+
+export type UsersState = {
+  errors?: {
+    name?: string[]
+    date?: string[]
+    address?: string[]
+    gender?: string[]
+  }
+  message?: string | null
+}
