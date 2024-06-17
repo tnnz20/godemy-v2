@@ -62,6 +62,22 @@ export type EnrolledUsersDetailsData = {
   updated_at: Date
 }
 
+export type UsersProfile = APIResponse & {
+  data?: UsersProfileData
+}
+
+export type UsersProfileData = {
+  id: UUID
+  name: string
+  email: string
+  date: string
+  address: string
+  gender: string
+  profile_img: string
+  created_at: Date
+  updated_at: Date
+}
+
 export type TotalDataResponse = APIResponse & {
   data?: {
     total: number
