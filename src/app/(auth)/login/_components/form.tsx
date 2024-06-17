@@ -27,7 +27,6 @@ export default function LoginForm() {
   const [state, dispatch] = useFormState(Login, initialState)
 
   const { toast } = useToast()
-  const { pending } = useFormStatus()
 
   useEffect(() => {
     if (state.message) {
@@ -86,11 +85,19 @@ export default function LoginForm() {
             </div>
           ) : null}
         </div>
-        <Button className="mt-2 w-full" type="submit" disabled={pending}>
-          {pending && <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          {pending ? "Mohon tunggu..." : "Login"}
-        </Button>
+        <SubmitButton />
       </div>
     </form>
+  )
+}
+
+function SubmitButton() {
+  const { pending } = useFormStatus()
+
+  return (
+    <Button className="mt-2 w-full" type="submit" disabled={pending}>
+      {pending && <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+      {pending ? "Mohon tunggu..." : "Login"}
+    </Button>
   )
 }
