@@ -35,7 +35,7 @@ export default async function DashboardProfile() {
     },
     {
       title: "Jenis Kelamin",
-      value: users?.data?.gender,
+      value: users?.data?.gender === "male" ? "Laki-laki" : "Perempuan",
     },
     {
       title: "Role",
@@ -43,26 +43,27 @@ export default async function DashboardProfile() {
     },
     {
       title: "Tanggal Lahir",
-      value: formatDate(users?.data?.date),
+      value: formatDate(users?.data?.date as string),
     },
   ]
 
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ]
+  const monthNames: { [key: string]: string } = {
+    "01": "January",
+    "02": "February",
+    "03": "March",
+    "04": "April",
+    "05": "May",
+    "06": "June",
+    "07": "July",
+    "08": "August",
+    "09": "September",
+    "10": "October",
+    "11": "November",
+    "12": "December",
+  }
 
-  const updated_date = new Date(users?.data?.created_at)
+  const updatedDate = String(users?.data?.updated_at)
+  const [year, month, day] = updatedDate.split("T")[0].split("-")
 
   return (
     <div>
@@ -91,7 +92,7 @@ export default async function DashboardProfile() {
         </CardHeader>
         <CardContent className="p-6 text-sm">
           {Profile.map((item, index) => (
-            <div key={item.title + index} className="grid gap-3">
+            <div key={item?.title} className="grid gap-3">
               <div className="font-semibold">{item.title}</div>
               <p className="text-muted-foreground">{item.value === "" ? "-" : item.value}</p>
               {index < Profile.length - 1 && <Separator className="my-2" />}
@@ -102,7 +103,7 @@ export default async function DashboardProfile() {
           <div className="text-xs text-muted-foreground">
             Updated{" "}
             <time dateTime="2023-11-23">
-              {monthNames[updated_date.getMonth()]} {updated_date.getDate()}, {updated_date.getFullYear()}
+              {monthNames[month]} {day}, {year}
             </time>
           </div>
         </CardFooter>
