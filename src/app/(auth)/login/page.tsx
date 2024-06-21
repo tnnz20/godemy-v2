@@ -14,7 +14,7 @@ export default function LoginPage() {
       <LoginCard />
       <div className="hidden bg-muted lg:block">
         <Image
-          src="/static/growth.webp"
+          src="/growth.webp"
           alt="Image"
           width="1920"
           height="1080"
