@@ -67,7 +67,7 @@ export default function LoginForm() {
           <Label htmlFor="email" className={cn({ "text-destructive": state?.errors?.email })}>
             Email
           </Label>
-          <Input id="email" name="email" placeholder="godemy@example.com" required />
+          <Input id="email" autoComplete="username" name="email" placeholder="godemy@example.com" required />
           {state?.errors?.email ? (
             <div id="users-error" aria-live="polite" className="mt-2 text-sm text-destructive">
               {state.errors?.email.map((error: string) => <p key={error}>{error}</p>)}
@@ -78,7 +78,14 @@ export default function LoginForm() {
           <Label htmlFor="password" className={cn({ "text-destructive": state?.errors?.password })}>
             Password
           </Label>
-          <Input id="password" name="password" placeholder="password email anda" type="password" required />
+          <Input
+            id="password"
+            name="password"
+            autoComplete="current-password"
+            placeholder="password email anda"
+            type="password"
+            required
+          />
           {state?.errors?.password ? (
             <div id="users-error" aria-live="polite" className="mt-2 text-sm text-destructive">
               {state.errors?.password.map((error: string) => <p key={error}>{error}</p>)}
