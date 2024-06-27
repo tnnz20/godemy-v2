@@ -67,7 +67,10 @@ export async function StartQuiz(token: string, array: number[], id: string) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ assessment_code: id, random_array_id: array }),
+      body: JSON.stringify({
+        assessment_code: String(id),
+        random_array_id: array,
+      }),
     })
     const data = await response.json()
     if (response.status !== 201) {
