@@ -3,7 +3,7 @@ import Link from "next/link"
 
 import { ProfileData } from "@/types/dashboard"
 import { GetUsersProfile } from "@/lib/data/users/profile"
-import { DecodeJWT } from "@/lib/utils"
+import { convertUnixToDate, DecodeJWT } from "@/lib/utils"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
@@ -14,13 +14,6 @@ export default async function DashboardProfile() {
   const cookieStore = cookies()
   const token = cookieStore.get("token")?.value
   const { role } = DecodeJWT(token)
-
-  const formatDate = (dateString: string) => {
-    if (!dateString || dateString === "0001-01-01T00:00:00Z") {
-      return "-"
-    }
-    return new Date(dateString).toLocaleDateString()
-  }
 
   const users = await GetUsersProfile(token as string)
 
@@ -43,27 +36,18 @@ export default async function DashboardProfile() {
     },
     {
       title: "Tanggal Lahir",
-      value: formatDate(users?.data?.date as string),
+      value: convertUnixToDate(users?.data?.date as number),
     },
   ]
 
-  const monthNames: { [key: string]: string } = {
-    "01": "January",
-    "02": "February",
-    "03": "March",
-    "04": "April",
-    "05": "May",
-    "06": "June",
-    "07": "July",
-    "08": "August",
-    "09": "September",
-    "10": "October",
-    "11": "November",
-    "12": "December",
-  }
+  const updatedDate = new Date(users?.data?.updated_at as number)
 
-  const updatedDate = String(users?.data?.updated_at)
-  const [year, month, day] = updatedDate.split("T")[0].split("-")
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  } as Intl.DateTimeFormatOptions)
+  const formattedDate = formatter.format(updatedDate)
 
   return (
     <div>
@@ -101,10 +85,7 @@ export default async function DashboardProfile() {
         </CardContent>
         <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
           <div className="text-xs text-muted-foreground">
-            Updated{" "}
-            <time dateTime="2023-11-23">
-              {monthNames[month]} {day}, {year}
-            </time>
+            Updated <time dateTime="2023-11-23">{formattedDate}</time>
           </div>
         </CardFooter>
       </Card>
