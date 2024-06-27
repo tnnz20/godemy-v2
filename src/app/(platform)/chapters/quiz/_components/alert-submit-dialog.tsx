@@ -15,11 +15,13 @@ import {
 } from "@/components/ui/alert-dialog"
 
 import { useQuizStore } from "../_provider/quiz.provider"
+import { createTimerStore } from "../_store/useTimerStore"
 
 interface AlertSubmitDialogProps {
   children: React.ReactNode
   paramId: string
 }
+const useTimerStore = createTimerStore(15 * 60 * 1000) // 15 minutes
 export default function AlertSubmitDialog({ children, paramId }: Readonly<AlertSubmitDialogProps>) {
   const { answered, questions, resetAnswered } = useQuizStore((state) => ({
     answered: state.answered,
@@ -27,16 +29,22 @@ export default function AlertSubmitDialog({ children, paramId }: Readonly<AlertS
     resetAnswered: state.resetAnswered,
   }))
 
+  const { resetTimer } = useTimerStore((state) => ({
+    resetTimer: state.resetTimer,
+  }))
+
   const Score = CalculateScore(questions, answered)
   const router = useRouter()
 
   const handleSubmit = async (score: number, paramId: string) => {
     resetAnswered()
+    resetTimer()
     await SubmitQuiz(score, paramId)
     await UpdateStatus(paramId, 10)
 
     const path = paramId === "7" ? `${paramId}/evaluasi` : `${paramId}/kuis`
     router.push(`/chapters/${path}`)
+    router.refresh()
   }
 
   return (
