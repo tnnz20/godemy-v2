@@ -48,20 +48,11 @@ export function CalculateScore(
   return (correctAnswer / totalQuestion) * 100
 }
 
-export function FormattedDate(date: string): string {
-  const [dateTimeString] = date.split(".")
-  const [dateString, timeString] = dateTimeString.split("T")
-  const [year, month, day] = dateString.split("-")
-  const [hours, minutes] = timeString.split(":")
-
-  return `${day}-${month}-${year} ${hours}:${minutes}`
-}
-
 export function convertUnixToDate(unix: number) {
   if (unix === 0) {
     return "-"
   }
 
-  const date = new Date(unix * 1000)
+  const date = new Date(unix)
   return date.toLocaleString()
 }
