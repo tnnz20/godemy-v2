@@ -4,6 +4,8 @@ import { CheckAssessmentValue, convertUnixToDate } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
+import DateClient from "@/components/date"
+
 import QuizButton from "./quiz-button"
 
 interface ChapterStartQuizButtonProps {
@@ -54,12 +56,21 @@ function HistoryUserAssessment({ userAssessmentResult }: Readonly<HistoryUserAss
           ? userAssessmentResult.map((userAssessmentResult) => {
               const assessmentValue = userAssessmentResult?.assessment_value
               const date = userAssessmentResult?.created_at
-              const formattedDate = convertUnixToDate(date).toLocaleString()
-
+              const formattedDate = convertUnixToDate(date)
+              const options: Intl.DateTimeFormatOptions = {
+                hour: "2-digit",
+                minute: "2-digit",
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+                hour12: false,
+              }
               const status = userAssessmentResult?.status
               return (
                 <TableRow key={userAssessmentResult?.id}>
-                  <TableCell className="font-medium">{formattedDate}</TableCell>
+                  <TableCell>
+                    <DateClient date={formattedDate} locale={"id-ID"} options={options} />
+                  </TableCell>
                   <TableCell>{userAssessmentResult?.assessment_code}</TableCell>
                   <TableCell>{assessmentValue}</TableCell>
                   <TableCell>

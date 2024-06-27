@@ -16,6 +16,7 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useToast } from "@/components/ui/use-toast"
 
+import DateClient from "@/components/date"
 import { Icons } from "@/components/icons"
 
 interface ClassTableProps {
@@ -61,11 +62,21 @@ export default function ClassTable({ courses }: Readonly<ClassTableProps>) {
       </TableHeader>
       <TableBody>
         {courses?.map((course: CourseResultData) => {
-          const date = convertUnixToDate(course?.created_at)
-          const validDate = date.toLocaleString()
+          const date = course?.created_at
+          const formattedDate = convertUnixToDate(date)
+          const options: Intl.DateTimeFormatOptions = {
+            hour: "2-digit",
+            minute: "2-digit",
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+            hour12: false,
+          }
           return (
             <TableRow key={course.id}>
-              <TableCell>{validDate}</TableCell>
+              <TableCell>
+                <DateClient date={formattedDate} locale={"id-ID"} options={options} />
+              </TableCell>
               <TableCell>{course?.course_name}</TableCell>
               <TableCell>{course?.course_code}</TableCell>
               <TableCell>

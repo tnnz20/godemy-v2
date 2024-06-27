@@ -10,6 +10,7 @@ import { convertUnixToDate } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
+import DateClient from "@/components/date"
 import { Icons } from "@/components/icons"
 
 export default function TableStudent() {
@@ -65,8 +66,16 @@ export default function TableStudent() {
               </TableHeader>
               <TableBody>
                 {data.map((user: EnrolledUsersDetailsData) => {
-                  const date = convertUnixToDate(user.updated_at)
-                  const validDate = date.toLocaleString()
+                  const date = user.updated_at
+                  const formattedDate = convertUnixToDate(date)
+                  const options: Intl.DateTimeFormatOptions = {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                    hour12: false,
+                  }
                   return (
                     <TableRow key={user.id}>
                       <TableCell>{user.id}</TableCell>
@@ -84,7 +93,9 @@ export default function TableStudent() {
                           {user.progress === totalProgress ? "Selesai" : "Belum Selesai"}
                         </Badge>
                       </TableCell>
-                      <TableCell>{validDate}</TableCell>
+                      <TableCell>
+                        <DateClient date={formattedDate} locale={"id-ID"} options={options} />
+                      </TableCell>
                     </TableRow>
                   )
                 })}

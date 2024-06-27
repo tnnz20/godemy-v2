@@ -9,6 +9,7 @@ import { convertUnixToDate } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
+import DateClient from "@/components/date"
 import { Icons } from "@/components/icons"
 
 interface ScoreTableProps {
@@ -78,7 +79,15 @@ export default function ScoreTable({ token }: Readonly<ScoreTableProps>) {
           <TableBody>
             {assessmentResults?.data?.map((item: AssessmentResultUsersData) => {
               const date = item.created_at
-              const formattedDate = convertUnixToDate(date).toLocaleString()
+              const formattedDate = convertUnixToDate(date)
+              const options: Intl.DateTimeFormatOptions = {
+                hour: "2-digit",
+                minute: "2-digit",
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+                hour12: false,
+              }
               const status = item?.status
 
               const code = item.assessment_code === "chap-7" ? "evaluasi" : item.assessment_code
@@ -93,7 +102,9 @@ export default function ScoreTable({ token }: Readonly<ScoreTableProps>) {
                       {status === 1 ? "Lulus" : "Tidak Lulus"}
                     </Badge>
                   </TableCell>
-                  <TableCell className="font-medium">{formattedDate}</TableCell>
+                  <TableCell>
+                    <DateClient date={formattedDate} locale={"id-ID"} options={options} />
+                  </TableCell>
                 </TableRow>
               )
             })}
