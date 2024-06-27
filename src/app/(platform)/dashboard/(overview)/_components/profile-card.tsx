@@ -1,5 +1,6 @@
 import { cookies } from "next/headers"
 import Link from "next/link"
+import { format } from "date-fns"
 
 import { ProfileData } from "@/types/dashboard"
 import { GetUsersProfile } from "@/lib/data/users/profile"
@@ -16,6 +17,11 @@ export default async function DashboardProfile() {
   const { role } = DecodeJWT(token)
 
   const users = await GetUsersProfile(token as string)
+  const gender = users?.data?.gender ?? ""
+  const date = users?.data?.date
+  const convertedDate = convertUnixToDate(date as number)
+  const formattedDate = date === 0 ? "-" : format(convertedDate, "dd MMMM yyyy")
+  const formattedGender = gender === "male" ? "Laki-laki" : "Perempuan"
 
   const Profile: ProfileData[] = [
     {
@@ -28,7 +34,7 @@ export default async function DashboardProfile() {
     },
     {
       title: "Jenis Kelamin",
-      value: users?.data?.gender === "male" ? "Laki-laki" : "Perempuan",
+      value: gender === "" ? "-" : formattedGender,
     },
     {
       title: "Role",
@@ -36,18 +42,12 @@ export default async function DashboardProfile() {
     },
     {
       title: "Tanggal Lahir",
-      value: convertUnixToDate(users?.data?.date as number),
+      value: String(formattedDate),
     },
   ]
 
-  const updatedDate = new Date(users?.data?.updated_at as number)
-
-  const formatter = new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  } as Intl.DateTimeFormatOptions)
-  const formattedDate = formatter.format(updatedDate)
+  const updatedDate = convertUnixToDate(users?.data?.updated_at as number)
+  const formattedUpdatedDate = format(updatedDate, "PPP")
 
   return (
     <div>
@@ -85,7 +85,7 @@ export default async function DashboardProfile() {
         </CardContent>
         <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
           <div className="text-xs text-muted-foreground">
-            Updated <time dateTime="2023-11-23">{formattedDate}</time>
+            Updated <time>{formattedUpdatedDate}</time>
           </div>
         </CardFooter>
       </Card>
