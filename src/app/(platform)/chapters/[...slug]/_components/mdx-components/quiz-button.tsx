@@ -22,9 +22,9 @@ interface QuizButtonProps {
   isQuizPassed: boolean
 }
 
-export default function QuizButton({ token, paramsId, randomArrayId, isQuizPassed }: QuizButtonProps) {
+export default function QuizButton({ token, paramsId, randomArrayId, isQuizPassed }: Readonly<QuizButtonProps>) {
   const handleStartQuiz = async () => {
-    await StartQuiz(token as string, randomArrayId, paramsId)
+    await StartQuiz(token, randomArrayId, paramsId)
   }
 
   return (
