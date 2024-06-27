@@ -1,6 +1,6 @@
 import { UserAssessmentResultData } from "@/types/api"
 import { GetUserAssessmentResult } from "@/lib/data/assessment/assessment-result"
-import { FormattedDate } from "@/lib/utils"
+import { convertUnixToDate } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
@@ -31,8 +31,8 @@ export default async function StudentQuizTable({ token, assessmentCode }: Readon
           <TableBody>
             {userResult?.map((item: UserAssessmentResultData) => {
               const assessmentValue = item.assessment_value
-              const date = String(item.created_at)
-              const formattedDate = FormattedDate(date)
+              const date = item.created_at
+              const formattedDate = convertUnixToDate(date)
               const status = item?.status
 
               const code = item.assessment_code === "chap-7" ? "evaluasi" : item.assessment_code

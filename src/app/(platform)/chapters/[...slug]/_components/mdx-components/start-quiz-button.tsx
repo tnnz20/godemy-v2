@@ -1,6 +1,6 @@
-import { UserAssessmentResult, UserAssessmentResultData } from "@/types/api"
+import { UserAssessmentResultData } from "@/types/api"
 import { GetUserAssessmentResult } from "@/lib/data/assessment/assessment-result"
-import { CheckAssessmentValue, FormattedDate } from "@/lib/utils"
+import { CheckAssessmentValue, convertUnixToDate } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
@@ -16,7 +16,7 @@ export async function ChapterStartQuizButton({ token, paramsId }: Readonly<Chapt
   const randomArrayId = generateRandomArray(1, maxLength)
 
   const usersAssessmentResults = await GetUserAssessmentResult(token as string, parseInt(paramsId))
-  const isQuizPassed = CheckAssessmentValue(usersAssessmentResults as UserAssessmentResult)
+  const isQuizPassed = CheckAssessmentValue(usersAssessmentResults)
 
   return (
     <div className="my-8 flex flex-col items-center justify-center gap-8">
@@ -53,8 +53,8 @@ function HistoryUserAssessment({ userAssessmentResult }: Readonly<HistoryUserAss
         {userAssessmentResult
           ? userAssessmentResult.map((userAssessmentResult) => {
               const assessmentValue = userAssessmentResult?.assessment_value
-              const date = String(userAssessmentResult?.created_at)
-              const formattedDate = FormattedDate(date)
+              const date = userAssessmentResult?.created_at
+              const formattedDate = convertUnixToDate(date)
 
               const status = userAssessmentResult?.status
               return (
