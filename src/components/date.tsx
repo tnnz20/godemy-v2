@@ -7,7 +7,7 @@ interface DateProps {
 }
 
 export default function DateClient({ date, locale, options }: Readonly<DateProps>) {
-  const localeDate = date.toLocaleDateString(locale, options).replace(" pukul", "")
+  const localeDate = date.toLocaleDateString(locale, options).replace(" pukul", ",")
 
   return (
     <time className="font-medium" dateTime={date.toISOString()}>
