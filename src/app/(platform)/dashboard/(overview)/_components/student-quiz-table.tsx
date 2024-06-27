@@ -4,6 +4,8 @@ import { convertUnixToDate } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
+import DateClient from "@/components/date"
+
 interface StudentQuizTableProps {
   token: string
   assessmentCode: number
@@ -32,13 +34,15 @@ export default async function StudentQuizTable({ token, assessmentCode }: Readon
             {userResult?.map((item: UserAssessmentResultData) => {
               const assessmentValue = item.assessment_value
               const date = item.created_at
-              const formattedDate = convertUnixToDate(date).toLocaleString("id-ID")
+              const formattedDate = convertUnixToDate(date)
               const status = item?.status
 
               const code = item.assessment_code === "chap-7" ? "evaluasi" : item.assessment_code
               return (
                 <TableRow key={item.assessment_code}>
-                  <TableCell className="font-medium">{formattedDate}</TableCell>
+                  <TableCell>
+                    <DateClient date={formattedDate} locale={"id-ID"} />
+                  </TableCell>
                   <TableCell>{code}</TableCell>
                   <TableCell>{assessmentValue}</TableCell>
                   <TableCell>
