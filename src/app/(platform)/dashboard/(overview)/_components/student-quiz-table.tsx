@@ -32,7 +32,7 @@ export default async function StudentQuizTable({ token, assessmentCode }: Readon
             {userResult?.map((item: UserAssessmentResultData) => {
               const assessmentValue = item.assessment_value
               const date = item.created_at
-              const formattedDate = convertUnixToDate(date).toLocaleString()
+              const formattedDate = convertUnixToDate(date).toLocaleString("id-ID")
               const status = item?.status
 
               const code = item.assessment_code === "chap-7" ? "evaluasi" : item.assessment_code
