@@ -35,13 +35,20 @@ export default async function StudentQuizTable({ token, assessmentCode }: Readon
               const assessmentValue = item.assessment_value
               const date = item.created_at
               const formattedDate = convertUnixToDate(date)
+              const options: Intl.DateTimeFormatOptions = {
+                hour: "2-digit",
+                minute: "2-digit",
+                month: "long",
+                day: "numeric",
+                year: "2-digit",
+              }
               const status = item?.status
 
               const code = item.assessment_code === "chap-7" ? "evaluasi" : item.assessment_code
               return (
                 <TableRow key={item.assessment_code}>
                   <TableCell>
-                    <DateClient date={formattedDate} locale={"id-ID"} />
+                    <DateClient date={formattedDate} locale={"id-ID"} options={options} />
                   </TableCell>
                   <TableCell>{code}</TableCell>
                   <TableCell>{assessmentValue}</TableCell>
