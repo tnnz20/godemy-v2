@@ -56,3 +56,12 @@ export function FormattedDate(date: string): string {
 
   return `${day}-${month}-${year} ${hours}:${minutes}`
 }
+
+export function convertUnixToDate(unix: number) {
+  if (unix === 0) {
+    return "-"
+  }
+
+  const date = new Date(unix * 1000)
+  return date.toLocaleString()
+}
