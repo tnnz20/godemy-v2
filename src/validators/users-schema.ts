@@ -7,10 +7,18 @@ export const UsersSchema = z.object({
       invalid_type_error: "Name must be a string",
     })
     .min(4, { message: "Mohon masukan nama lebih dari 4 karakter." }),
-  gender: z.string({
-    required_error: "Jenis kelamin wajib di isi",
-    invalid_type_error: "gender must be a string",
-  }),
+  date: z
+    .number({
+      required_error: "Tanggal lahir wajib di isi",
+      invalid_type_error: "date must be a number",
+    })
+    .gt(1, { message: "Mohon masukan tanggal lahir." }),
+  gender: z
+    .string({
+      required_error: "Jenis kelamin wajib di isi",
+      invalid_type_error: "gender must be a string",
+    })
+    .min(4, { message: "Mohon pilih jenis kelamin." }),
   address: z
     .string({
       required_error: "Alamat wajib di isi",
