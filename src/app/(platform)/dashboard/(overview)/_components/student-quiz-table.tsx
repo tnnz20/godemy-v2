@@ -40,7 +40,8 @@ export default async function StudentQuizTable({ token, assessmentCode }: Readon
                 minute: "2-digit",
                 month: "long",
                 day: "numeric",
-                year: "2-digit",
+                year: "numeric",
+                hour12: false,
               }
               const status = item?.status
 
