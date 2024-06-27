@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation"
 import { EnrolledUsersDetailsData } from "@/types/api"
 import { chaptersConfig } from "@/config/chapters"
 import { GetEnrolledUsersDetails } from "@/lib/GetEnrolledUsersDetails"
-import { FormattedDate } from "@/lib/utils"
+import { convertUnixToDate } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
@@ -78,7 +78,7 @@ export default function TableStudent() {
                         {user.progress === totalProgress ? "Selesai" : "Belum Selesai"}
                       </Badge>
                     </TableCell>
-                    <TableCell>{FormattedDate(String(user.updated_at))}</TableCell>
+                    <TableCell>{convertUnixToDate(user.updated_at)}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

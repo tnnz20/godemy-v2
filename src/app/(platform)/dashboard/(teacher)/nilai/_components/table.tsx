@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation"
 
 import { AssessmentResultUsers, AssessmentResultUsersData } from "@/types/api"
 import { GetAssessmentResultUsers } from "@/lib/data/assessment/assessment-result"
-import { FormattedDate } from "@/lib/utils"
+import { convertUnixToDate } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
@@ -77,8 +77,8 @@ export default function ScoreTable({ token }: Readonly<ScoreTableProps>) {
           </TableHeader>
           <TableBody>
             {assessmentResults?.data?.map((item: AssessmentResultUsersData) => {
-              const date = String(item.created_at)
-              const formattedDate = FormattedDate(date)
+              const date = item.created_at
+              const formattedDate = convertUnixToDate(date)
               const status = item?.status
 
               const code = item.assessment_code === "chap-7" ? "evaluasi" : item.assessment_code

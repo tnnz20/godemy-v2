@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 
 import { CourseResultData } from "@/types/api"
-import { FormattedDate } from "@/lib/utils"
+import { convertUnixToDate } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -62,7 +62,7 @@ export default function ClassTable({ courses }: Readonly<ClassTableProps>) {
       <TableBody>
         {courses?.map((course: CourseResultData) => (
           <TableRow key={course.id}>
-            <TableCell>{FormattedDate(String(course?.created_at))}</TableCell>
+            <TableCell>{convertUnixToDate(course?.created_at)}</TableCell>
             <TableCell>{course?.course_name}</TableCell>
             <TableCell>{course?.course_code}</TableCell>
             <TableCell>
