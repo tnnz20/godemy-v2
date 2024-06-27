@@ -48,11 +48,7 @@ export function CalculateScore(
   return (correctAnswer / totalQuestion) * 100
 }
 
-export function convertUnixToDate(unix: number) {
-  if (unix === 0) {
-    return "-"
-  }
-
+export function convertUnixToDate(unix: number): Date {
   const date = new Date(unix)
-  return date.toLocaleString()
+  return date
 }
