@@ -54,7 +54,7 @@ function HistoryUserAssessment({ userAssessmentResult }: Readonly<HistoryUserAss
           ? userAssessmentResult.map((userAssessmentResult) => {
               const assessmentValue = userAssessmentResult?.assessment_value
               const date = userAssessmentResult?.created_at
-              const formattedDate = convertUnixToDate(date)
+              const formattedDate = convertUnixToDate(date).toLocaleString()
 
               const status = userAssessmentResult?.status
               return (

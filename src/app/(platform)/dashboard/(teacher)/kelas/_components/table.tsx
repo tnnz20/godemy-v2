@@ -60,28 +60,32 @@ export default function ClassTable({ courses }: Readonly<ClassTableProps>) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {courses?.map((course: CourseResultData) => (
-          <TableRow key={course.id}>
-            <TableCell>{convertUnixToDate(course?.created_at)}</TableCell>
-            <TableCell>{course?.course_name}</TableCell>
-            <TableCell>{course?.course_code}</TableCell>
-            <TableCell>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button aria-haspopup="true" size="icon" variant="ghost">
-                    <Icons.MoreHorizontal className="h-4 w-4" />
-                    <span className="sr-only">Toggle menu</span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                  <DropdownMenuItem onClick={() => handleCopy(course?.course_code)}>Copy Kode</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleDetail(course?.id)}>Lihat Kelas</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </TableCell>
-          </TableRow>
-        ))}
+        {courses?.map((course: CourseResultData) => {
+          const date = convertUnixToDate(course?.created_at)
+          const validDate = date.toLocaleString()
+          return (
+            <TableRow key={course.id}>
+              <TableCell>{validDate}</TableCell>
+              <TableCell>{course?.course_name}</TableCell>
+              <TableCell>{course?.course_code}</TableCell>
+              <TableCell>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button aria-haspopup="true" size="icon" variant="ghost">
+                      <Icons.MoreHorizontal className="h-4 w-4" />
+                      <span className="sr-only">Toggle menu</span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                    <DropdownMenuItem onClick={() => handleCopy(course?.course_code)}>Copy Kode</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => handleDetail(course?.id)}>Lihat Kelas</DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </TableCell>
+            </TableRow>
+          )
+        })}
       </TableBody>
     </Table>
   )

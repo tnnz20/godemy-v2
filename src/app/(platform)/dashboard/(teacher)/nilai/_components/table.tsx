@@ -78,7 +78,7 @@ export default function ScoreTable({ token }: Readonly<ScoreTableProps>) {
           <TableBody>
             {assessmentResults?.data?.map((item: AssessmentResultUsersData) => {
               const date = item.created_at
-              const formattedDate = convertUnixToDate(date)
+              const formattedDate = convertUnixToDate(date).toLocaleString()
               const status = item?.status
 
               const code = item.assessment_code === "chap-7" ? "evaluasi" : item.assessment_code

@@ -64,23 +64,30 @@ export default function TableStudent() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {data.map((user: EnrolledUsersDetailsData) => (
-                  <TableRow key={user.id}>
-                    <TableCell>{user.id}</TableCell>
-                    <TableCell>{user.name}</TableCell>
-                    <TableCell>
-                      <Badge className="text-xs" variant="secondary">
-                        {String(((user.progress / totalProgress) * 100).toFixed(2))}%
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Badge className="text-xs" variant={user.progress === totalProgress ? "success" : "destructive"}>
-                        {user.progress === totalProgress ? "Selesai" : "Belum Selesai"}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>{convertUnixToDate(user.updated_at)}</TableCell>
-                  </TableRow>
-                ))}
+                {data.map((user: EnrolledUsersDetailsData) => {
+                  const date = convertUnixToDate(user.updated_at)
+                  const validDate = date.toLocaleString()
+                  return (
+                    <TableRow key={user.id}>
+                      <TableCell>{user.id}</TableCell>
+                      <TableCell>{user.name}</TableCell>
+                      <TableCell>
+                        <Badge className="text-xs" variant="secondary">
+                          {String(((user.progress / totalProgress) * 100).toFixed(2))}%
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Badge
+                          className="text-xs"
+                          variant={user.progress === totalProgress ? "success" : "destructive"}
+                        >
+                          {user.progress === totalProgress ? "Selesai" : "Belum Selesai"}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>{validDate}</TableCell>
+                    </TableRow>
+                  )
+                })}
               </TableBody>
             </Table>
           ) : (
