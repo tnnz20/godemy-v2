@@ -49,7 +49,7 @@ export default async function StudentQuizTable({ token, assessmentCode }: Readon
               return (
                 <TableRow key={item.assessment_code}>
                   <TableCell>
-                    <DateClient date={formattedDate} locale={"en-US"} options={options} />
+                    <DateClient date={formattedDate} locale={"id-ID"} options={options} />
                   </TableCell>
                   <TableCell>{code}</TableCell>
                   <TableCell>{assessmentValue}</TableCell>
