@@ -2,14 +2,15 @@ import { cookies } from "next/headers"
 import Link from "next/link"
 import { format } from "date-fns"
 
-import { ProfileData } from "@/types/dashboard"
+import { UsersProfileData } from "@/types/api"
 import { GetUsersProfile } from "@/lib/data/users/profile"
 import { convertUnixToDate, DecodeJWT } from "@/lib/utils"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 
 import { Icons } from "@/components/icons"
+
+import ProfileContent from "./profile-card-content"
 
 export default async function DashboardProfile() {
   const cookieStore = cookies()
@@ -17,34 +18,6 @@ export default async function DashboardProfile() {
   const { role } = DecodeJWT(token)
 
   const users = await GetUsersProfile(token as string)
-  const gender = users?.data?.gender ?? ""
-  const date = users?.data?.date
-  const convertedDate = convertUnixToDate(date as number)
-  const formattedDate = date === 0 ? "-" : format(convertedDate, "dd MMMM yyyy")
-  const formattedGender = gender === "male" ? "Laki-laki" : "Perempuan"
-
-  const Profile: ProfileData[] = [
-    {
-      title: "Nama",
-      value: users?.data?.name,
-    },
-    {
-      title: "Email",
-      value: users?.data?.email,
-    },
-    {
-      title: "Jenis Kelamin",
-      value: gender === "" ? "-" : formattedGender,
-    },
-    {
-      title: "Role",
-      value: role === "student" ? "Siswa" : "Guru",
-    },
-    {
-      title: "Tanggal Lahir",
-      value: String(formattedDate),
-    },
-  ]
 
   const updatedDate = convertUnixToDate(users?.data?.updated_at as number)
   const formattedUpdatedDate = format(updatedDate, "PPP")
@@ -75,13 +48,7 @@ export default async function DashboardProfile() {
           </div>
         </CardHeader>
         <CardContent className="p-6 text-sm">
-          {Profile.map((item, index) => (
-            <div key={item?.title} className="grid gap-3">
-              <div className="font-semibold">{item.title}</div>
-              <p className="text-muted-foreground">{item.value === "" ? "-" : item.value}</p>
-              {index < Profile.length - 1 && <Separator className="my-2" />}
-            </div>
-          ))}
+          <ProfileContent users={users?.data as UsersProfileData} role={role} />
         </CardContent>
         <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
           <div className="text-xs text-muted-foreground">
