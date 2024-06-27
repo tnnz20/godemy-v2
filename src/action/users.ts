@@ -10,8 +10,12 @@ import { UsersState } from "@/types/auth"
 export async function UpdateUsers(prevState: UsersState, formData: FormData) {
   const token = cookies().get("token")?.value
 
+  const formDate = formData.get("date")
+  const validDate = parseInt(formDate as string)
+
   const validateFields = UsersSchema.safeParse({
     name: formData.get("name"),
+    date: validDate,
     gender: formData.get("gender"),
     address: formData.get("address"),
   })
@@ -24,9 +28,8 @@ export async function UpdateUsers(prevState: UsersState, formData: FormData) {
   }
 
   const profile_img = formData.get("profile_img") ?? ""
-  const date = formData.get("date")
 
-  const { name, gender, address } = validateFields.data
+  const { name, date, gender, address } = validateFields.data
 
   try {
     const response = await fetch(`${BASE_URL}/users/profile/edit`, {
@@ -35,7 +38,13 @@ export async function UpdateUsers(prevState: UsersState, formData: FormData) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ name, date, address, gender, profile_img }),
+      body: JSON.stringify({
+        name,
+        date,
+        address,
+        gender,
+        profile_img,
+      }),
     })
 
     const data = await response.json()
