@@ -12,7 +12,10 @@ export default function Navbar() {
           </p>
         </Link>
         <div className="flex w-full items-center justify-between space-x-4 md:block md:w-auto">
-          <Button asChild>
+          <Button variant={"outline"}>
+            <Link href="/panduan">Panduan</Link>
+          </Button>
+          <Button>
             <Link href="/login">Masuk</Link>
           </Button>
         </div>
