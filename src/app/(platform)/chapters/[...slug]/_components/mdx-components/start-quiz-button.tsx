@@ -14,7 +14,7 @@ interface ChapterStartQuizButtonProps {
 }
 
 export async function ChapterStartQuizButton({ token, paramsId }: Readonly<ChapterStartQuizButtonProps>) {
-  const maxLength = paramsId === "7" ? 20 : 5
+  const maxLength = String(paramsId) === "7" ? 20 : 5
   const randomArrayId = generateRandomArray(1, maxLength)
 
   const usersAssessmentResults = await GetUserAssessmentResult(token as string, parseInt(paramsId))
