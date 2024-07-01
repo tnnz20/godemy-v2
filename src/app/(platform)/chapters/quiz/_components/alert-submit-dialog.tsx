@@ -44,8 +44,9 @@ export default function AlertSubmitDialog({ children, paramId }: Readonly<AlertS
     await SubmitQuiz(score, paramId)
     await UpdateStatus(paramId, 10)
 
+    const validScore = score >= 80
     const path = paramId === "7" ? `${paramId}/evaluasi` : `${paramId}/kuis`
-    router.push(`/chapters/${path}`)
+    router.push(`/chapters/${path}?score=${validScore}`)
     router.refresh()
   }
 
