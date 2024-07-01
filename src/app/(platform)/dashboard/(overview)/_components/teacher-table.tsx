@@ -1,5 +1,6 @@
 import { CourseResultData } from "@/types/api"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Table, TableCaption } from "@/components/ui/table"
 
 import TableClass from "../../(teacher)/kelas/_components/table"
 
@@ -8,8 +9,6 @@ type DashboardTeacherTableProps = {
 }
 
 export default function DashboardTeacherTable({ courses }: Readonly<DashboardTeacherTableProps>) {
-  const coursesSplit = courses.splice(0, 5)
-
   return (
     <Card x-chunk="dashboard-03-chunk-0">
       <CardHeader>
@@ -17,7 +16,12 @@ export default function DashboardTeacherTable({ courses }: Readonly<DashboardTea
         <CardDescription>Daftar 5 kelas terbaru yang dimiliki.</CardDescription>
       </CardHeader>
       <CardContent>
-        <TableClass courses={coursesSplit} />
+        {courses && <TableClass courses={courses.splice(0, 5)} />}
+        {!courses && (
+          <Table>
+            <TableCaption>Data tidak ditemukan</TableCaption>
+          </Table>
+        )}
       </CardContent>
     </Card>
   )
