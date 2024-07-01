@@ -24,7 +24,6 @@ export default function EnrollForm() {
 
   const [state, dispatch] = useFormState(EnrollCourse, initialState)
   const { toast } = useToast()
-  const { pending } = useFormStatus()
 
   useEffect(() => {
     if (state?.message) {
@@ -52,10 +51,18 @@ export default function EnrollForm() {
           ) : null}
         </div>
       </div>
-      <Button className="mt-4 w-full" type="submit" disabled={pending}>
-        {pending && <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-        {pending ? "Mohon tunggu..." : "Masuk Kelas"}
-      </Button>
+      <SubmitButton />
     </form>
+  )
+}
+
+function SubmitButton() {
+  const { pending } = useFormStatus()
+
+  return (
+    <Button className="mt-2 w-full" type="submit" disabled={pending}>
+      {pending && <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+      {pending ? "Mohon tunggu..." : "Login"}
+    </Button>
   )
 }
