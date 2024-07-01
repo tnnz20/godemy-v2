@@ -70,7 +70,7 @@ export default function ScoreTable({ token }: Readonly<ScoreTableProps>) {
             <TableRow>
               <TableHead>Id</TableHead>
               <TableHead>Nama</TableHead>
-              <TableHead>Tipe Kuis</TableHead>
+              <TableHead>Kode Kuis</TableHead>
               <TableHead>Nilai</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Tanggal Pelaksaan</TableHead>
@@ -114,7 +114,7 @@ export default function ScoreTable({ token }: Readonly<ScoreTableProps>) {
         <Table>
           <TableCaption>
             {!courseId && <p>Silahkan pilih kelas terlebih dahulu</p>}
-            {courseId && !code && <p>Pilih kategori terlebih dahulu</p>}
+            {courseId && !code && <p>Pilih chapter terlebih dahulu</p>}
             {courseId && code && <p>Tidak ada riwayat kuis pada kelas ini</p>}
           </TableCaption>
         </Table>

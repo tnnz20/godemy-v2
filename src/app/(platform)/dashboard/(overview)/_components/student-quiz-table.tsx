@@ -25,7 +25,7 @@ export default async function StudentQuizTable({ token, assessmentCode }: Readon
           <TableHeader>
             <TableRow>
               <TableHead>Tanggal</TableHead>
-              <TableHead>Tipe Kuis</TableHead>
+              <TableHead>Kode Kuis</TableHead>
               <TableHead>Nilai</TableHead>
               <TableHead>Status</TableHead>
             </TableRow>

@@ -43,11 +43,11 @@ export default function SelectCode() {
   return (
     <Select onValueChange={handleChange} defaultValue={code}>
       <SelectTrigger className="w-[240px]" aria-label="Select courses">
-        <SelectValue placeholder="Pilih Kategori" />
+        <SelectValue placeholder="Pilih Chapter" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>Pilih Kategori</SelectLabel>
+          <SelectLabel>Pilih Chapter</SelectLabel>
           {Object.entries(codeMap).map(([key, value]) => (
             <SelectItem key={key} value={key}>
               {value}
