@@ -32,7 +32,7 @@ export default async function DashboardStudentCard() {
   }
 
   const usersProgress = chapters.filter((item) => item.threshold === progress)
-
+  const progressLink = isFinished ? "/chapters/1/pendahuluan/" : usersProgress[0].href
   return (
     <>
       {isUserEnroll ? (
@@ -47,11 +47,9 @@ export default async function DashboardStudentCard() {
               </CardDescription>
             </CardHeader>
             <CardFooter>
-              {isFinished ? null : (
-                <Button asChild>
-                  <Link href={usersProgress[0].href}>Lanjutkan Pembelajaran</Link>
-                </Button>
-              )}
+              <Button asChild>
+                <Link href={progressLink}>{isFinished ? "Lihat Materi" : "Lanjutkan Pembelajaran"}</Link>
+              </Button>
             </CardFooter>
           </Card>
           <Card x-chunk="dashboard-01-chunk-1">
