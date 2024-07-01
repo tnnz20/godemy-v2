@@ -21,8 +21,10 @@ interface AlertSubmitDialogProps {
   children: React.ReactNode
   paramId: string
 }
-const useTimerStore = createTimerStore(15 * 60 * 1000) // 15 minutes
 export default function AlertSubmitDialog({ children, paramId }: Readonly<AlertSubmitDialogProps>) {
+  const timer = String(paramId) === "7" ? 45 * 60 * 1000 : 15 * 60 * 1000
+  const useTimerStore = createTimerStore(timer)
+
   const { answered, questions, resetAnswered } = useQuizStore((state) => ({
     answered: state.answered,
     questions: state.questions,
@@ -60,8 +62,11 @@ export default function AlertSubmitDialog({ children, paramId }: Readonly<AlertS
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Batal</AlertDialogCancel>
-          <AlertDialogAction className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-            <button onClick={() => handleSubmit(Score, paramId)}>Submit</button>
+          <AlertDialogAction
+            onClick={() => handleSubmit(Score, paramId)}
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+          >
+            Submit
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

@@ -41,8 +41,8 @@ export default function QuizButton({ token, paramsId, randomArrayId, isQuizPasse
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Batal</AlertDialogCancel>
-          <AlertDialogAction>
-            <button onClick={async () => await handleStartQuiz()}>Lanjutkan</button>
+          <AlertDialogAction onClick={async () => await handleStartQuiz()}>
+            Lanjutkan
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
