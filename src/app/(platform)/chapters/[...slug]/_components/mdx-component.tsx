@@ -4,8 +4,8 @@ import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 import { Callout } from "./mdx-components/callout"
-import { Compiler } from "./mdx-components/compiler"
 import { ExerciseWrapper } from "./mdx-components/exercise-wrapper"
+import { NavCompiler } from "./mdx-components/nav-compiler"
 import { ChapterStartQuizWrapper } from "./mdx-components/start-quiz-wrapper"
 
 const useMDXComponent = (code: string) => {
@@ -30,7 +30,7 @@ const components = {
   td: TableData,
   Callout,
   Exercise: ExerciseWrapper,
-  Compiler: Compiler,
+  NavCompiler: NavCompiler,
   StartQuizButton: ChapterStartQuizWrapper,
 }
 
