@@ -136,22 +136,22 @@ Dengan menggunakan library fmt kita bisa menggunakan salah
 satu method yang tersedia yaitu “println” untuk menampilkan nilai
 variabel yang sudah kita deklarasikan.
 
+Contoh Penrapanya sebagai berikut:
 <NavCompiler src="https://goplay.tools/snippet/-pdmC16VO3d" />
 
-<Exercise
-  answers={[
-    "currentJob == “mahasiswa”",
-    "currentJob = mahasiswa",
-    "mahasiswa = currentJob",
-    "currentJob = “mahasiswa”",
-  ]}
-  correctAnswer={"currentJob = “mahasiswa”"}
-  explanation={
-    "Untuk memasukan nilai ke dalam sebuah variable yang sudah di deklarasikan kita hanya perlu menggunakan “=” di ikuti dengan nilainya yang di apit dalam tanda petik."
-  }
-  hint={"Perhatikan kembali bagaimana penulisan atau struktur untuk memasukan nilai ke dalam variable."}
-  question={
-    "Jika terdapat sebuah variabel dengan nama “currentJob” dan bertipe “string”, bagaimana kita memasukan nilai “mahasiswa” ke dalam variable tersebut?"
-  }
-  isCode={false}
-/>
+<ExerciseCode
+params={"s2e6HeIrhll"}
+> 
+```go showLineNumbers
+package main
+
+import "fmt"
+
+func main() {
+    var nama string = "John Doe"
+    var umur int = 19
+    var alamat string = "Jl. Jendral Sudirman No. 1"
+    fmt.Println(nama, umur, alamat)
+}
+```
+</ExerciseCode>
