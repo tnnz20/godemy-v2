@@ -13,13 +13,13 @@ export function NavCompiler({ src }: Readonly<CompilerProps>) {
 
   return (
     <nav className="mt-2">
-      <Link href={`/compiler/${params}`}>
-        <Button className="flex gap-2">
+      <Button asChild>
+        <Link href={`/compiler/${params}`} className="flex gap-2">
           <span className="sr-only">Navigation to compiler</span>
           <h2 className="hidden md:block">Coba Sekarang</h2>
-          <Icons.ChevronRight className="h-4 w-4" />
-        </Button>
-      </Link>
+          <Icons.ChevronsRight className="h-4 w-4" />
+        </Link>
+      </Button>
     </nav>
   )
 }
