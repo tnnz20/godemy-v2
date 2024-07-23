@@ -28,10 +28,10 @@ function ExerciseCard() {
     <div className="mt-4 flex h-auto max-w-5xl flex-col items-center justify-center md:mx-28">
       <div className="my-4 flex flex-col items-center gap-2">
         <div className="flex items-center justify-center rounded-full bg-[#0072F5] p-2">
-          <Icons.HelpCircle className="h-10 w-10 stroke-background stroke-[1.5]" />
+          <Icons.HelpCircle className="h-8 w-8 stroke-background stroke-[1.5]" />
         </div>
-        <p className="text-lg">Waktunya untuk latihan soal!</p>
-        <p className="text-pretty text-center text-sm text-slate-500">
+        <h3 className="text-xl font-semibold tracking-tight">Waktunya untuk latihan soal</h3>
+        <p className="text-pretty text-sm text-muted-foreground">
           Uji Pengetahuan anda dan lihat apa saja ilmu yang telah anda pelajari.
         </p>
       </div>
