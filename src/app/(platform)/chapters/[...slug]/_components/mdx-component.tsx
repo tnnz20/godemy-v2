@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils"
 
 import { Callout } from "./mdx-components/callout"
 import { ExerciseWrapper } from "./mdx-components/exercise-wrapper"
+import ExerciseCodeWrapper from "./mdx-components/exercise-wrapper-code"
 import { NavCompiler } from "./mdx-components/nav-compiler"
 import { ChapterStartQuizWrapper } from "./mdx-components/start-quiz-wrapper"
 
@@ -30,6 +31,7 @@ const components = {
   td: TableData,
   Callout,
   Exercise: ExerciseWrapper,
+  ExerciseCode: ExerciseCodeWrapper,
   NavCompiler: NavCompiler,
   StartQuizButton: ChapterStartQuizWrapper,
 }
